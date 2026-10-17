@@ -1,0 +1,6 @@
+# Raw downloads for the data tools (rebuildable, not committed)
+tools/raw/
+
+# Python
+__pycache__/
+*.pyc
