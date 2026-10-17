@@ -8,6 +8,10 @@ signal sim_event(event: Dictionary)
 signal difficulty_adjusted(height: int, difficulty: float, change: float)
 signal subsidy_halved(height: int, subsidy_sats: int)
 signal speed_changed(speed_index: int, paused: bool)
+signal game_started(sim: Sim)
+signal game_stopped()
+signal command_applied(command: Dictionary, result: Dictionary)
+signal game_saved(slot: String)
 
 
 func relay(result: DayResult) -> void:
