@@ -8,7 +8,7 @@ Project brief for Claude Code. Read this first, then `docs/GDD.md` for the full 
 
 ## Current milestone
 
-**M2: Headless sim.** M1 Data is done (history CSV, events, hardware, each with a validator in `tools/`). M2 lands in three PRs: (1) Godot scaffold, GUT, data loading, consensus, RNG and the anchored-chain network; (2) mining, hardware, sites, power, finance, market, custody, treasury, events, objectives, restructuring; (3) bots and the golden and outcome tests. Do not start building UI or art before M2 passes its bot tests.
+**M3: Greybox.** M2 is done: the headless sim, bots and golden tests are merged (`docs/reports/` has the results). M3 makes Acts 1-2 playable with placeholder rectangles, in four PRs: (1) shell: title, mode select, game screen, top bar, time controls, facility view, readouts, save/load; (2) panels and commands; (3) replays, event cards, prologue, report cards; (4) content (mentor, Codex, card text, parody names) and playtest tools. The gate is a 30-minute session you want to keep playing, with a decision at least every 2 real minutes.
 
 ## Locked decisions
 
@@ -35,8 +35,8 @@ res:// (Godot project root: project.godot at the repo root)
   autoload/   game_clock.gd, event_bus.gd, data.gd, save.gd
   sim/        pure simulation classes (no Nodes)
   data/       history/ (CSV), events/, hardware/, protocol/ (consensus facts), tuning/ (JSON feel values)
-  scenes/     main, facility, ui, charts
-  assets/     sprites, tiles, fonts, audio, palette
+  scenes/     main.tscn (screen router) and ui/ (screens and widgets, built in code)
+  assets/     fonts/ (Monogram and Kenney Pixel, CC0, see CREDITS.md); sprites, tiles, audio later
   tests/      unit/, sim/
 tools/        Python data prep scripts
 docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
@@ -45,7 +45,7 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 ## Architecture rules
 
 - **The sim is pure.** Everything in `sim/` extends RefCounted, has no Node or scene dependencies, and runs headless. Single entry point: `Sim.step_day()`.
-- **Presentation listens.** Scenes and UI react to `EventBus` signals. They never calculate economics.
+- **Presentation listens.** Scenes and UI react to `EventBus` signals. They never calculate economics: displayed numbers and tooltip formulas come from `sim/readouts.gd`, and player actions go through `GameClock.apply()`.
 - **Deterministic.** All randomness goes through `sim/rng.gd` with a seed.
 - **No hardcoded tuning.** Every economic and feel number lives in `data/`. If you find yourself typing a magic number into `sim/`, move it to data. Protocol facts go in `data/protocol/`, judgment calls in `data/tuning/` with a unit, a basis and a note.
 - **No network calls at runtime.** No live prices, wallets, exchanges or APIs. Historical data is committed as CSV.
@@ -70,6 +70,9 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 - Player actions go through `Sim.apply(command)` (`sim/commands.gd`); bots and UI use the same commands. `SimState.hashrate_override_hs` replaces the fleet's hashrate for tests and the debug panel.
 - Bot balance runs play Acts 1-2 headless in every mode and write daily CSVs, `summary.csv` and the Laptop Whale report to `tests/sim/out/` (gitignored):
   `godot --headless --path . --script res://tests/sim/run_bots.gd -- --seeds 3`
+- UI smoke tests live in `tests/ui/` (headless) and use their own save folder. For a legibility check, render screenshots in a real window:
+  `godot --path . --resolution 640x360 --script res://tests/ui/screenshot.gd -- --out <dir>`
+- Run the game: `godot --path .` (Space pauses, 1-4 set the speed, Esc opens the menu).
 - Bots live in `tests/sim/bots/`. They change the game only through `Sim.apply()`; their strategy constants stay in the bot scripts, not `data/tuning`. Only Hindsight may read future history. `docs/reports/` holds the latest results.
 - Avoid `static var` in scripts that reference `Sim`: the sim scripts reference each other, and static state pins that graph so Godot reports leaked resources at exit.
 - See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.
