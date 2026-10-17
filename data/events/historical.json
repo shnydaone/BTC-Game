@@ -1,0 +1,827 @@
+{
+  "schema_version": 1,
+  "notes": "Historical events for Acts 1-4. Dates are UTC days. Text states only what was known on the event date. Effect sizes that are not historical facts live in data/tuning. Counterparty ids are placeholders until parody names are chosen (GDD open question 4). Validate with tools/check_events.py.",
+  "events": [
+    {
+      "id": "genesis_block",
+      "date": "2009-01-03",
+      "act": 1,
+      "category": "protocol",
+      "headline": "The Bitcoin genesis block is mined",
+      "summary": "Block 0 is mined at 18:15 UTC, starting the Bitcoin blockchain.",
+      "effects": [{ "type": "game_start" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://mempool.space/api/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f", "publisher": "mempool.space", "title": "Block 0 (API record)", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "first_exchange_rate",
+      "date": "2009-10-05",
+      "act": 1,
+      "category": "market",
+      "headline": "New Liberty Standard publishes the first bitcoin exchange rate",
+      "summary": "The rate values $1 at 1,309.03 BTC, worked out from the electricity cost of mining rather than from a trade.",
+      "effects": [{ "type": "price_available" }, { "type": "codex", "entry": "price_discovery" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [
+        { "label": "First published price", "value": 0.00076392, "basis": "daily_close", "stat": "max", "from": "2009-10-05", "to": "2009-10-05" }
+      ],
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" },
+        { "url": "https://bitcoinmagazine.com/culture/bitcoin-is-up-6-5-billion-percent-since-it-was-first-priced-in-usd", "publisher": "Bitcoin Magazine", "title": "Bitcoin Is Up 6.5 Billion Percent Since It Was First Priced In USD", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "pizza_day",
+      "date": "2010-05-22",
+      "act": 1,
+      "category": "adoption",
+      "headline": "10,000 BTC buys two pizzas",
+      "summary": "Laszlo Hanyecz reports trading 10,000 BTC for two pizzas, the first well-known purchase of physical goods with bitcoin.",
+      "effects": [{ "type": "pizza_offer" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://bitcointalk.org/index.php?topic=137.0", "publisher": "Bitcointalk", "title": "Pizza for bitcoins?", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "mtgox_launch",
+      "date": "2010-07-18",
+      "act": 1,
+      "category": "exchange",
+      "headline": "Mt. Gox opens as a bitcoin exchange",
+      "summary": "A new exchange announces itself on the Bitcointalk forum, making it practical to buy and sell bitcoin for dollars.",
+      "effects": [{ "type": "unlock", "feature": "exchange_custody" }, { "type": "unlock", "feature": "selling" }, { "type": "codex", "entry": "custody" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://bitcointalk.org/index.php?topic=444.0", "publisher": "Bitcointalk", "title": "New Bitcoin Exchange (mtgox.com)", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/Mt._Gox", "publisher": "Bitcoin Wiki", "title": "Mt. Gox", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "value_overflow",
+      "date": "2010-08-15",
+      "act": 1,
+      "category": "protocol",
+      "headline": "Overflow bug creates 184 billion BTC",
+      "summary": "Block 74,638 contains a transaction that exploits an overflow bug. A fixed client ships within five hours and miners rebuild the chain without it.",
+      "effects": [{ "type": "network_disruption" }, { "type": "codex", "entry": "soft_fork" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/Value_overflow_incident", "publisher": "Bitcoin Wiki", "title": "Value overflow incident", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "first_pool_block",
+      "date": "2010-12-16",
+      "act": 1,
+      "category": "mining",
+      "headline": "A mining pool finds its first block",
+      "summary": "Slush's Bitcoin Pooled Mining server finds block 97,834, letting small miners share rewards instead of waiting for a lucky solo block.",
+      "effects": [{ "type": "unlock", "feature": "pool_mining" }, { "type": "codex", "entry": "solo_vs_pool" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.blockchain.com/explorer/blocks/btc/97834", "publisher": "Blockchain.com Explorer", "title": "Bitcoin Block 97,834", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "bubble_2011_peak",
+      "date": "2011-06-08",
+      "act": 1,
+      "category": "market",
+      "headline": "Bitcoin peaks at $31.91 on Mt. Gox",
+      "summary": "The first bubble tops out after a run from under $1 earlier in the year.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [
+        { "label": "Intraday peak on Mt. Gox", "value": 31.91, "basis": "intraday" },
+        { "label": "Highest daily close", "value": 29.6, "basis": "daily_close", "stat": "max", "from": "2011-06-01", "to": "2011-06-30" }
+      ],
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" },
+        { "url": "https://bitcoinmagazine.com/markets/anniversary-of-the-great-bubble-of-2011-1339139269", "publisher": "Bitcoin Magazine", "title": "Anniversary of the Great Bubble of 2011", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "mtgox_hack_2011",
+      "date": "2011-06-19",
+      "act": 1,
+      "category": "exchange",
+      "headline": "Mt. Gox hacked, price flash-crashes to $0.01",
+      "summary": "An attacker uses a compromised account to dump bitcoin on Mt. Gox, crashing its price from $17.51 to $0.01. Trading is halted.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [
+        { "label": "Price before the dump", "value": 17.51, "basis": "intraday" }
+      ],
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/Mt._Gox", "publisher": "Bitcoin Wiki", "title": "Mt. Gox", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "bottom_2011",
+      "date": "2011-11-18",
+      "act": 1,
+      "category": "market",
+      "headline": "Bitcoin bottoms near $2",
+      "summary": "Five months after the June peak, bitcoin has lost more than 90% of its value.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2011-05-25", "end": "2011-11-18", "chart": "price" },
+      "figures": [
+        { "label": "Lowest daily close", "value": 2.05, "basis": "daily_close", "stat": "min", "from": "2011-09-01", "to": "2011-12-31" },
+        { "label": "Drawdown from the June peak", "value": -0.93, "basis": "drawdown", "peak_from": "2011-06-01", "peak_to": "2011-06-30", "from": "2011-09-01", "to": "2011-12-31" }
+      ],
+      "sources": [
+        { "url": "https://en.wikipedia.org/wiki/Cryptocurrency_bubble", "publisher": "Wikipedia", "title": "Cryptocurrency bubble", "accessed": "2026-10-16" },
+        { "url": "https://bitcoinmagazine.com/markets/look-data-past-bitcoin-crashes-and-you-might-possibly-feel-better", "publisher": "Bitcoin Magazine", "title": "Look at the Data of Past Bitcoin Crashes", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "halving_1",
+      "date": "2012-11-28",
+      "act": 1,
+      "category": "protocol",
+      "headline": "The first halving: block reward falls from 50 to 25 BTC",
+      "summary": "Block 210,000 is the first block to pay a 25 BTC subsidy, halving new supply.",
+      "effects": [{ "type": "halving", "height": 210000, "subsidy_btc": 25 }, { "type": "act_end", "act": 1 }, { "type": "codex", "entry": "halving" }],
+      "auto_pause": true,
+      "replay": { "start": "2012-06-01", "end": "2012-11-28", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://mempool.space/api/block/000000000000048b95347e83192f69cf0366076336c639f9b7228e9ba171342e", "publisher": "mempool.space", "title": "Block 210,000 (API record)", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "first_asics_ship",
+      "date": "2013-01-19",
+      "act": 2,
+      "category": "industry",
+      "headline": "The first consumer ASIC miners ship",
+      "summary": "Avalon ships its first batch of 300 ASIC mining rigs, machines built only to mine bitcoin.",
+      "effects": [{ "type": "unlock", "feature": "asic_gen1" }, { "type": "codex", "entry": "asic" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://bitcoinmagazine.com/business/avalon-ships-bitcoins-first-consumer-asics-1358905223", "publisher": "Bitcoin Magazine", "title": "Avalon Ships Bitcoin's First Consumer ASICs", "accessed": "2026-10-16" },
+        { "url": "https://bitcoinmagazine.com/business/working-avalon-asic-confirmed-1359613230", "publisher": "Bitcoin Magazine", "title": "Working Avalon ASIC Confirmed, Hashing At 68 GH/s", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "april_2013_spike",
+      "date": "2013-04-10",
+      "act": 2,
+      "category": "market",
+      "headline": "Bitcoin spikes to $266, then crashes the same day",
+      "summary": "Mt. Gox buckles under record volume as the price hits an all-time high and collapses within hours.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2013-02-15", "end": "2013-04-10", "chart": "price" },
+      "figures": [
+        { "label": "Intraday high on Mt. Gox", "value": 266, "basis": "intraday" },
+        { "label": "Highest daily close", "value": 229, "basis": "daily_close", "stat": "max", "from": "2013-04-01", "to": "2013-04-10" }
+      ],
+      "sources": [
+        { "url": "https://bitcoinmagazine.com/markets/the-bitcoin-crash-an-examination-1365911041", "publisher": "Bitcoin Magazine", "title": "The Bitcoin Crash: An Examination", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/Mt._Gox", "publisher": "Bitcoin Wiki", "title": "Mt. Gox", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "silk_road_seized",
+      "date": "2013-10-02",
+      "act": 2,
+      "category": "regulation",
+      "headline": "FBI seizes the Silk Road marketplace",
+      "summary": "The FBI shuts down the darknet market and arrests its alleged operator in San Francisco.",
+      "effects": [{ "type": "news" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.coindesk.com/markets/2013/10/02/silk-road-shut-down-and-owner-ross-william-ulbricht-arrested", "publisher": "CoinDesk", "title": "Silk Road shut down and 'owner' Ross William Ulbricht arrested", "accessed": "2026-10-16" },
+        { "url": "https://www.aljazeera.com/amp/news/2013/10/2/fbi-shuts-down-online-black-market", "publisher": "Al Jazeera", "title": "FBI shuts down online black market", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "rally_1000_2013",
+      "date": "2013-11-27",
+      "act": 2,
+      "category": "market",
+      "headline": "Bitcoin passes $1,000 for the first time",
+      "summary": "The price crosses $1,000 on Mt. Gox, up more than 60% in a week.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [
+        { "label": "Mt. Gox price", "value": 1000, "basis": "intraday" }
+      ],
+      "sources": [
+        { "url": "https://thenextweb.com/news/bitcoin-passes-1000-mark-first-time", "publisher": "The Next Web", "title": "Bitcoin passes $1,000 mark for the first time, up over 62% in a week", "accessed": "2026-10-16" },
+        { "url": "https://www.pcworld.com/article/448872/the-price-of-one-bitcoin-surpasses-1000-on-mt-gox.html", "publisher": "PCWorld", "title": "The price of one bitcoin surpasses $1000 on Mt. Gox", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "china_banks_2013",
+      "date": "2013-12-05",
+      "act": 2,
+      "category": "regulation",
+      "headline": "China bars banks from handling bitcoin",
+      "summary": "The People's Bank of China and other regulators ban financial institutions from bitcoin services. The price drops sharply.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2013-10-01", "end": "2013-12-05", "chart": "price" },
+      "figures": [
+        { "label": "Highest daily close of the rally", "value": 1132.01, "basis": "daily_close", "stat": "max", "from": "2013-11-28", "to": "2013-12-05" }
+      ],
+      "sources": [
+        { "url": "https://www.aljazeera.com/economy/2013/12/5/bitcoin-value-dives-after-china-banks-ban", "publisher": "Al Jazeera", "title": "Bitcoin value dives after China banks ban", "accessed": "2026-10-16" },
+        { "url": "https://www.pcworld.com/article/448961/china-bans-banks-from-trading-in-bitcoin.html", "publisher": "PCWorld", "title": "China bans banks from trading in Bitcoin", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "mtgox_halts_withdrawals",
+      "date": "2014-02-07",
+      "act": 2,
+      "category": "exchange",
+      "headline": "Mt. Gox halts all bitcoin withdrawals",
+      "summary": "The largest exchange stops customer withdrawals. Coins held there are now stuck.",
+      "effects": [{ "type": "exchange_failure", "counterparty": "exchange_tier1", "haircut": 1.0 }, { "type": "codex", "entry": "not_your_keys" }],
+      "auto_pause": true,
+      "replay": { "start": "2013-11-15", "end": "2014-02-07", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://www.coindesk.com/markets/2014/02/07/mt-gox-halts-all-bitcoin-withdrawals-price-drop-follows/", "publisher": "CoinDesk", "title": "Mt. Gox Halts ALL Bitcoin Withdrawals, Price Drop Follows", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/Mt._Gox", "publisher": "Bitcoin Wiki", "title": "Mt. Gox", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "mtgox_bankruptcy",
+      "date": "2014-02-28",
+      "act": 2,
+      "category": "exchange",
+      "headline": "Mt. Gox files for bankruptcy with 850,000 BTC missing",
+      "summary": "Three days after closing its market, Mt. Gox files for bankruptcy in Tokyo and reports about 850,000 bitcoins missing.",
+      "effects": [{ "type": "news" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [
+        { "label": "BTC reported missing at filing", "value": 850000, "basis": "external" }
+      ],
+      "sources": [
+        { "url": "https://www.mprnews.org/story/2014/02/28/bitcoin-exchange-mtgox-files-for-bankruptcy", "publisher": "MPR News (NPR)", "title": "Bitcoin exchange MtGox files for bankruptcy", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/Mt._Gox", "publisher": "Bitcoin Wiki", "title": "Mt. Gox", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "bear_bottom_2015",
+      "date": "2015-01-14",
+      "act": 2,
+      "category": "market",
+      "headline": "Bitcoin falls below $200",
+      "summary": "The bear market reaches its low, the cheapest bitcoin has been since late 2013. Hashprice is squeezed hard.",
+      "effects": [{ "type": "market_shock" }, { "type": "codex", "entry": "hashprice" }],
+      "auto_pause": true,
+      "replay": { "start": "2014-08-01", "end": "2015-01-14", "chart": "price" },
+      "figures": [
+        { "label": "Lowest daily close", "value": 171.41, "basis": "daily_close", "stat": "min", "from": "2015-01-01", "to": "2015-01-31" },
+        { "label": "Reported intraday low", "value": 170.08, "basis": "intraday" }
+      ],
+      "sources": [
+        { "url": "https://fortune.com/2015/01/14/bitcoin-continues-downward-spiral-plunges-below-200/", "publisher": "Fortune", "title": "Bitcoin continues downward spiral, plunges below $200", "accessed": "2026-10-16" },
+        { "url": "https://siliconangle.com/2015/01/14/bitcoin-weekly-2015-january-14-bitcoin-market-plummets-as-value-falls-below-200/", "publisher": "SiliconANGLE", "title": "Bitcoin Weekly 2015 January 14: Bitcoin market plummets as value falls below $200", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "halving_2",
+      "date": "2016-07-09",
+      "act": 2,
+      "category": "protocol",
+      "headline": "The second halving: block reward falls from 25 to 12.5 BTC",
+      "summary": "Block 420,000 is the first block to pay a 12.5 BTC subsidy.",
+      "effects": [{ "type": "halving", "height": 420000, "subsidy_btc": 12.5 }, { "type": "act_end", "act": 2 }],
+      "auto_pause": true,
+      "replay": { "start": "2016-01-11", "end": "2016-07-09", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://www.blockchain.com/explorer/blocks/btc/420000", "publisher": "Blockchain.com Explorer", "title": "Bitcoin Block 420,000", "accessed": "2026-10-16" },
+        { "url": "https://mempool.space/api/block/000000000000000002cce816c0ab2c5c269cb081896b7dcb34b8422d6b74ffa1", "publisher": "mempool.space", "title": "Block 420,000 (API record)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "bitfinex_hack",
+      "date": "2016-08-06",
+      "act": 3,
+      "category": "exchange",
+      "headline": "Bitfinex spreads hack losses across all customers",
+      "summary": "After hackers stole about 119,756 BTC on August 2, Bitfinex cuts every customer account by 36.067% to share the loss.",
+      "effects": [{ "type": "exchange_failure", "counterparty": "exchange_tier2", "haircut": 0.36067 }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [
+        { "label": "BTC stolen", "value": 119756, "basis": "external" },
+        { "label": "Haircut on every account", "value": 0.36067, "basis": "external" }
+      ],
+      "sources": [
+        { "url": "https://mondovisione.com/news/bitfinex-interim-announcement-201687/", "publisher": "Mondo Visione (Bitfinex announcement)", "title": "Bitfinex Interim Announcement", "accessed": "2026-10-16" },
+        { "url": "https://www.taipeitimes.com/News/biz/archives/2016/08/08/2003652662", "publisher": "Taipei Times (Reuters)", "title": "Bitfinex offers customers 36 percent haircut", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "bitcoin_cash_fork",
+      "date": "2017-08-01",
+      "act": 3,
+      "category": "protocol",
+      "headline": "Bitcoin Cash splits from Bitcoin",
+      "summary": "A group of miners and businesses fork the chain after block 478,558. Every bitcoin holder now also holds the same amount of BCH.",
+      "effects": [{ "type": "forked_coins", "coin": "BCH" }, { "type": "codex", "entry": "forks" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.blockchain.com/explorer/blocks/btc/478558", "publisher": "Blockchain.com Explorer", "title": "Bitcoin Block 478,558", "accessed": "2026-10-16" },
+        { "url": "https://mempool.space/api/block/0000000000000000011865af4122fe3b144e2cbeea86142e8ff2fb4107352d43", "publisher": "mempool.space", "title": "Block 478,558 (API record)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "segwit_activation",
+      "date": "2017-08-24",
+      "act": 3,
+      "category": "protocol",
+      "headline": "SegWit activates",
+      "summary": "Segregated Witness becomes active at block 481,824, raising block capacity and fixing transaction malleability.",
+      "effects": [{ "type": "codex", "entry": "segwit" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.blockchain.com/explorer/blocks/btc/481824", "publisher": "Blockchain.com Explorer", "title": "Bitcoin Block 481,824", "accessed": "2026-10-16" },
+        { "url": "https://mempool.space/api/block/0000000000000000001c8018d9cb3b742ef25114f27563e3fc4a1902167f9893", "publisher": "mempool.space", "title": "Block 481,824 (API record)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "cboe_futures",
+      "date": "2017-12-10",
+      "act": 3,
+      "category": "market",
+      "headline": "Cboe launches the first US bitcoin futures",
+      "summary": "Cash-settled bitcoin futures (ticker XBT) begin trading at 5 p.m. Central.",
+      "effects": [{ "type": "news" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://mondovisione.com/media-and-resources/news/cboe-bitcoin-futures-xbt-post-strong-start-in-global-trading-hours-continues-20171211/", "publisher": "Mondo Visione (Cboe press release)", "title": "Cboe Bitcoin Futures (XBT) Post Strong Start In Global Trading Hours", "accessed": "2026-10-16" },
+        { "url": "https://www.gemini.com/blog/cboe-and-gemini-to-launch-first-ever-bitcoin-futures-contract-ticker-xbt", "publisher": "Gemini", "title": "Cboe and Gemini to Launch First-Ever Bitcoin Futures Contract", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "cme_futures",
+      "date": "2017-12-17",
+      "act": 3,
+      "category": "market",
+      "headline": "CME launches bitcoin futures",
+      "summary": "The world's largest futures exchange opens bitcoin futures trading for the December 18 trade date. Miners can now lock in a price.",
+      "effects": [{ "type": "unlock", "feature": "futures_hedging" }, { "type": "codex", "entry": "hedging" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [
+        { "label": "Front-month opening price", "value": 20650, "basis": "intraday" }
+      ],
+      "sources": [
+        { "url": "https://mondovisione.com/media-and-resources/news/cme-group-self-certifies-bitcoin-futures-to-launch-dec-18-new-contract-to-pro-2017121/", "publisher": "Mondo Visione (CME Group press release)", "title": "CME Group Self-Certifies Bitcoin Futures To Launch Dec. 18", "accessed": "2026-10-16" },
+        { "url": "https://fortune.com/2017/12/17/cme-bitcoin-futures-trading-launch/", "publisher": "Fortune (Reuters)", "title": "Bitcoin Is Now Trading on the World's Largest Futures Exchange", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "peak_2017",
+      "date": "2017-12-17",
+      "act": 3,
+      "category": "market",
+      "headline": "Bitcoin hits a record near $20,000",
+      "summary": "The price reaches about $19,783 on the CoinDesk index, capping a year that started under $1,000.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2017-09-15", "end": "2017-12-17", "chart": "price" },
+      "figures": [
+        { "label": "Intraday high (CoinDesk index)", "value": 19783.06, "basis": "intraday" },
+        { "label": "Highest daily close", "value": 19187.78, "basis": "daily_close", "stat": "max", "from": "2017-12-01", "to": "2017-12-17" }
+      ],
+      "sources": [
+        { "url": "https://fortune.com/2017/12/17/bitcoin-record-high-short-of-20000/", "publisher": "Fortune", "title": "Bitcoin Hits a New Record High, But Stops Short of $20,000", "accessed": "2026-10-16" },
+        { "url": "https://www.coindesk.com/markets/2018/12/17/a-year-ago-today-bitcoins-price-hit-a-record-20k", "publisher": "CoinDesk", "title": "A Year Ago Today Bitcoin's Price Hit a Record $20k", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "bear_bottom_2018",
+      "date": "2018-12-15",
+      "act": 3,
+      "category": "market",
+      "headline": "Bitcoin bottoms near $3,200",
+      "summary": "A year of decline leaves bitcoin about 84% below its December 2017 record. Leveraged miners are in trouble.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2018-06-18", "end": "2018-12-15", "chart": "price" },
+      "figures": [
+        { "label": "Lowest daily close", "value": 3179.54, "basis": "daily_close", "stat": "min", "from": "2018-01-01", "to": "2018-12-31" },
+        { "label": "Drawdown from the 2017 peak", "value": -0.834, "basis": "drawdown", "peak_from": "2017-12-01", "peak_to": "2017-12-31", "from": "2018-01-01", "to": "2018-12-31" },
+        { "label": "Reported intraday low", "value": 3122, "basis": "intraday" }
+      ],
+      "sources": [
+        { "url": "https://www.coindesk.com/markets/2018/12/17/a-year-ago-today-bitcoins-price-hit-a-record-20k", "publisher": "CoinDesk", "title": "A Year Ago Today Bitcoin's Price Hit a Record $20k", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "black_thursday",
+      "date": "2020-03-12",
+      "act": 3,
+      "category": "market",
+      "headline": "Black Thursday: bitcoin falls nearly 40% in a day",
+      "summary": "COVID-19 panic and forced liquidations hit every market at once. Bitcoin has one of its worst days ever.",
+      "effects": [{ "type": "market_shock" }, { "type": "margin_pressure" }, { "type": "codex", "entry": "margin_call" }],
+      "auto_pause": true,
+      "replay": { "start": "2020-01-01", "end": "2020-03-12", "chart": "price" },
+      "figures": [
+        { "label": "One-day change, close to close", "value": -0.39, "basis": "daily_change", "from": "2020-03-11", "to": "2020-03-12" }
+      ],
+      "sources": [
+        { "url": "https://www.coindesk.com/markets/2020/03/13/bitcoin-price-briefly-dips-to-12-month-low-in-overnight-trading", "publisher": "CoinDesk", "title": "Bitcoin Price Briefly Dips to 12-Month Low in Overnight Trading", "accessed": "2026-10-16" },
+        { "url": "https://fortune.com/crypto/2020/03/12/bitcoin-coronavirus-crash-cryptocurrencies/", "publisher": "Fortune", "title": "Bitcoin tanks on coronavirus fears", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "halving_3",
+      "date": "2020-05-11",
+      "act": 3,
+      "category": "protocol",
+      "headline": "The third halving: block reward falls from 12.5 to 6.25 BTC",
+      "summary": "Block 630,000 is the first block to pay a 6.25 BTC subsidy.",
+      "effects": [{ "type": "halving", "height": 630000, "subsidy_btc": 6.25 }, { "type": "act_end", "act": 3 }],
+      "auto_pause": true,
+      "replay": { "start": "2019-11-13", "end": "2020-05-11", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://www.blockchain.com/explorer/blocks/btc/630000", "publisher": "Blockchain.com Explorer", "title": "Bitcoin Block 630,000", "accessed": "2026-10-16" },
+        { "url": "https://mempool.space/api/block/000000000000000000024bead8df69990852c202db0e0097c1a12ea637d7e96d", "publisher": "mempool.space", "title": "Block 630,000 (API record)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "microstrategy_treasury",
+      "date": "2020-08-11",
+      "act": 4,
+      "category": "adoption",
+      "headline": "A public company adopts bitcoin as its treasury reserve",
+      "summary": "MicroStrategy says it bought 21,454 BTC for $250 million and will hold bitcoin as its primary treasury reserve asset.",
+      "effects": [{ "type": "investor_demand", "kind": "btc_treasury" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [
+        { "label": "BTC purchased", "value": 21454, "basis": "external" }
+      ],
+      "sources": [
+        { "url": "https://www.sec.gov/Archives/edgar/data/1050446/000119312520215604/d921849dex991.htm", "publisher": "SEC EDGAR (MicroStrategy 8-K)", "title": "MicroStrategy Adopts Bitcoin as Primary Treasury Reserve Asset", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "coinbase_listing",
+      "date": "2021-04-14",
+      "act": 4,
+      "category": "adoption",
+      "headline": "Coinbase lists on Nasdaq as bitcoin sets a record",
+      "summary": "The exchange goes public through a direct listing, and bitcoin reaches about $64,800 the same day. The IPO window is open.",
+      "effects": [{ "type": "investor_demand", "kind": "ipo_window" }],
+      "auto_pause": true,
+      "replay": { "start": "2020-10-16", "end": "2021-04-14", "chart": "price" },
+      "figures": [
+        { "label": "Intraday record", "value": 64804.72, "basis": "intraday" },
+        { "label": "Highest daily close", "value": 63564.48, "basis": "daily_close", "stat": "max", "from": "2021-04-01", "to": "2021-04-14" }
+      ],
+      "sources": [
+        { "url": "https://www.theblock.co/news/markets/2021-04-14-coinbase-shares-have-begun-trading-101644", "publisher": "The Block", "title": "Crypto unicorn Coinbase's shares begin trading on Nasdaq", "accessed": "2026-10-16" },
+        { "url": "https://decrypt.co/83580/bitcoin-price-all-time-high-futures-etf-begins-trading", "publisher": "Decrypt", "title": "Bitcoin Price Hits New All-Time High Amid Futures ETF Trading", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "china_mining_crackdown",
+      "date": "2021-05-21",
+      "act": 4,
+      "category": "regulation",
+      "headline": "China calls for a crackdown on bitcoin mining",
+      "summary": "The State Council's financial stability committee says the government should crack down on bitcoin mining and trading.",
+      "effects": [{ "type": "news" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.coindesk.com/markets/2021/05/21/bitcoin-falls-as-china-calls-for-crackdown-on-crypto-mining-trading", "publisher": "CoinDesk", "title": "Bitcoin Falls as China Calls for Crackdown on Crypto Mining, Trading", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "sichuan_shutdown",
+      "date": "2021-06-18",
+      "act": 4,
+      "category": "regulation",
+      "headline": "Sichuan orders mining farms shut",
+      "summary": "Sichuan province orders power cut to bitcoin mining farms by June 20. Mining in China is ending.",
+      "effects": [{ "type": "regional_ban", "region": "china" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.theblock.co/news/macro/2021-06-19-chinese-bitcoin-mining-pools-hash-rate-plunge-sichuan-shutdown-109030", "publisher": "The Block", "title": "Chinese bitcoin mining pools see further hash rate plunge on Sichuan shutdown order", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "hashrate_halves_2021",
+      "date": "2021-06-30",
+      "act": 4,
+      "category": "mining",
+      "headline": "Network hashrate falls by half",
+      "summary": "With Chinese miners offline, the hashrate securing Bitcoin is half its May peak. Everyone still mining gets a bigger share.",
+      "effects": [{ "type": "codex", "entry": "difficulty_adjustment" }],
+      "auto_pause": true,
+      "replay": { "start": "2021-04-01", "end": "2021-06-30", "chart": "hashrate" },
+      "figures": [
+        { "label": "7-day hashrate change from the May peak", "value": -0.53, "basis": "hashrate_7d", "peak_from": "2021-05-01", "peak_to": "2021-05-31", "from": "2021-06-01", "to": "2021-06-30" }
+      ],
+      "sources": [
+        { "url": "https://www.theblock.co/news/ecosystems/2021-06-30-bitcoins-hash-rate-has-fallen-50-from-its-peak-in-may-110062", "publisher": "The Block", "title": "Bitcoin's hash rate has fallen 50% from its peak in May", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "el_salvador_legal_tender",
+      "date": "2021-09-07",
+      "act": 4,
+      "category": "adoption",
+      "headline": "El Salvador makes bitcoin legal tender",
+      "summary": "El Salvador's Bitcoin Law takes effect, making it the first country to adopt bitcoin as legal tender alongside the US dollar.",
+      "effects": [{ "type": "news" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.coindesk.com/policy/2021/09/07/bitcoin-now-legal-tender-in-el-salvador-marking-world-first", "publisher": "CoinDesk", "title": "Bitcoin Now Legal Tender in El Salvador, Marking World First", "accessed": "2026-10-16" },
+        { "url": "https://www.aljazeera.com/economy/2021/9/7/glitches-protests-as-bitcoin-becomes-legal-tender-in-el-salvador", "publisher": "Al Jazeera", "title": "Glitches, protests as Bitcoin becomes legal tender in El Salvador", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "peak_2021",
+      "date": "2021-11-10",
+      "act": 4,
+      "category": "market",
+      "headline": "Bitcoin hits a record near $69,000",
+      "summary": "Hotter-than-expected US inflation data sends bitcoin to a new all-time high.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2021-07-20", "end": "2021-11-10", "chart": "price" },
+      "figures": [
+        { "label": "Intraday record", "value": 69000, "basis": "intraday" },
+        { "label": "Highest daily close", "value": 67559, "basis": "daily_close", "stat": "max", "from": "2021-11-01", "to": "2021-11-10" }
+      ],
+      "sources": [
+        { "url": "https://www.coindesk.com/markets/2021/11/10/market-wrap-higher-inflation-expected-to-send-bitcoin-and-gold-higher-into-end-of-year", "publisher": "CoinDesk", "title": "Market Wrap: Higher Inflation Expected to Send Bitcoin and Gold Higher Into End of Year", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "taproot_activation",
+      "date": "2021-11-14",
+      "act": 4,
+      "category": "protocol",
+      "headline": "Taproot activates",
+      "summary": "The Taproot soft fork activates at block 709,632, adding Schnorr signatures and Tapscript.",
+      "effects": [{ "type": "codex", "entry": "taproot" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/Taproot", "publisher": "Bitcoin Wiki", "title": "Taproot", "accessed": "2026-10-16" },
+        { "url": "https://blockstream.info/api/block/0000000000000000000687bca986194dc2c1f949318629b44bb54ec0a94d8244", "publisher": "Blockstream Explorer", "title": "Block 709,632 (API record)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "terra_collapse",
+      "date": "2022-05-09",
+      "act": 4,
+      "category": "market",
+      "headline": "TerraUSD loses its dollar peg",
+      "summary": "The algorithmic stablecoin UST breaks its $1 peg for the second time in three days and LUNA tumbles. Crypto credit starts to dry up.",
+      "effects": [{ "type": "market_shock" }, { "type": "credit_tightening" }],
+      "auto_pause": true,
+      "replay": { "start": "2022-03-01", "end": "2022-05-09", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://www.coindesk.com/business/2022/05/09/ust-stablecoin-falls-below-dollar-peg-for-second-time-in-48-hours", "publisher": "CoinDesk", "title": "UST Stablecoin Loses Dollar Peg for Second Time in 48 Hours", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "celsius_freeze",
+      "date": "2022-06-13",
+      "act": 4,
+      "category": "lender",
+      "headline": "Celsius freezes withdrawals",
+      "summary": "Late on June 12 US Eastern time, crypto lender Celsius pauses all withdrawals, swaps and transfers, citing extreme market conditions.",
+      "effects": [{ "type": "loan_recall", "counterparty": "lender_tier1" }, { "type": "credit_tightening" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.theblock.co/news/markets/2022-06-12-crypto-lending-firm-celsius-pauses-withdrawals-and-transfers-citing-market-conditions-151522", "publisher": "The Block", "title": "Crypto lending firm Celsius pauses withdrawals and transfers, citing market conditions", "accessed": "2026-10-16" },
+        { "url": "https://www.coindesk.com/markets/2022/07/15/the-fall-of-celsius-network-a-timeline-of-the-crypto-lenders-descent-into-insolvency", "publisher": "CoinDesk", "title": "The Fall of Celsius Network: A Timeline", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "babel_freeze",
+      "date": "2022-06-17",
+      "act": 4,
+      "category": "lender",
+      "headline": "Babel Finance suspends withdrawals",
+      "summary": "Hong Kong crypto lender Babel Finance suspends redemptions and withdrawals, citing unusual liquidity pressures.",
+      "effects": [{ "type": "loan_recall", "counterparty": "lender_tier2" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.theblock.co/news/markets/2022-06-17-babel-finance-suspends-withdrawals-citing-unusual-liquidity-pressures-152677", "publisher": "The Block", "title": "Babel Finance suspends withdrawals, citing 'unusual liquidity pressures'", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "voyager_freeze",
+      "date": "2022-07-01",
+      "act": 4,
+      "category": "lender",
+      "headline": "Voyager suspends trading and withdrawals",
+      "summary": "Voyager Digital halts trading, deposits and withdrawals after a borrower defaults on a large bitcoin loan.",
+      "effects": [{ "type": "loan_recall", "counterparty": "lender_tier3" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.newswire.ca/news-releases/voyager-digital-provides-market-update-851734302.html", "publisher": "Voyager Digital press release (Cision)", "title": "Voyager Digital Provides Market Update", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "ftx_halts_withdrawals",
+      "date": "2022-11-08",
+      "act": 4,
+      "category": "exchange",
+      "headline": "FTX halts customer withdrawals",
+      "summary": "One of the largest exchanges stops processing crypto withdrawals in a liquidity crisis. Coins held there are now stuck.",
+      "effects": [{ "type": "exchange_failure", "counterparty": "exchange_tier3", "haircut": 1.0 }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.coindesk.com/business/2022/11/08/ftx-exchange-halts-all-crypto-withdrawals", "publisher": "CoinDesk", "title": "FTX Exchange Halts All Crypto Withdrawals", "accessed": "2026-10-16" },
+        { "url": "https://www.theblock.co/news/markets/2022-11-08-ftx-appears-to-have-stopped-processing-withdrawals-on-chain-data-show-184176", "publisher": "The Block", "title": "FTX appears to have stopped processing withdrawals, on-chain data show", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "ftx_low_2022",
+      "date": "2022-11-21",
+      "act": 4,
+      "category": "market",
+      "headline": "Bitcoin falls to a two-year low near $15,500",
+      "summary": "Two weeks after FTX froze, fears about another crypto lender push bitcoin to its lowest price since 2020.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2022-08-15", "end": "2022-11-21", "chart": "price" },
+      "figures": [
+        { "label": "Reported intraday low", "value": 15480, "basis": "intraday" },
+        { "label": "Lowest daily close", "value": 15766, "basis": "daily_close", "stat": "min", "from": "2022-11-01", "to": "2022-11-21" }
+      ],
+      "sources": [
+        { "url": "https://www.coindesk.com/business/2022/11/21/genesis-bankruptcy-jitters-send-bitcoin-to-fresh-low", "publisher": "CoinDesk", "title": "Genesis Bankruptcy Jitters Send Bitcoin to Fresh Low", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "core_scientific_chapter11",
+      "date": "2022-12-21",
+      "act": 4,
+      "category": "industry",
+      "headline": "A major public bitcoin miner files for Chapter 11",
+      "summary": "Core Scientific, one of the largest bitcoin miners with about 10% of network hashrate, files for Chapter 11 in Texas.",
+      "effects": [{ "type": "rival_bankruptcy" }, { "type": "codex", "entry": "chapter_11" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.sec.gov/Archives/edgar/data/1839341/000119312522309624/d401435dex991.htm", "publisher": "SEC EDGAR (Core Scientific 8-K)", "title": "Core Scientific Announces Comprehensive Restructuring Transaction", "accessed": "2026-10-16" },
+        { "url": "https://www.coindesk.com/business/2022/12/21/core-scientific-one-of-the-largest-bitcoin-miners-files-for-bankruptcy-protection", "publisher": "CoinDesk", "title": "Bitcoin Miner Core Scientific Files for Bankruptcy", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "silvergate_wind_down",
+      "date": "2023-03-08",
+      "act": 4,
+      "category": "bank",
+      "headline": "Silvergate, a key crypto bank, will wind down",
+      "summary": "Silvergate Capital announces it will wind down operations and voluntarily liquidate Silvergate Bank.",
+      "effects": [{ "type": "news" }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.sec.gov/Archives/edgar/data/1312109/000131210923000058/ex991sipressrelease3x8x23.htm", "publisher": "SEC EDGAR (Silvergate 8-K)", "title": "Silvergate Capital Corporation Announces Intent to Wind Down Operations", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "svb_failure",
+      "date": "2023-03-10",
+      "act": 4,
+      "category": "bank",
+      "headline": "Silicon Valley Bank fails",
+      "summary": "California regulators close Silicon Valley Bank and appoint the FDIC as receiver.",
+      "effects": [{ "type": "bank_freeze", "counterparty": "bank_tier1", "optional": true }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.fdic.gov/news/press-releases/2023/pr23016.html", "publisher": "FDIC", "title": "FDIC Creates a Deposit Insurance National Bank of Santa Clara", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "signature_failure",
+      "date": "2023-03-12",
+      "act": 4,
+      "category": "bank",
+      "headline": "Signature Bank is closed",
+      "summary": "New York regulators close crypto-friendly Signature Bank and appoint the FDIC as receiver.",
+      "effects": [{ "type": "bank_freeze", "counterparty": "bank_tier2", "optional": true }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://www.fdic.gov/news/press-releases/2023/pr23018.html", "publisher": "FDIC", "title": "FDIC Establishes Signature Bridge Bank, N.A., as Successor to Signature Bank", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "spot_etf_approval",
+      "date": "2024-01-10",
+      "act": 4,
+      "category": "regulation",
+      "headline": "SEC approves US spot bitcoin ETFs",
+      "summary": "The SEC approves the listing and trading of spot bitcoin exchange-traded products. Funds start trading the next day.",
+      "effects": [{ "type": "investor_demand", "kind": "spot_etf" }],
+      "auto_pause": true,
+      "replay": { "start": "2023-10-01", "end": "2024-01-10", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://www.sec.gov/newsroom/speeches-statements/gensler-statement-spot-bitcoin-011023", "publisher": "US SEC", "title": "Statement on the Approval of Spot Bitcoin Exchange-Traded Products", "accessed": "2026-10-16" },
+        { "url": "https://www.theblock.co/news/ecosystems/2024-01-10-spot-bitcoin-etfs-can-start-trading-as-sec-clears-final-hurdle-271341", "publisher": "The Block", "title": "Spot bitcoin ETFs can start trading as SEC clears final hurdle", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "peak_2024",
+      "date": "2024-03-14",
+      "act": 4,
+      "category": "market",
+      "headline": "Bitcoin hits a new record near $73,800",
+      "summary": "Strong inflows into the new spot ETFs push bitcoin past its 2021 high.",
+      "effects": [{ "type": "market_shock" }],
+      "auto_pause": true,
+      "replay": { "start": "2023-10-01", "end": "2024-03-14", "chart": "price" },
+      "figures": [
+        { "label": "Intraday record", "value": 73794, "basis": "intraday" },
+        { "label": "Highest daily close", "value": 73121, "basis": "daily_close", "stat": "max", "from": "2024-03-01", "to": "2024-03-14" }
+      ],
+      "sources": [
+        { "url": "https://www.theblock.co/news/business/2024-07-05-bitcoin-hits-wall-street-a-recap-of-a-critical-six-months-for-crypto-markets-and-what-what-could-lie-ahead-the-rest-of-the-year-303417", "publisher": "The Block", "title": "Bitcoin hits Wall Street: A recap of a critical six months for crypto markets", "accessed": "2026-10-16" },
+        { "url": "https://www.coindesk.com/markets/2024/10/29/bitcoin-tops-735k-climbing-just-shy-of-new-record-high", "publisher": "CoinDesk", "title": "Bitcoin Tops $73.5K, Climbing Just Shy of New Record High", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "halving_4",
+      "date": "2024-04-20",
+      "act": 4,
+      "category": "protocol",
+      "headline": "The fourth halving: block reward falls from 6.25 to 3.125 BTC",
+      "summary": "Block 840,000 is mined at 00:09 UTC, the first block to pay a 3.125 BTC subsidy. The historical campaign ends here.",
+      "effects": [{ "type": "halving", "height": 840000, "subsidy_btc": 3.125 }, { "type": "act_end", "act": 4 }],
+      "auto_pause": true,
+      "replay": { "start": "2023-10-23", "end": "2024-04-20", "chart": "price" },
+      "figures": [],
+      "sources": [
+        { "url": "https://blockstream.info/api/block/0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5", "publisher": "Blockstream Explorer", "title": "Block 840,000 (API record)", "accessed": "2026-10-16" },
+        { "url": "https://www.theblock.co/news/business/2024-04-19-bitcoin-ushers-in-fourth-halving-as-miners-block-subsidy-reward-drops-to-3-125-btc-289875", "publisher": "The Block", "title": "Bitcoin ushers in fourth halving as miners' block subsidy reward drops to 3.125 BTC", "accessed": "2026-10-16" }
+      ]
+    }
+  ]
+}

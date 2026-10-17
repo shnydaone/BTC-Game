@@ -16,3 +16,4 @@ Locked decisions, newest at the bottom. Format: date, decision, reason.
 | 2026-10-16 | Tone: culture humor plus anonymous mentor | Mentor teaches, humor carries the culture |
 | 2026-10-16 | Charts: always-on ticker plus cinematic event replays | Crashes and spikes are the emotional beats |
 | 2026-10-16 | Difficulty adjustments do not auto-pause by default | ~400 adjustments in the campaign would wreck pacing |
+| 2026-10-16 | Hardware ladder: 12 units calibrated on real hardware, adding Gen 2b (S7 class, 2015) and Gen 3b (S17 class, 2019) and splitting Gen 5 into S19 XP and S21 classes; GPUs modeled per card | Closes multi-year gaps with one machine and keeps real efficiency jumps; facts in data/hardware, feel values in tuning |

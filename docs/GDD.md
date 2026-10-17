@@ -90,18 +90,21 @@ One model runs for the entire game. In historical acts the world's hashrate come
 
 ### 7.2 Hardware
 
-Fictional product names, real-world performance as calibration targets. Verify specs against hardware history before locking the data file.
+Fictional product names, real-world performance as calibration targets. Exact specs, ship dates, launch prices and sources live in `data/hardware/hardware.json` (checked in M1).
 
 | Tier | Era | Example unit (fictional name TBD) | Hashrate | Power | Notes |
 |---|---|---|---|---|---|
-| CPU | 2009 | Home desktop | ~5 MH/s | ~100 W | The laptop you start with |
-| GPU | 2010-2012 | Open-frame GPU rig | ~400 MH/s per card | ~250 W per card | First big jump |
-| FPGA | 2011-2012 | Dev-board cluster | ~800 MH/s | ~40 W | Efficient but expensive, a trap or a niche |
-| ASIC Gen 1 | 2013 | First-gen ASIC box | ~60 GH/s | ~600 W | Makes GPUs obsolete overnight |
-| ASIC Gen 2 | 2014-2015 | Second-gen | ~1 TH/s | ~550 W | |
-| ASIC Gen 3 | 2016 | The workhorse | ~13.5 TH/s | ~1,350 W | ~100 J/TH, lasts for years |
-| ASIC Gen 4 | 2019-2020 | Modern | ~100 TH/s | ~3,250 W | ~30-34 J/TH |
-| ASIC Gen 5 | 2022-2024 | Current | ~140-200 TH/s | ~3,000-3,500 W | ~15-21 J/TH |
+| CPU | 2009-2010 | Laptop, then home desktop | ~0.8 MH/s (laptop), ~1.6 MH/s (desktop) | ~35 W (laptop), ~105 W (desktop) | The laptop you start with. The whole network ran at ~5 MH/s in 2009. Optimized miner software (late 2010) roughly triples CPU speed. |
+| GPU | 2010-2012 | Open-frame GPU rig | ~340 MH/s per card | ~190 W per card, plus rig overhead | First big jump. Arrives with the first public GPU miner (Oct 2010). |
+| FPGA | 2012 | Dev-board cluster | ~800 MH/s | ~40 W | Efficient but expensive, a trap or a niche |
+| ASIC Gen 1 | 2013 | First-gen ASIC box | ~66 GH/s | ~620 W | Makes GPUs obsolete overnight |
+| ASIC Gen 2 | 2014-2015 | Second-gen | ~1.2 TH/s | ~590 W | ~510 J/TH |
+| ASIC Gen 2b | 2015-2016 | Second-gen refresh | ~4.9 TH/s | ~1,210 W | ~250 J/TH, a 2x jump in a year |
+| ASIC Gen 3 | 2016-2019 | The workhorse | ~14 TH/s (rated) | ~1,375 W | ~100 J/TH, lasts for years. Some first-batch units ran at 12-13.5 TH/s. |
+| ASIC Gen 3b | 2019-2020 | Third-gen refresh | ~53 TH/s | ~2,100 W | ~40 J/TH |
+| ASIC Gen 4 | 2020-2022 | Modern | ~110 TH/s | ~3,250 W | ~30 J/TH |
+| ASIC Gen 5 | 2022-2024 | Current | ~140 TH/s | ~3,000 W | ~21.5 J/TH |
+| ASIC Gen 5b | 2024 | Latest | ~200 TH/s | ~3,500 W | ~17.5 J/TH. ~15 J/TH arrives after the 2024 halving (Act 5). |
 | Future | 2024+ | Procedural | Efficiency curve flattening toward physical limits | | |
 
 - **New vs. used market:** used prices track hashprice. In a bear market, used rigs sell for a fraction of new. Fire sales are an opportunity.
@@ -206,15 +209,15 @@ Real events appear in news headlines and event cards, stated factually. Counterp
 | Date | Event | Game effect | Replay |
 |---|---|---|---|
 | 2009-01-03 | Genesis block | Game start, mentor's first message | |
-| 2009-10 | First published BTC exchange rate (a fraction of a cent) | BTC has a price. Codex: price discovery. | |
+| 2009-10-05 | First published BTC exchange rate (~$0.00076, set from electricity cost, not a trade) | BTC has a price. Codex: price discovery. | |
 | 2010-05-22 | Pizza Day: 10,000 BTC for two pizzas | Optional pizza offer, regret counter | |
 | 2010-07 | First major exchange launches | Exchange custody unlocks, selling becomes liquid | |
-| 2010-08-15 | Value overflow bug creates billions of BTC; fixed within hours | Brief mining disruption, codex: soft fork | |
+| 2010-08-15 | Value overflow bug creates 184 billion BTC; patched within hours, chain repaired the next day | Brief mining disruption, codex: soft fork | |
 | 2010-12 | Pooled mining arrives | Pool option unlocks | |
-| 2011-06 | First bubble (~$30) then exchange hack; crash to ~$2 by November | Price crash | ✓ |
+| 2011-06 | First bubble (~$30) then exchange hack (June 19); crash to ~$2 by November | Price crash | ✓ |
 | 2012-11-28 | **Halving 1:** 50 → 25 BTC | End of Act 1 | ✓ |
 | 2013-01 | First ASICs ship | ASIC tier unlocks, GPUs start dying | |
-| 2013-04 | Spike to ~$260, crash the same week | Volatility | ✓ |
+| 2013-04 | Spike to ~$230 (~$266 intraday), crash the same week | Volatility | ✓ |
 | 2013-10 | Silk Road seized | News, small dip | |
 | 2013-11/12 | Rally past $1,000, then China restricts banks | Spike and crash | ✓ |
 | 2014-02 | Mt. Gox halts withdrawals and files for bankruptcy | Exchange holdings lost | ✓ |
@@ -222,15 +225,15 @@ Real events appear in news headlines and event cards, stated factually. Counterp
 | 2016-07-09 | **Halving 2:** 25 → 12.5 BTC | End of Act 2 | ✓ |
 | 2016-08 | Bitfinex hack, losses socialized across users (~36% haircut) | Exchange holdings cut | |
 | 2017-08 | Bitcoin Cash fork; SegWit activates | Choice: sell or hold the forked coins | |
-| 2017-12 | Peak near $20,000; CME futures launch | Spike, futures hedging unlocks | ✓ |
+| 2017-12 | Peak near $20,000; Cboe and CME futures launch | Spike, futures hedging unlocks | ✓ |
 | 2018 | Bear market, ~-84% to ~$3,200 | First "boss fight" | ✓ |
-| 2020-03-12 | Black Thursday, ~-50% in a day | Margin calls, forced sales | ✓ |
+| 2020-03-12 | Black Thursday, ~-40% in a day | Margin calls, forced sales | ✓ |
 | 2020-05-11 | **Halving 3:** 12.5 → 6.25 BTC | End of Act 3 | ✓ |
 | 2020-08 | Public companies start holding BTC as a treasury asset | Investor demand for BTC-heavy balance sheets | |
 | 2021-04 | Major exchange lists on Nasdaq; peak ~$64,000 | IPO window opens | ✓ |
 | 2021-05/06 | China bans mining; network hashrate roughly halves | Forced relocation, your share jumps | ✓ (hashrate chart) |
 | 2021-09-07 | El Salvador makes BTC legal tender | News | |
-| 2021-11 | Peak ~$69,000; Taproot activates | Spike | ✓ |
+| 2021-11 | Peak ~$69,000 intraday (~$67,500 close); Taproot activates | Spike | ✓ |
 | 2022-05 | Terra/LUNA collapse | Credit tightens | ✓ |
 | 2022-06 | Crypto lenders freeze withdrawals | BTC-backed loans recalled | |
 | 2022-11 | FTX collapses; BTC ~$15,500 | Exchange holdings lost | ✓ |
@@ -240,7 +243,7 @@ Real events appear in news headlines and event cards, stated factually. Counterp
 | 2024-03 | New peak ~$73,000 | Spike | ✓ |
 | 2024-04-20 | **Halving 4:** 6.25 → 3.125 BTC | End of the historical campaign, Act 5 begins | ✓ |
 
-All dates and figures are verified before content lock (milestone M1).
+Prices are UTC daily closes unless marked intraday, because that is what the in-game chart shows. Prices, drawdowns and the 2021 hashrate drop are checked against `data/history/btc_daily.csv` (see `data/history/btc_daily_checks.md`). Each event in `data/events/historical.json` will carry its own source.
 
 ## 9. The future (Act 5)
 
