@@ -89,16 +89,17 @@ func test_max_leverage_borrows_and_expands() -> void:
 
 
 func test_max_leverage_restructures_in_the_2014_2015_bear() -> void:
-	# Interim M2 expectation. It does not hold: Max Leverage fills its sites with Gen 1
-	# ASICs in early 2013, when payback was about a week, and banks more cash than the one
-	# $50,000 loan can threaten. The GDD's 2018/2022 outcome needs the Act 3-4 debt (M6).
+	# Interim M2 expectation, kept pending until M6 (decisions.md 2026-10-17). It does not
+	# hold yet: Max Leverage fills its sites with Gen 1 ASICs in early 2013, when payback
+	# was about a week, and banks more cash than the one $50,000 loan can threaten. The
+	# GDD's 2018/2022 outcome needs the Act 3-4 debt.
 	var restructured: int = 0
 	for seed_value: int in SEEDS:
 		for date: String in _run("max_leverage", "slashdot", seed_value).restructured_on:
 			if date >= "2014-01-01" and date <= "2015-12-31":
 				restructured += 1
 	if restructured == 0:
-		pending("Max Leverage survives the 2014-2015 bear with only the Act 2 loan; flagged for Eric (see the PR)")
+		pending("Max Leverage survives the 2014-2015 bear with only the Act 2 loan; pending until the Act 3-4 debt (M6)")
 	else:
 		assert_gt(restructured, 0)
 

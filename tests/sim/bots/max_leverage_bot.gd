@@ -5,8 +5,9 @@ extends Bot
 ## Spends all cash on the most efficient unit for sale, sells every mined coin the day
 ## it arrives to buy more, quits the day job as soon as the Act 1 objective allows,
 ## incorporates and draws the one loan as soon as Act 2 opens, and never turns a
-## machine off or sells one. It shops weekly, which keeps the lot count (and run time) sane. With only the Act 2 loan in M2, its expected failure is the
-## 2014-2015 bear; the GDD's 2018/2022 outcome needs the Act 3-4 finance (M6).
+## machine off or sells one. It shops weekly, which keeps the lot count (and run time)
+## sane. With only the Act 2 loan in M2 it survives Slashdot Acts 1-2; the GDD's
+## 2018/2022 outcome needs the Act 3-4 finance (M6).
 
 
 const REVIEW_EVERY_DAYS: int = 7
