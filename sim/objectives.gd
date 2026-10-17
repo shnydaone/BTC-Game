@@ -35,7 +35,7 @@ func step(sim: Sim, day: int, result: DayResult) -> void:
 	var revenue: int = 0
 	for cents: int in o.revenue_window:
 		revenue += cents
-	var costs: float = sim.finance.living_cents_per_day() * window_days
+	var costs: float = sim.finance.living_cents_per_day(sim.state) * window_days
 	if o.revenue_window.size() == window_days and revenue >= costs:
 		o.streak += 1
 	else:

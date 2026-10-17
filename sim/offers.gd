@@ -9,6 +9,7 @@ var value_range: Array  # [low, high] USD
 var expiry_days: int
 var pizza_sats: int
 var pizza_value_cents: int
+var pizza_milestone_cents: int
 
 
 func _init(data: GameData) -> void:
@@ -17,6 +18,7 @@ func _init(data: GameData) -> void:
 	expiry_days = int(data.tuning("offers", "offer_expiry_days"))
 	pizza_sats = roundi(float(data.tuning("offers", "pizza_btc")) * data.protocol_int("sats_per_btc"))
 	pizza_value_cents = Finance.usd_to_cents(data.tuning("offers", "pizza_value_usd"))
+	pizza_milestone_cents = Finance.usd_to_cents(data.tuning("offers", "pizza_milestone_usd"))
 
 
 func step(sim: Sim, day: int, result: DayResult) -> void:
@@ -29,6 +31,7 @@ func step(sim: Sim, day: int, result: DayResult) -> void:
 			keep.append(offer)
 	o.open = keep
 	var close: float = sim.data.history.price_usd[day]
+	_check_pizza_milestone(sim, close, result)
 	if not sim.state.events.features.has("mining") or is_nan(close):
 		return
 	if o.next_offer_day < 0:
@@ -41,6 +44,18 @@ func step(sim: Sim, day: int, result: DayResult) -> void:
 	var sats: int = roundi(usd / close * sim.consensus.sats_per_btc)
 	_add(sim, "forum", sats, cents, day, result)
 	o.next_offer_day = day + _gap(sim)
+
+
+## The first close at which the 10,000 pizza BTC are worth the milestone: the game replays
+## their climb (decisions.md 2026-10-17). Once per game, in every mode.
+func _check_pizza_milestone(sim: Sim, close: float, result: DayResult) -> void:
+	var o: SimState.OffersState = sim.state.offers
+	if o.pizza_milestone_seen or is_nan(close):
+		return
+	var cents: int = Finance.sats_to_cents(pizza_sats, close, sim.consensus.sats_per_btc)
+	if cents >= pizza_milestone_cents:
+		o.pizza_milestone_seen = true
+		result.add("pizza_milestone", {"value_cents": cents, "sats": pizza_sats})
 
 
 func _gap(sim: Sim) -> int:

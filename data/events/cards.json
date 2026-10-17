@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "notes": "Flavor for event cards, keyed by historical.json event id (GDD 10): a mentor line, a meme line, and 'what this means for your business'. Culture humor lives here; the facts stay in historical.json. Every field is optional. Drafted in M3-4 (decisions.md 2026-10-17). No em dashes.",
+  "cards": {}
+}

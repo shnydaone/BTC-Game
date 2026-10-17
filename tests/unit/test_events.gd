@@ -80,3 +80,20 @@ func test_forum_offers_arrive_after_mining_and_price() -> void:
 	var offers: Array[Dictionary] = H.of_type(H.run_until(sim, "2011-12-31"), "offer_made")
 	assert_gt(offers.size(), 3)
 	assert_true(offers.all(func(e: Dictionary) -> bool: return e["kind"] == "forum"))
+
+
+func test_pizza_milestone_fires_once_at_a_million() -> void:
+	var sim := H.game("cypherpunk")
+	var h: History = sim.data.history
+	var expected: String = ""
+	for i: int in h.size():
+		if h.has_price(i) and h.price_usd[i] * 10000.0 >= 1000000.0:
+			expected = h.dates[i]
+			break
+	var fired: Array[String] = []
+	while not sim.is_finished() and sim.current_date() < "2014-01-01":
+		var r := sim.step_day()
+		for e: Dictionary in r.of_type("pizza_milestone"):
+			fired.append(r.date)
+	assert_eq(fired, [expected] as Array[String])
+	assert_true(expected.begins_with("2013-"))

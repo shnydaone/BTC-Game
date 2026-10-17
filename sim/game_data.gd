@@ -8,6 +8,7 @@ extends RefCounted
 const DEFAULT_ROOT: String = "res://data/"
 const HISTORY_FILE: String = "history/btc_daily.csv"
 const EVENTS_FILE: String = "events/historical.json"
+const CARDS_FILE: String = "events/cards.json"
 const HARDWARE_FILE: String = "hardware/hardware.json"
 const PROTOCOL_FILE: String = "protocol/consensus.json"
 const TUNING_DIR: String = "tuning/"
@@ -17,6 +18,7 @@ static var _shared: GameData
 var root: String
 var history: History
 var events: Array = []
+var cards: Dictionary = {}  # event id -> card flavor (presentation content)
 var hardware: Array = []
 var tuning_reads: Dictionary = {}  # "file.key" -> true
 
@@ -41,6 +43,13 @@ static func load_from(data_root: String) -> GameData:
 
 func is_ok() -> bool:
 	return _ok
+
+
+func event(id: String) -> Dictionary:
+	for e: Dictionary in events:
+		if e["id"] == id:
+			return e
+	return {}
 
 
 func protocol(key: String) -> Variant:
@@ -87,6 +96,10 @@ func _load() -> bool:
 	if history == null or events_doc == null or hardware_doc == null or protocol_doc == null:
 		return false
 	events = events_doc["events"]
+	var cards_doc: Variant = _read_json(root + CARDS_FILE)
+	if cards_doc == null:
+		return false
+	cards = cards_doc["cards"]
 	hardware = hardware_doc["units"]
 	_protocol = protocol_doc["values"]
 	var dir := DirAccess.open(root + TUNING_DIR)

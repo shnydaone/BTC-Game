@@ -8,7 +8,7 @@ const TYPES: PackedStringArray = [
 	"buy_hardware", "sell_hardware", "set_powered", "set_shutoff_unprofitable", "move_site",
 	"set_mining_mode", "sell_btc", "buy_btc", "transfer_btc", "set_exchange", "backup_wallet",
 	"set_treasury_policy", "accept_offer", "decline_offer",
-	"quit_job", "rejoin_job", "incorporate", "take_loan",
+	"quit_job", "rejoin_job", "incorporate", "take_loan", "choose_living",
 ]
 
 
@@ -54,6 +54,8 @@ static func apply(sim: Sim, cmd: Dictionary) -> Dictionary:
 			return _result(sim.finance.incorporate(sim))
 		"take_loan":
 			return _result(sim.finance.take_loan(sim))
+		"choose_living":
+			return _result(sim.finance.choose_living(sim, cmd["situation"]))
 	return _result("unknown command %s" % type)
 
 

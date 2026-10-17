@@ -11,6 +11,10 @@ const TICKER_H: int = 14
 const INBOX_TOP: int = 16
 
 var inbox := Inbox.new()
+var moments: Moments
+var main: Node:
+	get:
+		return _main
 var right: RightPanel
 var ticker := NewsTicker.new()
 
@@ -19,6 +23,7 @@ var _toasts := Toasts.new()
 var _inbox_button: Button
 var _overlay: Control
 var _layout := VBoxContainer.new()
+var _prologue_banner := PanelContainer.new()
 
 
 func _init(main: Node) -> void:
@@ -62,14 +67,20 @@ func _ready() -> void:
 	ticker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bar.add_child(ticker)
 	_layout.add_child(bar)
+	_build_prologue_banner(left)
+	moments = Moments.new(self)
+	add_child(moments)
 	EventBus.day_simulated.connect(_on_day)
 	_refresh_inbox_button()
+	if GameClock.sim != null and not GameClock.sim.state.finance.living_chosen:
+		moments.push(Cards.living_card(GameClock.sim))
 
 
 func _on_day(result: DayResult) -> void:
 	var sim: Sim = GameClock.sim
 	if sim == null:
 		return
+	_prologue_banner.visible = GameClock.in_prologue()
 	for e: Dictionary in result.events:
 		var m: Dictionary = Messages.describe(sim, e)
 		if m.is_empty():
@@ -105,7 +116,7 @@ func _overlay_open() -> bool:
 	for child: Node in get_children():
 		if child is ConfirmDialog:
 			return true
-	return false
+	return moments != null and moments.is_showing()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -127,3 +138,46 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif key == KEY_I:
 			open_inbox()
 			get_viewport().set_input_as_handled()
+
+
+## Slashdot prologue (decisions.md 2026-10-16): a banner over the empty bedroom and a
+## way to skip ahead to the Slashdot story.
+func _build_prologue_banner(parent: Control) -> void:
+	_prologue_banner.set_anchors_preset(Control.PRESET_CENTER)
+	_prologue_banner.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_prologue_banner.grow_vertical = Control.GROW_DIRECTION_BOTH
+	var box := VBoxContainer.new()
+	_prologue_banner.add_child(box)
+	box.add_child(UiTheme.heading("PROLOGUE"))
+	var l := Label.new()
+	l.text = "January 2009 to July 2010. You read about Bitcoin
+on the mailing list and watch it grow.
+Mining opens when Slashdot covers version 0.3."
+	box.add_child(l)
+	box.add_child(UiTheme.button("Skip to the Slashdot story", skip_prologue))
+	parent.add_child(_prologue_banner)
+	_prologue_banner.visible = GameClock.in_prologue()
+
+
+## Fast-forwards to the day before mining opens without stopping for cards, then plays
+## that day so the Slashdot card shows.
+func skip_prologue() -> void:
+	var sim: Sim = GameClock.sim
+	if sim == null or not GameClock.in_prologue():
+		return
+	moments.clear()
+	moments.enabled = false
+	while GameClock.in_prologue() and not sim.is_finished():
+		if _opens_mining_tomorrow(sim):
+			break
+		GameClock.step_days(1)
+	moments.enabled = true
+	GameClock.step_days(1)
+
+
+func _opens_mining_tomorrow(sim: Sim) -> bool:
+	for e: Dictionary in sim.events.by_day.get(sim.state.day_index, []):
+		for fx: Dictionary in e["effects"]:
+			if fx["type"] == "unlock" and fx.get("feature") == "mining":
+				return true
+	return false

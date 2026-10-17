@@ -10,7 +10,7 @@ func test_salary_and_living_costs_on_the_first() -> void:
 	sim.step_day()  # 2009-02-01, no machines run yet... except the laptop's power
 	var f := sim.finance
 	var power: int = sim.state.hardware.power_cents_today
-	assert_eq(sim.state.finance.cash_cents, cash + f.salary_cents - f.living_cents - power)
+	assert_eq(sim.state.finance.cash_cents, cash + f.salary_cents - f.living_cents(sim.state) - power)
 
 
 func test_quit_then_rejoin_after_delay() -> void:
@@ -62,3 +62,22 @@ func test_monthly_payment_formula() -> void:
 	# $50,000 at 8% over 36 months is $1,566.82 a month.
 	assert_eq(Finance.monthly_payment_cents(5_000_000, 0.08, 36), 156682)
 	assert_eq(Finance.monthly_payment_cents(3600, 0.0, 36), 100)
+
+
+func test_living_situation_is_chosen_once() -> void:
+	var sim := H.game("slashdot")
+	assert_eq(sim.state.finance.living_situation, sim.finance.default_living)
+	assert_eq(sim.finance.living_cents(sim.state), sim.finance.living_situations[sim.finance.default_living])
+	assert_true(sim.apply({"type": "choose_living", "situation": "roommates"})["ok"])
+	assert_eq(sim.finance.living_cents(sim.state), sim.finance.living_situations["roommates"])
+	assert_false(sim.apply({"type": "choose_living", "situation": "house"})["ok"], "once per game")
+	assert_false(H.game().apply({"type": "choose_living", "situation": "castle"})["ok"])
+
+
+func test_cheaper_living_costs_less_each_month() -> void:
+	var sim := H.game("slashdot")
+	sim.apply({"type": "choose_living", "situation": "roommates"})
+	H.run_until(sim, "2009-02-01")
+	var cash: int = sim.state.finance.cash_cents
+	sim.step_day()
+	assert_eq(sim.state.finance.cash_cents - cash, sim.finance.salary_cents - sim.finance.living_situations["roommates"])

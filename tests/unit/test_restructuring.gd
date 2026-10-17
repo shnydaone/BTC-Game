@@ -12,7 +12,7 @@ func test_personal_shortfall_is_a_missed_payment() -> void:
 	r = sim.step_day()  # 2009-02-01: living costs, no salary
 	assert_eq(r.of_type("payment_missed").size(), 1)
 	assert_eq(sim.state.finance.cash_cents, 0)
-	assert_eq(sim.state.finance.missed_cents, sim.finance.living_cents)
+	assert_eq(sim.state.finance.missed_cents, sim.finance.living_cents(sim.state))
 
 
 func test_dilution_scales_with_leverage() -> void:

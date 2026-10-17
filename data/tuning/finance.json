@@ -2,14 +2,69 @@
   "schema_version": 1,
   "notes": "Personal and company finance for Acts 1-2 (GDD 7.7, 7.8). Read by sim/finance.gd.",
   "values": {
-    "starting_savings_usd": { "value": 5000, "unit": "USD", "basis": "estimate", "note": "Personal savings at the start of every mode." },
-    "salary_usd_month": { "value": 4500, "unit": "USD per month", "basis": "estimate", "note": "Day job take-home pay, paid on the 1st. Pays the power bill (GDD 7.7)." },
-    "living_costs_usd_month": { "value": 3500, "unit": "USD per month", "basis": "estimate", "note": "Rent, food and bills, owed on the 1st whether or not the player has a job. The Act 1 objective is mining revenue covering this." },
-    "rehire_delay_days": { "value": 30, "unit": "days", "basis": "estimate", "note": "After quitting, getting a day job back takes this long." },
-    "incorporation_cost_usd": { "value": 1000, "unit": "USD", "basis": "estimate", "note": "Legal and filing fees. Incorporation unlocks in Act 2 (GDD 6)." },
-    "incorporation_act": { "value": 2, "unit": "act", "basis": "gdd", "note": "GDD 6: incorporation is an Act 2 unlock." },
-    "loan_principal_usd": { "value": 50000, "unit": "USD", "basis": "estimate", "note": "The one small business loan (GDD 7.7, M3 scope). Needs incorporation." },
-    "loan_annual_rate": { "value": 0.08, "unit": "fraction per year", "basis": "estimate", "note": "Fixed rate, monthly amortizing payments." },
-    "loan_term_months": { "value": 36, "unit": "months", "basis": "estimate", "note": "Repaid in equal monthly payments from the month after it is drawn." }
+    "starting_savings_usd": {
+      "value": 5000,
+      "unit": "USD",
+      "basis": "estimate",
+      "note": "Personal savings at the start of every mode."
+    },
+    "salary_usd_month": {
+      "value": 4500,
+      "unit": "USD per month",
+      "basis": "estimate",
+      "note": "Day job take-home pay, paid on the 1st. Pays the power bill (GDD 7.7)."
+    },
+    "rehire_delay_days": {
+      "value": 30,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "After quitting, getting a day job back takes this long."
+    },
+    "incorporation_cost_usd": {
+      "value": 1000,
+      "unit": "USD",
+      "basis": "estimate",
+      "note": "Legal and filing fees. Incorporation unlocks in Act 2 (GDD 6)."
+    },
+    "incorporation_act": {
+      "value": 2,
+      "unit": "act",
+      "basis": "gdd",
+      "note": "GDD 6: incorporation is an Act 2 unlock."
+    },
+    "loan_principal_usd": {
+      "value": 50000,
+      "unit": "USD",
+      "basis": "estimate",
+      "note": "The one small business loan (GDD 7.7, M3 scope). Needs incorporation."
+    },
+    "loan_annual_rate": {
+      "value": 0.08,
+      "unit": "fraction per year",
+      "basis": "estimate",
+      "note": "Fixed rate, monthly amortizing payments."
+    },
+    "loan_term_months": {
+      "value": 36,
+      "unit": "months",
+      "basis": "estimate",
+      "note": "Repaid in equal monthly payments from the month after it is drawn."
+    },
+    "living_situations": {
+      "value": {
+        "roommates": 2500,
+        "apartment": 3500,
+        "house": 4500
+      },
+      "unit": "USD per month",
+      "basis": "estimate",
+      "note": "Rent, food and bills by living situation, owed on the 1st whether or not the player has a job. Chosen once at the start (decisions.md 2026-10-17). The Act 1 objective is mining revenue covering this."
+    },
+    "default_living_situation": {
+      "value": "apartment",
+      "unit": "situation",
+      "basis": "estimate",
+      "note": "Used until the player chooses, and by the bots."
+    }
   }
 }

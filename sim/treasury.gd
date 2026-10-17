@@ -26,7 +26,7 @@ func set_policy(sim: Sim, policy: String, percent: float) -> String:
 ## Running costs per day: living costs and rent spread over the month, today's power,
 ## and the loan payment.
 func daily_costs_cents(sim: Sim) -> float:
-	var monthly: float = sim.finance.living_cents + sim.sites.rent_cents(sim.state) + sim.state.finance.loan_payment_cents
+	var monthly: float = sim.finance.living_cents(sim.state) + sim.sites.rent_cents(sim.state) + sim.state.finance.loan_payment_cents
 	return monthly / DAYS_PER_MONTH + sim.state.hardware.power_cents_today
 
 

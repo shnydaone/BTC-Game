@@ -57,4 +57,6 @@ static func describe(sim: Sim, e: Dictionary) -> Dictionary:
 			return {"kind": "alert", "text": "Chapter 11: creditors cut your ownership to %s." % Fmt.percent(e["ownership"], 1)}
 		"act_lost":
 			return {"kind": "alert", "text": "The board replaced you. The act is lost."}
+		"pizza_milestone":
+			return {"kind": "news", "text": "The 10,000 BTC from Pizza Day are now worth %s." % Fmt.usd(e["value_cents"])}
 	return {}

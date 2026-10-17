@@ -62,7 +62,7 @@ func _manage_job(sim: Sim) -> void:
 		sim.apply({"type": "quit_job"})
 	elif not f.employed and f.rehire_day < 0:
 		var reserves: float = f.cash_cents + btc_value_cents(sim)
-		if reserves < BROKE_MONTHS_OF_BTC * sim.finance.living_cents:
+		if reserves < BROKE_MONTHS_OF_BTC * sim.finance.living_cents(sim.state):
 			sim.apply({"type": "rejoin_job"})
 
 
