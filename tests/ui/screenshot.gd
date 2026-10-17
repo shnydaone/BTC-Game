@@ -3,9 +3,9 @@ extends SceneTree
 ##
 ##   godot --path . --resolution 640x360 --script res://tests/ui/screenshot.gd -- --out <dir>
 ##
-## Writes title.png, game_start.png and game_running.png (Slashdot, a year after the
-## Slashdot story with a few machines), each at 1x base resolution, plus fonts.png
-## showing both fonts at several sizes.
+## Writes title.png, game_start.png, game_running.png (Slashdot, late 2010, with a few
+## machines), one PNG per right-panel tab, the inbox and a confirmation dialog, each at
+## 1x base resolution, plus fonts.png showing both fonts at several sizes.
 
 const FRAMES_TO_SETTLE: int = 5
 
@@ -33,6 +33,19 @@ func _run(out: String) -> void:
 	game_clock.apply({"type": "buy_hardware", "unit_id": "cpu_desktop", "count": 3, "used": true})
 	game_clock.step_days(30)
 	await _shot(out + "/game_running.png")
+	var screen: Node = main.get_child(main.get_child_count() - 1)
+	var tabs: Array = screen.right.TABS
+	for i: int in tabs.size():
+		screen.right.show_tab(i)
+		await _shot(out + "/tab_%d_%s.png" % [i, String(tabs[i][0]).to_lower().replace(" & ", "_")])
+	screen.open_inbox()
+	await _shot(out + "/inbox.png")
+	screen.get_child(screen.get_child_count() - 1).close()
+	screen.right.show_tab(1)
+	# UI classes are looked up at run time: they need the autoloads, which a --script
+	# file does not see when it compiles.
+	load("res://scenes/ui/confirm_dialog.gd").ask(screen, "Buy 5 GPU card new for $2,495? Arrives in 5 days.", func() -> void: pass)
+	await _shot(out + "/confirm.png")
 	print("Wrote screenshots to %s" % out)
 	quit()
 

@@ -72,3 +72,77 @@ func test_machines_for_the_facility_view() -> void:
 	assert_eq(int(m[1]["tiles"]), 1)
 	sim.step_day()
 	assert_almost_eq(Readouts.running_w(sim), 35.0, 1e-9, "only the laptop runs while the cards ship")
+
+
+func test_unit_stats_margin_and_breakeven() -> void:
+	var sim := H.game("cypherpunk")
+	H.run_until(sim, "2010-11-01")
+	var s: Dictionary = Readouts.unit_stats(sim, "gpu_card")
+	assert_almost_eq(s["margin_cents_day"], s["revenue_cents_day"] - s["power_cents_day"], 1e-6)
+	assert_almost_eq(s["power_cents_day"], sim.power.unit_cost_cents_per_day(sim, "gpu_card"), 1e-9)
+	# At the breakeven price the power cost equals the revenue.
+	var site: Dictionary = sim.sites.site(sim.state)
+	var kwh: float = s["watts"] * s["uptime"] * 24.0 / 1000.0 * float(site["pue"])
+	assert_almost_eq(s["breakeven_usd_kwh"] * kwh * 100.0, s["revenue_cents_day"], 1e-6)
+	assert_almost_eq(s["payback_days"], s["new_cents"] / s["margin_cents_day"], 1e-6)
+	assert_string_contains(Readouts.unit_tooltip(sim, "gpu_card"), "Breakeven power price")
+
+
+func test_hashprice_uses_the_last_close() -> void:
+	var sim := H.game("late")
+	H.run_until(sim, "2013-06-01")
+	var n := sim.state.network
+	var expected: float = Network.hashprice_sats_per_th_day(n) / 1.0e8 * Readouts.price(sim)
+	assert_almost_eq(Readouts.hashprice(sim), expected, expected * 1e-9)
+
+
+func test_network_countdowns() -> void:
+	var sim := H.game("cypherpunk")
+	H.run_until(sim, "2012-11-01")
+	var n: Dictionary = Readouts.network(sim)
+	assert_eq(int(n["blocks_to_halving"]), 210000 - int(n["height"]))
+	assert_between(int(n["blocks_to_retarget"]), 1, 2016)
+	assert_eq(n["subsidy_btc"], 50.0)
+
+
+func test_sites_explain_why_they_are_closed() -> void:
+	var sim := H.game("slashdot")
+	var reasons: Dictionary = {}
+	for s: Dictionary in Readouts.sites(sim):
+		reasons[s["id"]] = s["blocked"]
+	assert_eq(reasons["bedroom"], "you are here")
+	assert_eq(reasons["garage"], "")
+	assert_eq(reasons["warehouse"], "opens in act 2")
+
+
+func test_exchanges_are_numbered_in_order() -> void:
+	var sim := H.game("late")
+	assert_eq(Readouts.exchange_label(sim, "exchange_tier1"), "Exchange 1")
+	assert_eq(Readouts.exchange_label(sim, "exchange_tier4"), "Exchange 2")
+
+
+func test_trades_are_logged_per_day_and_side() -> void:
+	var sim := H.game("cypherpunk")
+	H.run_until(sim, "2011-03-01")
+	var ex: String = sim.state.custody.active_exchange
+	sim.state.custody.exchange_sats[ex] = 1000 * 100000000
+	sim.apply({"type": "sell_btc", "sats": 100000000})
+	sim.apply({"type": "sell_btc", "sats": 200000000})
+	sim.state.finance.cash_cents += 10000
+	sim.apply({"type": "buy_btc", "cents": 10000})
+	var trades: Array[SimState.Trade] = sim.state.market.trades
+	assert_eq(trades.size(), 2)
+	assert_eq(trades[0].side, "sell")
+	assert_eq(trades[0].sats, 300000000)
+	assert_eq(trades[1].side, "buy")
+
+
+func test_codex_unlocks_persist_through_a_save() -> void:
+	var sim := H.game("slashdot")
+	H.run_until(sim, "2010-12-31")
+	assert_true(sim.state.events.codex.has("mining"))
+	assert_true(sim.state.events.codex.has("solo_vs_pool"))
+	var again: Sim = load("res://autoload/save.gd").from_json(load("res://autoload/save.gd").to_json(sim))
+	assert_eq(again.state.events.codex, sim.state.events.codex)
+	assert_true(H.game("late").state.events.codex.has("halving") == false, "halving is unlocked on the halving day itself")
+	assert_true(H.game("late").state.events.codex.has("custody"), "Late mode starts with past entries")

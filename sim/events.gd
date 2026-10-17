@@ -21,7 +21,7 @@ const ACTIVE: PackedStringArray = [
 	"price_available", "unlock", "codex", "pizza_offer", "exchange_failure", "act_end", "hardware_speedup",
 ]
 ## Effects that still apply when a game starts after the event (Late to the party).
-const PERSISTENT: PackedStringArray = ["price_available", "unlock", "exchange_failure", "hardware_speedup"]
+const PERSISTENT: PackedStringArray = ["price_available", "unlock", "exchange_failure", "hardware_speedup", "codex"]
 
 var by_day: Dictionary = {}  # day index -> Array of event dictionaries
 
@@ -89,7 +89,9 @@ func _apply(sim: Sim, e: Dictionary, fx: Dictionary, result: DayResult) -> void:
 			if add_feature(state, fx["feature"]):
 				result.add("feature_unlocked", {"feature": fx["feature"]})
 		"codex":
-			result.add("codex_unlocked", {"entry": fx["entry"]})
+			if not state.events.codex.has(fx["entry"]):
+				state.events.codex.append(fx["entry"])
+				result.add("codex_unlocked", {"entry": fx["entry"]})
 		"pizza_offer":
 			sim.offers.offer_pizza(sim, result)
 		"exchange_failure":

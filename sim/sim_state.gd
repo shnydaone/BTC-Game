@@ -4,7 +4,7 @@ extends RefCounted
 ## save/load serializes it through Serial. Money: BTC in integer satoshis, USD in
 ## integer cents (decisions.md 2026-10-16).
 
-const SCHEMA_VERSION: int = 2
+const SCHEMA_VERSION: int = 3
 
 var schema_version: int = SCHEMA_VERSION
 var mode_id: String = ""
@@ -48,6 +48,7 @@ class EventsState:
 	extends RefCounted
 	var fired: PackedStringArray = []  # historical event ids, in firing order
 	var features: PackedStringArray = []  # unlocked features: mining, selling, pool_mining, ...
+	var codex: PackedStringArray = []  # unlocked Codex entries, in unlock order
 
 
 class Lot:
@@ -108,12 +109,22 @@ class CustodyState:
 	var backed_up: bool = false
 
 
+class Trade:
+	extends RefCounted
+	## The player's BTC trades on one day and side, for chart markers.
+	var day: int = 0
+	var side: String = ""  # buy or sell
+	var sats: int = 0
+	var cents: int = 0
+
+
 class MarketState:
 	extends RefCounted
 	var sold_today_sats: int = 0
 	var bought_today_sats: int = 0
 	var policy: String = "hodl"  # hodl, sell_percent, cover_costs
 	var sell_percent: float = 0.0
+	var trades: Array[Trade] = []  # one entry per day and side
 
 
 class MiningState:

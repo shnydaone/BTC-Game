@@ -85,6 +85,7 @@ func sell(sim: Sim, sats: int) -> Dictionary:
 	var ex: String = state.custody.active_exchange
 	state.custody.exchange_sats[ex] = sim.custody.exchange_balance(state, ex) - sats
 	state.market.sold_today_sats += sats
+	_log_trade(state, "sell", sats, proceeds)
 	state.finance.cash_cents += proceeds
 	var today: String = sim.current_date()
 	if today >= String(crash_window[0]) and today <= String(crash_window[1]):
@@ -112,8 +113,24 @@ func buy(sim: Sim, cents: int) -> Dictionary:
 	var ex: String = state.custody.active_exchange
 	state.custody.exchange_sats[ex] = sim.custody.exchange_balance(state, ex) + sats
 	state.market.bought_today_sats += sats
+	_log_trade(state, "buy", sats, cents)
 	state.finance.cash_cents -= cents
 	return {"ok": true, "reason": "", "sats": sats, "fill_usd": fill}
+
+
+## Adds to today's entry for this side, or starts one.
+func _log_trade(state: SimState, side: String, sats: int, cents: int) -> void:
+	var trades: Array[SimState.Trade] = state.market.trades
+	if not trades.is_empty() and trades[-1].day == state.day_index and trades[-1].side == side:
+		trades[-1].sats += sats
+		trades[-1].cents += cents
+		return
+	var t := SimState.Trade.new()
+	t.day = state.day_index
+	t.side = side
+	t.sats = sats
+	t.cents = cents
+	trades.append(t)
 
 
 func start_day(state: SimState) -> void:
