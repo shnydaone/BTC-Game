@@ -437,7 +437,7 @@ Latest numbers and findings: `docs/reports/m2-bot-results.md`. The 2009 stack: `
 
 **In scope:**
 - Acts 1 and 2 (2009 to 2016)
-- Bedroom and garage
+- Bedroom and garage, plus the Act 2 warehouse the sim already has (decisions.md 2026-10-17)
 - 5 hardware tiers (CPU, GPU, FPGA, ASIC Gen 1-2)
 - Solo and pool mining
 - Day job
