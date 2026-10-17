@@ -84,6 +84,8 @@ func _enable_choices() -> void:
 
 
 func choose(c: Dictionary) -> void:
+	if spec.get("choices", []).size() > 1:
+		EventBus.choice_made.emit(String(spec.get("kind", "")), String(c["text"]))
 	if c.has("cmd"):
 		GameClock.apply(c["cmd"])
 	queue_free()

@@ -4,7 +4,7 @@ extends RefCounted
 ## save/load serializes it through Serial. Money: BTC in integer satoshis, USD in
 ## integer cents (decisions.md 2026-10-16).
 
-const SCHEMA_VERSION: int = 4
+const SCHEMA_VERSION: int = 5
 
 var schema_version: int = SCHEMA_VERSION
 var mode_id: String = ""
@@ -12,6 +12,8 @@ var day_index: int = 0  # the next day step_day() will simulate
 var player_hashrate_hs: float = 0.0  # running fleet hashrate, set by the power system each day
 ## When zero or more, replaces the fleet hashrate (tests and the debug panel).
 var hashrate_override_hs: float = -1.0
+## Presentation flags that must survive save/load (mentor messages delivered, ...).
+var ui_seen: PackedStringArray = []
 var network: NetworkState = NetworkState.new()
 var events: EventsState = EventsState.new()
 var hardware: HardwareState = HardwareState.new()

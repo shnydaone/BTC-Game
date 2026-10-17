@@ -65,7 +65,7 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
   `godot --headless --path . --import`
 - Run tests headless before every commit (`-ginclude_subdirs` is needed for `tests/unit` and `tests/sim`):
   `godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit`
-- Validate data after editing it: `python tools/check_events.py`, `python tools/check_hardware.py`, `python tools/check_tuning.py`.
+- Validate data after editing it: `python tools/check_events.py`, `python tools/check_hardware.py`, `python tools/check_tuning.py`, `python tools/check_content.py` (names, Codex, event cards, mentor script).
 - CI (`.github/workflows/tests.yml`) runs the validators, the import pass and GUT headless on every push to main and every pull request.
 - Player actions go through `Sim.apply(command)` (`sim/commands.gd`); bots and UI use the same commands. `SimState.hashrate_override_hs` replaces the fleet's hashrate for tests and the debug panel.
 - Bot balance runs play Acts 1-2 headless in every mode and write daily CSVs, `summary.csv` and the Laptop Whale report to `tests/sim/out/` (gitignored):
@@ -73,6 +73,7 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 - UI smoke tests live in `tests/ui/` (headless) and use their own save folder. Auto-pause cards go through `scenes/ui/moments.gd`; tests about other things start games with the moment queue off (see `_start` in `test_game_screen.gd`), and `test_moments.gd` covers the cards themselves. For a legibility check, render screenshots in a real window:
   `godot --path . --resolution 640x360 --script res://tests/ui/screenshot.gd -- --out <dir>`
 - Run the game: `godot --path .` (Space pauses, 1-4 set the speed, I opens the inbox, Esc opens the menu).
+- Playtests follow `docs/playtest.md`: F3 shows the decision meter (logs to `user://playtest/`), F12 opens the live tuning panel (debug builds).
 - Bots live in `tests/sim/bots/`. They change the game only through `Sim.apply()`; their strategy constants stay in the bot scripts, not `data/tuning`. Only Hindsight may read future history. `docs/reports/` holds the latest results.
 - Avoid `static var` in scripts that reference `Sim`: the sim scripts reference each other, and static state pins that graph so Godot reports leaked resources at exit.
 - See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.

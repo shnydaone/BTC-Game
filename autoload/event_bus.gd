@@ -12,6 +12,7 @@ signal game_started(sim: Sim)
 signal game_stopped()
 signal command_applied(command: Dictionary, result: Dictionary)
 signal game_saved(slot: String)
+signal choice_made(kind: String, choice: String)  # a card choice with real alternatives
 
 
 func relay(result: DayResult) -> void:

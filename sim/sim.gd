@@ -27,6 +27,12 @@ var rng: SimRng
 
 func _init(game_data: GameData) -> void:
 	data = game_data
+	reload_config()
+
+
+## Rebuilds every system from data, keeping state and RNG. The F12 tuning panel calls
+## this after editing values live.
+func reload_config() -> void:
 	consensus = Consensus.new(data)
 	network = Network.new(data, consensus)
 	events = Events.new(data)
@@ -116,5 +122,6 @@ func step_day() -> DayResult:
 	restructuring.settle(self, day, result)
 	for act: int in acts_ending:
 		objectives.end_act(self, act, result)
+	events.unlock_codex_triggers(self, result)
 	state.day_index += 1
 	return result

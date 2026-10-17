@@ -103,3 +103,14 @@ func _apply(sim: Sim, e: Dictionary, fx: Dictionary, result: DayResult) -> void:
 		_:
 			if not handles(type):
 				push_error("Events: no handler for effect %s in %s" % [type, e["id"]])
+
+
+## Codex entries with a trigger unlock the first day a sim event of that type happens
+## (GDD 11.1: unlocked on first encounter).
+func unlock_codex_triggers(sim: Sim, result: DayResult) -> void:
+	for entry: String in sim.data.codex:
+		var trigger: String = sim.data.codex[entry].get("trigger", "")
+		if trigger == "" or sim.state.events.codex.has(entry) or result.of_type(trigger).is_empty():
+			continue
+		sim.state.events.codex.append(entry)
+		result.add("codex_unlocked", {"entry": entry})

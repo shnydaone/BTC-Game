@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "notes": "Parody names for everything the player deals with (CLAUDE.md content rules). Real names appear only in historical news. Drafted in M3-4 for Eric to edit. The mentor handle is a placeholder (GDD open question 2). No em dashes.",
+  "mentor_handle": "~anon",
+  "mentor_handle_candidates": ["~anon", "~cypher", "~genesis", "~sigint", "~0x00"],
+  "units": {
+    "cpu_laptop": "Lapdog laptop",
+    "cpu_desktop": "Q-Tower desktop",
+    "gpu_card": "Radiant 5800 GPU",
+    "fpga_board": "ModMancer FPGA",
+    "asic_gen1": "Avocado ASIC",
+    "asic_gen2": "AntMind S5",
+    "asic_gen2b": "AntMind S7",
+    "asic_gen3": "AntMind S9",
+    "asic_gen3b": "AntMind S17 Pro",
+    "asic_gen4": "AntMind S19 Pro",
+    "asic_gen5": "AntMind S19 XP",
+    "asic_gen5b": "AntMind S21"
+  },
+  "makers": {
+    "gpu": "Radiant Graphics",
+    "fpga": "ModMancer Labs",
+    "asic_gen1": "Avocado Systems",
+    "asic": "BitBrain"
+  },
+  "counterparties": {
+    "exchange_tier1": "Mt. Fox",
+    "exchange_tier2": "Bitfinesse",
+    "exchange_tier3": "FTW",
+    "exchange_tier4": "Bitstomp",
+    "lender_tier1": "Fahrenheit Network",
+    "lender_tier2": "Babble Finance",
+    "lender_tier3": "Odyssey Digital",
+    "bank_tier1": "Silicon Gully Bank",
+    "bank_tier2": "Countersign Bank"
+  }
+}

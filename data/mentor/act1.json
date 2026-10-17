@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "notes": "The anonymous mentor's Act 1 messages (GDD 11.2): mailing list and forum DMs, teaching at the moment of need. Event days carry the mentor's line on the event card (data/events/cards.json); these messages cover everything between. Each fires once, on the first day its trigger holds: 'date' (on or after), or 'sim_event' (the first time that sim event happens). Optional: 'modes' (only in these), 'mining' (true: only once mining is open, false: only before), 'expires' (never after this date; dated messages need one, or they fire late once their mode or mining condition turns true), 'pause' (show as a card instead of only the inbox). The mentor goes quiet in April 2011. Drafted in M3-4 for Eric to edit. No em dashes.",
+  "messages": [
+    {
+      "id": "welcome_watcher",
+      "date": "2009-01-05",
+      "mining": false,
+      "pause": true,
+      "subject": "re: the paper",
+      "text": "You read the paper too. Most people on this list think it is a toy: coins with no price, mined by a handful of computers. Watch it for a while. Watch the difficulty number most of all. When people start to care, it rises.",
+      "expires": "2009-03-01"
+    },
+    {
+      "id": "welcome_miner",
+      "date": "2009-01-05",
+      "mining": true,
+      "pause": true,
+      "subject": "re: the paper",
+      "text": "Your laptop is mining. Each block pays 50 coins to whoever finds it, and almost nobody is competing, so you will find a lot of them. Those coins have no price. They may never have one. Mine them anyway; it costs you a few cents of power.",
+      "expires": "2009-03-01"
+    },
+    {
+      "id": "backup",
+      "date": "2009-02-15",
+      "subject": "your wallet is a file",
+      "text": "Your coins live in a wallet file on your disk. No bank, no reset link, no customer service. Lose the file and the coins are gone for everyone, forever. Back it up somewhere that is not this computer.",
+      "expires": "2009-12-31"
+    },
+    {
+      "id": "difficulty_floor",
+      "date": "2009-06-01",
+      "subject": "slow blocks",
+      "text": "Blocks are supposed to come every ten minutes. Right now they come slower, because difficulty cannot go below 1 and there are too few machines to hit the pace. When more people join, blocks speed up until the next retarget catches up.",
+      "expires": "2009-12-29"
+    },
+    {
+      "id": "first_retarget",
+      "date": "2009-12-31",
+      "subject": "difficulty went up",
+      "text": "Difficulty rose for the first time. More machines found blocks faster than ten minutes, so the network made the puzzle harder. Remember the rule: your income is your share of the network, not your speed.",
+      "expires": "2010-03-01"
+    },
+    {
+      "id": "no_market",
+      "date": "2010-03-01",
+      "mining": false,
+      "subject": "what is it worth",
+      "text": "Coins change hands on the forums for fractions of a cent. Nobody can tell you what this is worth. That is what makes it interesting. Keep your day job.",
+      "expires": "2010-07-10"
+    },
+    {
+      "id": "share_falls",
+      "date": "2010-07-20",
+      "mining": true,
+      "expires": "2010-12-31",
+      "subject": "your share",
+      "text": "Look at your network share in the top bar. It is falling, even if you buy nothing, because newcomers plug in every day. Every machine you own earns less each week unless the price rises faster."
+    },
+    {
+      "id": "first_machine",
+      "sim_event": "hardware_arrived",
+      "expires": "2011-04-30",
+      "subject": "hashes per watt",
+      "text": "New machine. Judge it by hashes per watt, not hashes alone. Fast and hungry looks great in a bull market and costs you money the day the price falls. The Codex has the numbers."
+    },
+    {
+      "id": "first_block",
+      "sim_event": "block_found",
+      "expires": "2011-04-30",
+      "subject": "you found one",
+      "text": "Your first block. Enjoy it. Solo mining is a lottery with good odds only while you are a big share of the network. That will not last."
+    },
+    {
+      "id": "hover",
+      "date": "2010-08-20",
+      "mining": true,
+      "expires": "2011-04-30",
+      "subject": "read the numbers",
+      "text": "Hover any number on screen and the formula is right there with today's values. Start with hashprice: what a terahash per second earns in a day. When difficulty rises or the price drops, it falls, and so does every machine you own."
+    },
+    {
+      "id": "gpus",
+      "date": "2010-10-02",
+      "mining": true,
+      "expires": "2011-04-30",
+      "pause": true,
+      "subject": "graphics cards",
+      "text": "Graphics cards do this math far faster than CPUs. Everyone will work that out within weeks. Early machines pay for themselves fast; the same machine bought three months late pays back in a year, or never."
+    },
+    {
+      "id": "power_cut",
+      "sim_event": "machines_shut_off",
+      "expires": "2011-04-30",
+      "subject": "the power company comes first",
+      "text": "Your machines shut off: the power bill was bigger than your cash. A miner's first job is paying the electric company. Keep a few months of bills in cash, and sell coins before you need to, not after."
+    },
+    {
+      "id": "price_vs_difficulty",
+      "date": "2011-01-15",
+      "mining": true,
+      "subject": "the lag",
+      "text": "Price moves in days. Difficulty moves every two weeks, and hardware takes weeks to arrive. When the price jumps, everyone orders machines; months later the network is harder and the price may not be there anymore. Plan for that lag.",
+      "expires": "2011-04-30"
+    },
+    {
+      "id": "cash_buffer",
+      "date": "2011-03-01",
+      "subject": "dollars",
+      "text": "Bitcoin pays you in bitcoin. Your landlord wants dollars, every month, on time. Whatever you think the price will do, keep enough cash to pay the bills through a bad year.",
+      "expires": "2011-04-30"
+    },
+    {
+      "id": "farewell",
+      "date": "2011-04-20",
+      "pause": true,
+      "subject": "going quiet",
+      "text": "I'll be quieter from here. The network does not need any one person, and neither do you. Hover the numbers, read the Codex, keep your keys. Good luck.",
+      "expires": "2011-06-30"
+    }
+  ]
+}
