@@ -47,6 +47,22 @@ func max_sell_sats(sim: Sim) -> int:
 	return maxi(0, mini(balance, cap - sim.state.market.sold_today_sats))
 
 
+## The most the player can still buy today within the cap, in sats.
+func max_buy_sats(sim: Sim) -> int:
+	if trade_block_reason(sim) != "":
+		return 0
+	return maxi(0, floori(volume_sats(sim, sim.state.day_index) * cap_fraction) - sim.state.market.bought_today_sats)
+
+
+## Cash that buys about max_buy_sats today, allowing for the fee and the worst slippage.
+func max_buy_cents(sim: Sim) -> int:
+	var sats: int = max_buy_sats(sim)
+	var close: float = price(sim, sim.state.day_index)
+	if sats <= 0 or is_nan(close):
+		return 0
+	return floori(float(sats) / sim.consensus.sats_per_btc * close * (1.0 - slippage * cap_fraction) * (1.0 - fee) * Finance.CENTS_PER_USD)
+
+
 ## Average fill for a trade that takes the day's traded share from s0 to s1.
 func _fill_price(close: float, s0: float, s1: float, selling: bool) -> float:
 	var impact: float = slippage * (s0 + s1) / 2.0

@@ -68,8 +68,10 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 - Validate data after editing it: `python tools/check_events.py`, `python tools/check_hardware.py`, `python tools/check_tuning.py`.
 - CI (`.github/workflows/tests.yml`) runs the validators, the import pass and GUT headless on every push to main and every pull request.
 - Player actions go through `Sim.apply(command)` (`sim/commands.gd`); bots and UI use the same commands. `SimState.hashrate_override_hs` replaces the fleet's hashrate for tests and the debug panel.
-- Bot balance runs (to be built in M2) play the whole campaign headless and write CSV summaries:
-  `godot --headless --script res://tests/sim/run_bots.gd`
+- Bot balance runs play Acts 1-2 headless in every mode and write daily CSVs, `summary.csv` and the Laptop Whale report to `tests/sim/out/` (gitignored):
+  `godot --headless --path . --script res://tests/sim/run_bots.gd -- --seeds 3`
+- Bots live in `tests/sim/bots/`. They change the game only through `Sim.apply()`; their strategy constants stay in the bot scripts, not `data/tuning`. Only Hindsight may read future history. `docs/reports/` holds the latest results.
+- Avoid `static var` in scripts that reference `Sim`: the sim scripts reference each other, and static state pins that graph so Godot reports leaked resources at exit.
 - See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.
 
 ## Art pipeline (PixelLab)

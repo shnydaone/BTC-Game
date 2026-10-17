@@ -4,7 +4,7 @@ extends RefCounted
 ##
 ## Act 1, quit your day job: trailing mining revenue (BTC mined, valued at each day's
 ## close) covers living costs for 90 straight days. Selling the stack does not count.
-## Act 2: reach the hashrate target and finish the act solvent.
+## Act 2: hit the hashrate target at some point in the act and finish it solvent.
 
 const HASHES_PER_TERAHASH: float = 1.0e12
 
@@ -24,6 +24,7 @@ func _init(data: GameData) -> void:
 
 func step(sim: Sim, day: int, result: DayResult) -> void:
 	var o: SimState.ObjectivesState = sim.state.objectives
+	o.act_peak_hashrate_hs = maxf(o.act_peak_hashrate_hs, sim.state.player_hashrate_hs)
 	o.revenue_window.append(sim.state.mining.mined_value_cents_today)
 	if o.revenue_window.size() > window_days:
 		o.revenue_window.remove_at(0)
@@ -57,7 +58,7 @@ func end_act(sim: Sim, act: int, result: DayResult) -> void:
 			primary = o.quit_job_met_on != ""
 			bonuses = [o.crash_held_sats > 0 and not o.crash_sold]
 		2:
-			primary = sim.state.player_hashrate_hs >= act2_target_hs and sim.state.finance.cash_cents >= 0
+			primary = o.act_peak_hashrate_hs >= act2_target_hs and sim.state.finance.cash_cents >= 0
 			bonuses = [o.exchange_losses_sats == 0]
 	var met: int = bonuses.count(true)
 	var grade: String = "F" if o.act_lost else ("A" if primary and met == bonuses.size() else ("B" if primary else "C"))
@@ -78,3 +79,4 @@ func end_act(sim: Sim, act: int, result: DayResult) -> void:
 	result.add("act_ended", card)
 	o.act = act + 1
 	o.exchange_losses_sats = 0
+	o.act_peak_hashrate_hs = 0.0

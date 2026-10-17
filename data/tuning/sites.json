@@ -16,7 +16,8 @@
           "pue": 1.0,
           "rent_usd_month": 0,
           "move_cost_usd": 0,
-          "available_act": 1
+          "available_act": 1,
+          "requires_incorporation": false
         },
         "garage": {
           "capacity_kw": 10.0,
@@ -24,12 +25,22 @@
           "pue": 1.05,
           "rent_usd_month": 300,
           "move_cost_usd": 500,
-          "available_act": 1
+          "available_act": 1,
+          "requires_incorporation": false
+        },
+        "warehouse": {
+          "capacity_kw": 500.0,
+          "power_usd_per_kwh": 0.1,
+          "pue": 1.1,
+          "rent_usd_month": 3000,
+          "move_cost_usd": 5000,
+          "available_act": 2,
+          "requires_incorporation": true
         }
       },
       "unit": "site",
       "basis": "estimate",
-      "note": "GDD 7.3: bedroom about 1 kW, garage about 10 kW. $0.115/kWh is close to the 2010 US residential average, one household rate for the whole game until regions arrive. The rented garage has fans (PUE 1.05)."
+      "note": "GDD 7.3: bedroom about 1 kW, garage about 10 kW, leased warehouse about 500 kW from Act 2 (GDD 6 lists it as an Act 2 unlock; it needs incorporation). $0.115/kWh is close to the 2010 US residential average and $0.10 to the commercial average; one rate per site until regions arrive. The garage has fans (PUE 1.05), the warehouse more cooling (PUE 1.1)."
     }
   }
 }

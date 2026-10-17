@@ -2,13 +2,42 @@
   "schema_version": 1,
   "notes": "Act objectives and report card (GDD 6). Read by sim/objectives.gd.",
   "values": {
-    "quit_job_streak_days": { "value": 90, "unit": "days", "basis": "gdd", "note": "GDD 6: mining revenue covers living costs for 90 straight days." },
-    "quit_job_window_days": { "value": 30, "unit": "days", "basis": "estimate", "note": "Each day compares trailing 30-day mining revenue (BTC mined times that day's close) with 30 days of living costs, so solo luck does not break the streak on a quiet day." },
-    "crash_2011_window": { "value": ["2011-06-08", "2011-11-18"], "unit": "dates", "basis": "gdd", "note": "Act 1 bonus: survive the 2011 crash without selling (peak close to the post-crash low, per historical.json)." },
-    "act2_hashrate_target_ths": { "value": 25, "unit": "TH/s", "basis": "estimate", "note": "Act 2 primary objective. Sized for a 10 kW garage (M3 scope): about five Gen 2b units or two Gen 3 units." },
+    "quit_job_streak_days": {
+      "value": 90,
+      "unit": "days",
+      "basis": "gdd",
+      "note": "GDD 6: mining revenue covers living costs for 90 straight days."
+    },
+    "quit_job_window_days": {
+      "value": 30,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "Each day compares trailing 30-day mining revenue (BTC mined times that day's close) with 30 days of living costs, so solo luck does not break the streak on a quiet day."
+    },
+    "crash_2011_window": {
+      "value": [
+        "2011-06-08",
+        "2011-11-18"
+      ],
+      "unit": "dates",
+      "basis": "gdd",
+      "note": "Act 1 bonus: survive the 2011 crash without selling (peak close to the post-crash low, per historical.json)."
+    },
+    "act2_hashrate_target_ths": {
+      "value": 25,
+      "unit": "TH/s",
+      "basis": "estimate",
+      "note": "Act 2 primary objective (GDD 6: hit a hashrate target), met when the running hashrate reaches it on any day of the act. Sized for a 10 kW garage: about five Gen 2b units or two Gen 3 units."
+    },
     "grades": {
-      "value": { "A": "primary and every bonus", "B": "primary", "C": "solvent, primary missed", "F": "act lost" },
-      "unit": "grade", "basis": "estimate",
+      "value": {
+        "A": "primary and every bonus",
+        "B": "primary",
+        "C": "solvent, primary missed",
+        "F": "act lost"
+      },
+      "unit": "grade",
+      "basis": "estimate",
       "note": "Report card grade at act end."
     }
   }
