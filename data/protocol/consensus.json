@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "notes": "Bitcoin consensus constants used by sim/consensus.gd. These are protocol facts, not tuning, so they live here with sources instead of in data/tuning. Validate with tools/check_tuning.py.",
+  "values": {
+    "halving_interval_blocks": { "value": 210000, "unit": "blocks", "note": "Subsidy halves every 210,000 blocks (nSubsidyHalvingInterval)." },
+    "initial_subsidy_sats": { "value": 5000000000, "unit": "sats", "note": "50 BTC per block at launch (50 * COIN)." },
+    "subsidy_shift_limit": { "value": 64, "unit": "halvings", "note": "Bitcoin Core forces the subsidy to zero once the right shift reaches 64." },
+    "sats_per_btc": { "value": 100000000, "unit": "sats/BTC", "note": "COIN." },
+    "retarget_interval_blocks": { "value": 2016, "unit": "blocks", "note": "nPowTargetTimespan / nPowTargetSpacing = two weeks / 10 minutes." },
+    "target_block_seconds": { "value": 600, "unit": "s", "note": "nPowTargetSpacing, 10 minutes." },
+    "max_retarget_factor": { "value": 4, "unit": "x", "note": "The measured timespan is clamped to a quarter and four times the target, so difficulty moves at most 4x either way per retarget." },
+    "min_difficulty": { "value": 1, "unit": "difficulty", "note": "powLimit. Difficulty can never fall below 1." },
+    "hashes_per_difficulty_1": { "value": 4294967296, "unit": "hashes", "note": "2^32, the convention btc_daily.csv uses to estimate hashrate. The exact expected value is 2^48 / 65,535, which is 0.0015% higher; using the same constant as the dataset keeps player and world hashrate on one scale." }
+  },
+  "sources": [
+    { "url": "https://github.com/bitcoin/bitcoin/blob/master/src/kernel/chainparams.cpp", "publisher": "Bitcoin Core", "title": "src/kernel/chainparams.cpp (nSubsidyHalvingInterval, powLimit, nPowTargetTimespan, nPowTargetSpacing)", "accessed": "2026-10-16" },
+    { "url": "https://github.com/bitcoin/bitcoin/blob/master/src/pow.cpp", "publisher": "Bitcoin Core", "title": "src/pow.cpp (CalculateNextWorkRequired: timespan clamp and powLimit)", "accessed": "2026-10-16" },
+    { "url": "https://github.com/bitcoin/bitcoin/blob/master/src/validation.cpp", "publisher": "Bitcoin Core", "title": "src/validation.cpp (GetBlockSubsidy)", "accessed": "2026-10-16" },
+    { "url": "https://en.bitcoin.it/wiki/Difficulty", "publisher": "Bitcoin Wiki", "title": "Difficulty", "accessed": "2026-10-16" }
+  ]
+}

@@ -4,11 +4,11 @@ Project brief for Claude Code. Read this first, then `docs/GDD.md` for the full 
 
 ## What this is
 
-**Proof of Work** (working title): a real-time Bitcoin mining business simulation. The player builds a mining company from a laptop in 2009 to a public company, survives every crash, then plays an endless branching future. Pixel art, desktop only, Godot 4.x with GDScript.
+**Proof of Work** (working title): a real-time Bitcoin mining business simulation. The player follows Bitcoin from the Genesis block, builds a mining company from a single laptop to a public company, survives every crash, then plays an endless branching future. Pixel art, desktop only, Godot 4.x with GDScript.
 
 ## Current milestone
 
-**M0: Pitch.** The GDD and this file exist. No code yet. Next up is **M1: Data** (historical dataset, verified event list, hardware data). Do not start building UI or art before M2 (the headless sim) passes its bot tests.
+**M2: Headless sim.** M1 Data is done (history CSV, events, hardware, each with a validator in `tools/`). M2 lands in three PRs: (1) Godot scaffold, GUT, data loading, consensus, RNG and the anchored-chain network; (2) mining, hardware, sites, power, finance, market, custody, treasury, events, objectives, restructuring; (3) bots and the golden and outcome tests. Do not start building UI or art before M2 passes its bot tests.
 
 ## Locked decisions
 
@@ -18,6 +18,8 @@ Do not change these without Eric's explicit approval. Record any new locked deci
 - Desktop only. Base resolution 640×360, integer scaling, nearest filtering, 16px tile grid.
 - Audience: Bitcoiners, with teach-as-you-play.
 - Campaign: Acts 1-4 run from the Genesis block (2009-01-03) to the fourth halving (2024-04-20), about 5 hours. Act 5 is an endless procedural future.
+- Entry modes: Cypherpunk (mine from Genesis), Slashdot (default: a fast prologue, mining unlocks 2010-07-11), Late to the party (starts at halving 1, 2012-11-28). Scores are compared within a mode only.
+- Anchored chain: blocks per day and height come from history. The player's hashrate takes a share of those blocks and drives an effective difficulty readout, so halvings and dated events never drift.
 - Halvings are act breaks. Each act has scenario objectives.
 - Failure means restructuring (Chapter 11). The player keeps playing, diluted. Below 10% ownership, the act is lost.
 - Future: a macro scenario rolled at the 2024 halving, plus light player influence.
@@ -28,10 +30,11 @@ Do not change these without Eric's explicit approval. Record any new locked deci
 ## Repo layout
 
 ```
-res:// (Godot project root, to be created in M2)
+res:// (Godot project root: project.godot at the repo root)
+  addons/gut/ GUT 9.7.1, vendored
   autoload/   game_clock.gd, event_bus.gd, data.gd, save.gd
   sim/        pure simulation classes (no Nodes)
-  data/       history CSV, hardware, events, scenarios, tuning
+  data/       history/ (CSV), events/, hardware/, protocol/ (consensus facts), tuning/ (JSON feel values)
   scenes/     main, facility, ui, charts
   assets/     sprites, tiles, fonts, audio, palette
   tests/      unit/, sim/
@@ -44,7 +47,7 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 - **The sim is pure.** Everything in `sim/` extends RefCounted, has no Node or scene dependencies, and runs headless. Single entry point: `Sim.step_day()`.
 - **Presentation listens.** Scenes and UI react to `EventBus` signals. They never calculate economics.
 - **Deterministic.** All randomness goes through `sim/rng.gd` with a seed.
-- **No hardcoded tuning.** Every economic and feel number lives in `data/`. If you find yourself typing a magic number into `sim/`, move it to data.
+- **No hardcoded tuning.** Every economic and feel number lives in `data/`. If you find yourself typing a magic number into `sim/`, move it to data. Protocol facts go in `data/protocol/`, judgment calls in `data/tuning/` with a unit, a basis and a note.
 - **No network calls at runtime.** No live prices, wallets, exchanges or APIs. Historical data is committed as CSV.
 
 ## Code conventions
@@ -56,9 +59,13 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 
 ## Testing
 
-- Unit test framework: GUT (lean, confirm in M2).
-- Run tests headless before every commit:
-  `godot --headless -s addons/gut/gut_cmdln.gd -gdir=res://tests -gexit`
+- Unit test framework: GUT 9.7.1 (the release built for Godot 4.7), vendored in `addons/gut`.
+- Godot 4.7.2 is installed at `C:\Program Files\Godot\` and is not on PATH. Use the `_console` build so output and exit codes reach the terminal, or set `GODOT` and run `powershell -File tools/test.ps1`.
+- On a fresh clone, run the import pass once so `class_name` scripts register:
+  `godot --headless --path . --import`
+- Run tests headless before every commit (`-ginclude_subdirs` is needed for `tests/unit` and `tests/sim`):
+  `godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit`
+- Validate data after editing it: `python tools/check_events.py`, `python tools/check_hardware.py`, `python tools/check_tuning.py`.
 - Bot balance runs (to be built in M2) play the whole campaign headless and write CSV summaries:
   `godot --headless --script res://tests/sim/run_bots.gd`
 - See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.

@@ -52,6 +52,23 @@
       ]
     },
     {
+      "id": "slashdot_v03",
+      "date": "2010-07-11",
+      "act": 1,
+      "category": "adoption",
+      "headline": "Slashdot covers Bitcoin 0.3",
+      "summary": "A Slashdot story on version 0.3 of Bitcoin, announced on the forum on July 6, brings a large wave of new users to the network.",
+      "effects": [{ "type": "unlock", "feature": "mining" }, { "type": "codex", "entry": "mining" }],
+      "auto_pause": true,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://news.slashdot.org/story/10/07/11/1747245/bitcoin-releases-version-03", "publisher": "Slashdot", "title": "Bitcoin Releases Version 0.3", "accessed": "2026-10-16" },
+        { "url": "https://bitcointalk.org/index.php?topic=238.0", "publisher": "Bitcointalk", "title": "Bitcoin 0.3 released!", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" }
+      ]
+    },
+    {
       "id": "mtgox_launch",
       "date": "2010-07-18",
       "act": 1,
