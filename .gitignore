@@ -4,3 +4,10 @@ tools/raw/
 # Python
 __pycache__/
 *.pyc
+
+# Godot
+.godot/
+*.translation
+
+# Bot run output (rebuildable)
+tests/sim/out/

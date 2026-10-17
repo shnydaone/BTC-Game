@@ -8,14 +8,14 @@ Version 0.1 (Phase 0 pitch) · ShnydaSoft · October 2026
 
 | | |
 |---|---|
-| **One-liner** | Build a Bitcoin mining company from a laptop in 2009 to a public company, and survive every crash along the way. |
+| **One-liner** | Follow Bitcoin from the Genesis block, build a mining company from a single laptop to a public company, and survive every crash along the way. |
 | **Genre** | Real-time business simulation / tycoon |
 | **Platform** | Desktop (Windows, macOS, Linux) |
 | **Engine** | Godot 4.x, GDScript |
 | **Art** | Pixel art generated with PixelLab, top-down 3/4 facility view plus a finance dashboard |
 | **Audience** | Bitcoiners. The game teaches as you play, so it never stalls on jargon. |
 | **Campaign** | About 5 hours of historical play (Genesis block to the 2024 halving), then an endless branching future |
-| **Status** | Phase 0: pitch and design. No code yet. |
+| **Status** | M2: headless simulation in progress. |
 
 ## 2. Locked decisions
 
@@ -31,6 +31,8 @@ Version 0.1 (Phase 0 pitch) · ShnydaSoft · October 2026
 | Rivals | Faceless network hashrate early, named parody rival companies from Act 3 |
 | Tone | Bitcoin culture humor on top of honest economics, with an anonymous mentor as the teaching device |
 | Charts | Always-on price ticker plus cinematic replays of major crashes and spikes |
+| Entry modes | Cypherpunk (mine from Genesis), Slashdot (default, mining from 2010-07-11), Late to the party (from halving 1). Scores compared within a mode |
+| Chain model | Anchored chain: block counts come from history, the player takes a share of them |
 
 ## 3. Design pillars
 
@@ -58,6 +60,7 @@ Reinvest, retrench, or restructure  →  back to the top
 
 - **Simulation tick:** one game day. All economic math runs daily.
 - **Speeds:** pause, 1x (1 game day per 2 real seconds), 2x, 4x, 8x. Values live in tuning data.
+- **Prologue (Slashdot mode):** Jan 3, 2009 to Jul 11, 2010 plays as a fast montage of about 3 to 5 minutes with a few choices: household setup (savings, rent, salary), the mentor's mailing list posts, headlines and Codex unlocks. Skippable on replay. Mining unlocks with the Slashdot story on Bitcoin 0.3.
 - **Campaign math:** Jan 3, 2009 to Apr 20, 2024 is about 5,586 days, or about 3.1 hours of pure 1x ticking. Players fast-forward quiet stretches and spend time paused in decisions and replays. Target median playthrough is about 5 hours, about 1 hour per act. Tune with playtests.
 - **Auto-pause on:** major historical events (cinematic replay), decisions with deadlines, margin calls and covenant breaches, act end.
 - **Difficulty adjustments:** shown as a non-blocking toast with the % change. Optional auto-pause in settings, off by default. (Correction to the earlier planning lean: there are roughly 400 adjustments in the campaign, so pausing on every one would wreck the pacing.)
@@ -68,20 +71,35 @@ Halvings are the act breaks. Each act ends with a report card: owner's equity in
 
 | Act | Dates | Theme | Unlocks | Primary objective | Bonus objectives |
 |---|---|---|---|---|---|
-| 1. Genesis | 2009-01-03 → 2012-11-28 | A hobby with a day job | Bedroom, garage, CPU, GPU, FPGA, solo then pool mining, first exchange | **Quit your day job:** mining revenue covers living costs for 90 straight days | Survive the 2011 crash without selling; the pizza decision |
+| 1. Genesis | 2009-01-03 → 2012-11-28 | A hobby with a day job | Bedroom, garage, CPU, GPU, FPGA, solo then pool mining, first exchange | **Quit your day job:** mining revenue covers living costs for 90 straight days | Survive the 2011 crash without selling; a forum trade offer decision |
 | 2. Arms Race | 2012-11-28 → 2016-07-09 | Hardware obsolescence | ASICs, warehouse, incorporation, small business loan | Hit a hashrate target (tuned) and finish the act solvent | Lose nothing to exchange failures |
 | 3. Industrial | 2016-07-09 → 2020-05-11 | Scale and power | Regions and power contracts, CFO hire (full statements), equipment financing, futures hedging, rivals appear | Build your first owned facility and get through 2018 and Black Thursday without restructuring | Finish with the lowest all-in cost per BTC among rivals |
 | 4. Institutional | 2020-05-11 → 2024-04-20 | Capital markets | IPO window, BTC-backed loans, relocation after the China ban, acquisitions | Go public and finish 2022 without restructuring | Acquire a bankrupt rival |
 | 5. Future | 2024-04-20 → endless | Branching macro scenario | Scenario event decks, lobbying, grid services | None. Score keeps running. | Survive each new halving |
 
+### 6.1 Entry modes
+
+The history is the same in every mode. Only the player's starting point changes, and scores are compared within a mode only.
+
+| Mode | Clock starts | Mining | Notes |
+|---|---|---|---|
+| Cypherpunk | 2009-01-03 | From Genesis | Easy mode, labeled honestly. A laptop left on through 2009 holds about 278,000 BTC by end-2010. |
+| Slashdot (default) | 2009-01-03 | From 2010-07-11 | Fast prologue (section 5). A laptop from the Slashdot story holds about 320 BTC by end-2010. Mining, Mt. Gox and selling all arrive within a week. |
+| Late to the party | 2012-11-28 | From the start | Starts at halving 1, the first day of Act 2. Skips Act 1 and the mentor. Hard mode. |
+
+Mode settings live in `data/tuning/modes.json`.
+
 ## 7. Systems
 
 ### 7.1 Mining math
 
-One model runs for the entire game. In historical acts the world's hashrate comes from real data; the player's hashrate is added on top, and difficulty follows the real 2,016-block rule against the combined total. Difficulty therefore tracks history closely but still responds to the player (which matters in 2009, when a few CPUs could be a large share of the network).
+One model runs for the entire game: an **anchored chain**. In historical acts, blocks per day, chain height, difficulty and the world's hashrate all come from real data. The player's hashrate is added to the world's, and the player takes a share of the blocks history actually found. Halvings and every dated event therefore land on their real dates.
 
-- `blocks_per_day ≈ 144 × (network_hashrate / hashrate_implied_by_difficulty)` (runs above 144 while hashrate grows faster than difficulty adjusts, which is historically accurate)
+- `blocks_per_day` = the historical count for that day (it runs above 144 while hashrate grows faster than difficulty adjusts, which is accurate)
+- `network_hashrate = world_hashrate + player_hashrate`
 - `share = player_hashrate / network_hashrate`
+- **Effective difficulty** (a readout): at each historical retarget, history's new difficulty scaled by the epoch's (world + player) / world hashrate, clamped to 4x either way and never below 1. It shows how the player's own hashrate raises difficulty. It does not change rewards.
+- Why not the strict rule: with the player's hashrate added under the real 2,016-block rule, extra blocks pile up in 2009 (the network sat below the difficulty-1 floor) and the halvings land 1 to 4 months early, which moves act breaks and dated events. The anchored chain costs a 2009 laptop about 13% of its strict-rule earnings and is negligible from 2010 (decisions.md, 2026-10-16).
 - **Solo mining:** blocks found per day ~ Poisson(`share × blocks_per_day`), each paying `subsidy + fees_per_block`. Lumpy and exciting. "You found a block!"
 - **Pool mining** (unlocks Dec 2010): `share × blocks_per_day × (subsidy + fees_per_block) × (1 − pool_fee)`, paid daily. Smooth. Teaches variance versus expected value.
 - `power_cost_per_day = Σ(unit_watts × uptime) × 24 / 1000 × price_per_kWh × PUE`
@@ -128,7 +146,7 @@ Fictional product names, real-world performance as calibration targets. Exact sp
 ### 7.4 Network and difficulty
 
 - World hashrate from historical data in Acts 1-4, simulated in Act 5.
-- Difficulty retargets every 2,016 blocks using the real rule (clamped to 4x in either direction).
+- Difficulty retargets every 2,016 blocks. Historical difficulty comes from data; the effective difficulty readout applies the real rule's proportionality, 4x clamp and minimum of 1 to the player's added hashrate (section 7.1).
 - The **network share** readout is always visible. It is how the player feels competition.
 
 ### 7.5 Market and price
@@ -149,7 +167,7 @@ Two buckets for BTC:
 - Exchange failures are historical events (Mt. Gox 2014, Bitfinex hack 2016 with a socialized haircut, FTX 2022). Coins on the failed exchange are lost or cut.
 - Lesson delivered by play, not by lecture: **not your keys, not your coins.**
 - **Treasury policy** setting: sell X% of production daily, sell only to cover costs, or HODL everything.
-- **Pizza Day (May 22, 2010):** optional offer of two pizzas for 10,000 BTC. If accepted, a "pizza regret" counter tracks the USD value of those coins for the rest of the game.
+- **Pizza Day (May 22, 2010):** a factual news headline. In Cypherpunk mode, a player holding the coins gets the optional offer of two pizzas for 10,000 BTC. In every mode, once the player mines, forum trade offers (goods for BTC at that day's price) appear, and a "pizza regret" counter tracks the USD value of whatever was spent for the rest of the game.
 
 ### 7.7 Finance
 
@@ -210,7 +228,8 @@ Real events appear in news headlines and event cards, stated factually. Counterp
 |---|---|---|---|
 | 2009-01-03 | Genesis block | Game start, mentor's first message | |
 | 2009-10-05 | First published BTC exchange rate (~$0.00076, set from electricity cost, not a trade) | BTC has a price. Codex: price discovery. | |
-| 2010-05-22 | Pizza Day: 10,000 BTC for two pizzas | Optional pizza offer, regret counter | |
+| 2010-05-22 | Pizza Day: 10,000 BTC for two pizzas | News; pizza offer in Cypherpunk mode, regret counter | |
+| 2010-07-11 | Slashdot covers Bitcoin 0.3, a wave of new users arrives | Mining unlocks (Slashdot mode) | |
 | 2010-07 | First major exchange launches | Exchange custody unlocks, selling becomes liquid | |
 | 2010-08-15 | Value overflow bug creates 184 billion BTC; patched within hours, chain repaired the next day | Brief mining disruption, codex: soft fork | |
 | 2010-12 | Pooled mining arrives | Pool option unlocks | |
@@ -313,7 +332,7 @@ Halvings continue on schedule (2028: 3.125 → 1.5625, and so on). As the subsid
 ### 11.2 The mentor
 
 - An anonymous early cypherpunk, name TBD (placeholder "~anon"). Faceless: a terminal avatar, never a portrait.
-- Talks to you through era-appropriate UI: mailing list and forum DMs in 2009-2010.
+- Talks to you through era-appropriate UI: mailing list and forum DMs in 2009-2010. In Slashdot mode the mentor's 2009 posts are the prologue; the mentor then guides you through 2010. No mentor in Late to the party mode.
 - Teaches the Act 1 core concepts. Messages thin out through late 2010 and stop in 2011. The nod lands for Bitcoiners without portraying any real person.
 - After the mentor goes quiet, teaching shifts to the Codex, tooltips, and the CFO you hire in Act 3, who explains the full statements.
 
@@ -374,7 +393,7 @@ res://
   sim/           sim_state.gd, mining.gd, power.gd, market.gd, finance.gd,
                  custody.gd, events.gd, rivals.gd, scenarios.gd, price_model.gd, rng.gd
   data/          history/btc_daily.csv, hardware/, events/historical.json,
-                 scenarios/, tuning.tres
+                 protocol/consensus.json, scenarios/, tuning/*.json
   scenes/        main.tscn, facility/, ui/, charts/
   assets/        sprites/, tiles/, fonts/, audio/, palette
   tests/         unit/, sim/
@@ -388,15 +407,15 @@ CLAUDE.md
 - **Simulation is pure.** `sim/` classes extend RefCounted, have no Node or scene dependencies, and run headless. One entry point: `Sim.step_day()`.
 - **Presentation listens.** UI and facility scenes react to signals on the `EventBus`. They never compute economics.
 - **Deterministic.** A seeded RNG lives in `sim/rng.gd`. Same seed plus same inputs gives the same run.
-- **No hardcoded tuning.** Every economic and feel value lives in `data/`. A debug tuning panel (F12) edits values live and dumps them to file.
+- **No hardcoded tuning.** Every economic and feel value lives in `data/`: protocol facts in `data/protocol/` with sources, judgment calls in `data/tuning/*.json` with a unit, a basis and a note each (validated by `tools/check_tuning.py`). A debug tuning panel (F12) edits values live and dumps them to file.
 - **Historical dataset:** daily price, network hashrate, difficulty and average fees per block, 2009 to 2024, prepared once by a script in `tools/` and committed as CSV. Candidate sources include Coin Metrics community data and Blockchain.com charts; confirm licensing before use.
 - **Save/load:** JSON serialization of `SimState`.
 - **No network calls at runtime.**
 
 ## 14. Testing and balance
 
-- **Unit tests:** GUT (lean) or gdUnit4, decided in M2.
-- **Bot runs:** scripted strategies play the whole campaign headless in seconds and write CSV summaries. Expected outcomes act as balance tests:
+- **Unit tests:** GUT 9.7.1, vendored in `addons/gut` (decided in M2).
+- **Bot runs:** scripted strategies play the whole campaign headless in seconds and write CSV summaries. Expected outcomes act as balance tests in Slashdot mode; the other modes get sanity checks. M2 asserts them over Acts 1-2. Max Leverage's 2018/2022 outcome needs the Act 3-4 finance and is asserted from M6; in M2 it is expected to restructure in the 2014-2015 bear with the one Act 2 loan:
 
 | Bot | Strategy | Must happen |
 |---|---|---|
@@ -406,7 +425,7 @@ CLAUDE.md
 | Hindsight | Knows the future, sells tops | Defines the score ceiling |
 | Sensible | Rule-based reasonable play | Survives with a good score |
 
-- **Golden test:** the sim's historical hashprice matches real-world hashprice within a tolerance.
+- **Golden test:** the sim's historical hashprice matches real-world hashprice within a tolerance. With no player hashrate, the anchored chain reproduces history's difficulty every day and the dataset's hashprice within 0.1% on 30-day means (M2 PR 1). External hashprice spot checks follow once prices are in the sim.
 
 ## 15. Scope
 
@@ -474,5 +493,5 @@ CLAUDE.md
 3. **Historical cutoff.** Lean: April 2024 halving, so acts stay aligned with halvings. Alternative: extend through 2025.
 4. **Exchange names.** Lean: parody names for anything you transact with, real names only in historical news.
 5. **Perspective.** Lean: top-down 3/4. Alternative: isometric.
-6. **Test framework.** GUT vs. gdUnit4.
+6. **Test framework.** Resolved: GUT (decisions.md, 2026-10-16).
 7. **PixelLab plan.** Monthly API credit budget.
