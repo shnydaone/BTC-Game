@@ -48,6 +48,7 @@ EFFECT_TYPES = {
     "regional_ban",        # {region}: mining banned in a region, sites must relocate
     "investor_demand",     # {kind}: investor appetite shifts (treasury BTC, IPO window, ETF)
     "news",                # headline only
+    "hardware_speedup",    # {tier, multiplier}: software makes a hardware tier faster
 }
 FIGURE_BASES = {"daily_close", "daily_change", "drawdown", "intraday", "onchain", "hashrate_7d", "external"}
 FIGURE_TOLERANCE = 0.10

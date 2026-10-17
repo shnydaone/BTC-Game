@@ -68,6 +68,7 @@ HASHRATE_SMOOTH_DAYS = 7
 COLUMNS = [
     "date", "price_usd", "price_source", "blocks", "height_end", "difficulty",
     "hashrate_hs", "hashrate_hs_7d", "fees_btc", "fees_per_block_btc", "subsidy_btc", "tx_count",
+    "volume_btc",
 ]
 
 
@@ -191,17 +192,21 @@ def load_anchors() -> dict[date, float]:
 # ---------------------------------------------------------------- build
 
 
-def build_prices(all_days: list[date]) -> dict[date, tuple[float | None, str]]:
+def build_prices(all_days: list[date]) -> tuple[dict[date, tuple[float | None, str]], dict[date, float]]:
+    """Daily (close, source) and the traded volume on the exchange the close came from."""
     anchors = load_anchors()
     mtgox = load_mtgox()
     bitstamp = load_bitstamp()
 
     prices: dict[date, tuple[float | None, str]] = {}
+    volumes: dict[date, float] = {d: 0.0 for d in all_days}
     for d in all_days:
         if d >= SWITCH_TO_BITSTAMP and d in bitstamp:
             prices[d] = (bitstamp[d][0], "bitstamp")
+            volumes[d] = bitstamp[d][1]
         elif d < SWITCH_TO_BITSTAMP and d in mtgox:
             prices[d] = (mtgox[d][0], "mtgox")
+            volumes[d] = mtgox[d][1]
         elif d in anchors:
             prices[d] = (anchors[d], "anchor")
 
@@ -224,7 +229,7 @@ def build_prices(all_days: list[date]) -> dict[date, tuple[float | None, str]]:
             prices[d] = (None, "none")
         else:
             prices[d] = (last_price, "ffill")
-    return prices
+    return prices, volumes
 
 
 def build_rows() -> tuple[list[dict], dict[date, dict]]:
@@ -234,7 +239,7 @@ def build_rows() -> tuple[list[dict], dict[date, dict]]:
     download_bitstamp()
 
     all_days = days(START, END)
-    prices = build_prices(all_days)
+    prices, volumes = build_prices(all_days)
 
     rows = []
     difficulty = 1.0
@@ -259,6 +264,7 @@ def build_rows() -> tuple[list[dict], dict[date, dict]]:
             "fees_per_block_btc": (fees_sat / n / SATS) if n else None,
             "subsidy_btc": (b["subsidy_sat"] / SATS) if b else 0.0,
             "tx_count": b["tx_count"] if b else 0,
+            "volume_btc": volumes[d],
         })
 
     half = HASHRATE_SMOOTH_DAYS // 2
@@ -432,6 +438,7 @@ Built by `tools/build_btc_daily.py`. Dates are UTC. Prices are daily closes in U
 | fees_per_block_btc | fees_btc / blocks (blank on days with no blocks) |
 | subsidy_btc | Total block subsidy that day |
 | tx_count | Transactions, including coinbase |
+| volume_btc | BTC traded that day on the exchange the close came from (Mt. Gox before {SWITCH_TO_BITSTAMP}, Bitstamp after). 0 on days with no exchange trades. One exchange, so it understates the whole market from 2013, when Mt. Gox and others also traded. |
 
 ## Sources
 

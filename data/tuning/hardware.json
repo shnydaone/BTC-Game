@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "notes": "Game-feel values for the units in data/hardware/hardware.json (facts live there). Read by sim/hardware.gd. Validate with tools/check_tuning.py.",
+  "values": {
+    "purchase_price_usd": {
+      "value": {
+        "cpu_laptop": 1000,
+        "cpu_desktop": 800,
+        "asic_gen3b": 2340
+      },
+      "unit": "USD",
+      "basis": "estimate",
+      "note": "Prices for units whose launch price is not in the data. The laptop is owned at the start; this price only applies to buying another. S17 Pro: about $2,340 implied by a reseller post (hardware.json price_note), provisional."
+    },
+    "uptime": {
+      "value": {
+        "cpu_laptop": 0.5,
+        "default": 0.97
+      },
+      "unit": "fraction",
+      "basis": "estimate",
+      "note": "Share of the day a unit hashes. The laptop is the player's everyday computer, so it mines about half the day. Dedicated machines lose about 3% to restarts and maintenance."
+    },
+    "gpu_cards_per_rig": {
+      "value": 4,
+      "unit": "cards",
+      "basis": "estimate",
+      "note": "Open-frame rigs of the era typically held 3 to 6 cards."
+    },
+    "gpu_rig_overhead_usd": {
+      "value": 600,
+      "unit": "USD per rig",
+      "basis": "estimate",
+      "note": "Frame, motherboard, CPU, RAM and PSU, bought with the first card of each rig."
+    },
+    "gpu_rig_overhead_w": {
+      "value": 150,
+      "unit": "W per rig",
+      "basis": "estimate",
+      "note": "Host system and PSU losses on top of the cards' board power."
+    },
+    "footprint_tiles": {
+      "value": {
+        "cpu_laptop": 1,
+        "cpu_desktop": 1,
+        "gpu_card": 1,
+        "fpga_board": 1,
+        "default": 2
+      },
+      "unit": "16px tiles",
+      "basis": "estimate",
+      "note": "Floor space for the facility view (M3). Not used by the sim yet."
+    },
+    "annual_failure_rate": {
+      "value": [
+        0.03,
+        0.06,
+        0.12,
+        0.25
+      ],
+      "unit": "fraction per year, by age year",
+      "basis": "estimate",
+      "note": "Chance a unit fails in each year of its life (year 1, 2, 3, then 4 and later). Failures rise with age (GDD 7.9)."
+    },
+    "repair_cost_fraction": {
+      "value": 0.15,
+      "unit": "fraction of current new price",
+      "basis": "estimate",
+      "note": "Broken units are repaired automatically when cash allows."
+    },
+    "lead_time_days": {
+      "value": {
+        "CPU": 3,
+        "GPU": 5,
+        "FPGA": 21,
+        "ASIC Gen 1": 60,
+        "default": 30
+      },
+      "unit": "days",
+      "basis": "estimate",
+      "note": "Days from paying for new hardware to it arriving, by tier. Early ASICs were pre-ordered months ahead (GDD 7.2)."
+    },
+    "depreciation_years": {
+      "value": 3,
+      "unit": "years",
+      "basis": "gdd",
+      "note": "GDD 7.2: straight-line over 3 years in the books."
+    },
+    "new_price_tracks_hashprice": {
+      "value": [
+        "ASIC Gen 1",
+        "ASIC Gen 2",
+        "ASIC Gen 2b",
+        "ASIC Gen 3",
+        "ASIC Gen 3b",
+        "ASIC Gen 4",
+        "ASIC Gen 5",
+        "ASIC Gen 5b"
+      ],
+      "unit": "tiers",
+      "basis": "estimate",
+      "note": "ASIC prices followed mining profitability. For these tiers the new price is the launch price scaled by 30-day hashprice now over hashprice at launch, within the clamp below. CPUs, GPUs and FPGAs keep their launch price."
+    },
+    "new_price_clamp": {
+      "value": [
+        0.2,
+        1.5
+      ],
+      "unit": "x launch price",
+      "basis": "estimate",
+      "note": "Bounds on the hashprice scaling of ASIC new prices."
+    },
+    "used_price_fraction": {
+      "value": 0.7,
+      "unit": "fraction of current new price",
+      "basis": "estimate",
+      "note": "A used unit at age zero sells for this share of the current new price (GDD 7.2: used prices track hashprice)."
+    },
+    "used_useful_life_years": {
+      "value": 4,
+      "unit": "years",
+      "basis": "estimate",
+      "note": "Used value falls linearly with age over this many years, down to the floor."
+    },
+    "used_price_floor": {
+      "value": 0.05,
+      "unit": "fraction of current new price",
+      "basis": "estimate",
+      "note": "Scrap value for a working but obsolete unit."
+    },
+    "price_hashprice_window_days": {
+      "value": 30,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "Trailing window for the hashprice that scales ASIC new prices."
+    }
+  }
+}

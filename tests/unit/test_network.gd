@@ -10,7 +10,9 @@ func before_all() -> void:
 
 
 func _sim_at(mode_id: String) -> Sim:
-	return Sim.new_game(data, mode_id, 1)
+	var sim := Sim.new_game(data, mode_id, 1)
+	sim.state.hashrate_override_hs = 0.0  # no fleet unless a test sets one
+	return sim
 
 
 func _run_until(sim: Sim, iso_date: String) -> Array[DayResult]:
@@ -22,13 +24,14 @@ func _run_until(sim: Sim, iso_date: String) -> Array[DayResult]:
 
 func test_zero_player_share_is_zero() -> void:
 	var sim := _sim_at("cypherpunk")
+	sim.state.hashrate_override_hs = 0.0
 	sim.step_day()
 	assert_eq(sim.state.network.player_share, 0.0)
 
 
 func test_height_and_blocks_follow_history() -> void:
 	var sim := _sim_at("cypherpunk")
-	sim.state.player_hashrate_hs = LAPTOP_HS
+	sim.state.hashrate_override_hs = LAPTOP_HS
 	_run_until(sim, "2009-07-01")
 	var i: int = data.history.index_of("2009-06-30")
 	assert_eq(sim.state.network.height, data.history.height_end[i], "the player never adds blocks")
@@ -37,7 +40,7 @@ func test_height_and_blocks_follow_history() -> void:
 
 func test_share_is_player_over_world_plus_player() -> void:
 	var sim := _sim_at("cypherpunk")
-	sim.state.player_hashrate_hs = LAPTOP_HS
+	sim.state.hashrate_override_hs = LAPTOP_HS
 	_run_until(sim, "2009-03-02")
 	var world: float = data.history.hashrate_hs[data.history.index_of("2009-03-01")]
 	assert_almost_eq(sim.state.network.player_share, LAPTOP_HS / (world + LAPTOP_HS), 1e-12)
@@ -46,14 +49,14 @@ func test_share_is_player_over_world_plus_player() -> void:
 func test_laptop_does_not_lift_difficulty_off_the_2009_floor() -> void:
 	# The 2009 network plus one laptop stayed under the ~7.16 MH/s that difficulty 1 implies.
 	var sim := _sim_at("cypherpunk")
-	sim.state.player_hashrate_hs = LAPTOP_HS
+	sim.state.hashrate_override_hs = LAPTOP_HS
 	_run_until(sim, "2009-12-01")
 	assert_eq(sim.state.network.effective_difficulty, 1.0)
 
 
 func test_big_2009_player_lifts_difficulty() -> void:
 	var sim := _sim_at("cypherpunk")
-	sim.state.player_hashrate_hs = 8.0e6  # five desktops
+	sim.state.hashrate_override_hs = 8.0e6  # five desktops
 	_run_until(sim, "2009-12-01")
 	assert_gt(sim.state.network.effective_difficulty, 1.0)
 
@@ -68,7 +71,7 @@ func test_player_matching_the_world_doubles_difficulty_at_the_next_retarget() ->
 	assert_almost_eq(sim.state.network.effective_difficulty, hist_before, hist_before * 1e-12)
 	var results: Array[DayResult] = []
 	while true:
-		sim.state.player_hashrate_hs = data.history.hashrate_hs[sim.state.day_index]
+		sim.state.hashrate_override_hs = data.history.hashrate_hs[sim.state.day_index]
 		var r := sim.step_day()
 		if not r.of_type("difficulty_adjusted").is_empty():
 			results.append(r)
@@ -85,7 +88,7 @@ func test_retarget_clamps_at_four_x() -> void:
 		pass
 	var before: float = sim.state.network.effective_difficulty
 	while true:
-		sim.state.player_hashrate_hs = 100.0 * data.history.hashrate_hs[sim.state.day_index]
+		sim.state.hashrate_override_hs = 100.0 * data.history.hashrate_hs[sim.state.day_index]
 		if not sim.step_day().of_type("difficulty_adjusted").is_empty():
 			break
 	assert_almost_eq(sim.state.network.effective_difficulty / before, 4.0, 1e-9)
@@ -93,7 +96,7 @@ func test_retarget_clamps_at_four_x() -> void:
 
 func test_halving_event_fires_on_the_real_date() -> void:
 	var sim := _sim_at("cypherpunk")
-	sim.state.player_hashrate_hs = 8.0e6
+	sim.state.hashrate_override_hs = 8.0e6
 	var halvings: Array = []
 	for r: DayResult in _run_until(sim, "2012-12-01"):
 		for e: Dictionary in r.of_type("subsidy_halved"):
@@ -103,6 +106,7 @@ func test_halving_event_fires_on_the_real_date() -> void:
 
 func test_late_mode_starts_at_halving_one() -> void:
 	var sim := _sim_at("late")
+	sim.state.hashrate_override_hs = 0.0
 	assert_eq(sim.current_date(), "2012-11-28")
 	var r := sim.step_day()
 	assert_eq(r.of_type("subsidy_halved").size(), 1)

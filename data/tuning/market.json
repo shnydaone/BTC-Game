@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "notes": "Exchange trading and custody (GDD 7.5, 7.6). Read by sim/market.gd and sim/custody.gd. The historical price never moves; liquidity limits only change the player's fill price.",
+  "values": {
+    "sell_cap_fraction_of_volume": {
+      "value": 0.1,
+      "unit": "fraction of daily volume",
+      "basis": "estimate",
+      "note": "The most the player can sell (or buy) in a day, as a share of that day's real exchange volume (volume_btc in btc_daily.csv)."
+    },
+    "slippage_per_volume_share": {
+      "value": 0.5,
+      "unit": "price fraction per volume share",
+      "basis": "estimate",
+      "note": "The marginal fill moves against the player by this times the share of the day's volume traded so far. Selling 10% of the day's volume: the last coin fills 5% below the close, 2.5% below on average."
+    },
+    "exchange_fee": {
+      "value": 0.006,
+      "unit": "fraction of trade",
+      "basis": "estimate",
+      "note": "Taker fee on each trade."
+    },
+    "cold_to_exchange_days": {
+      "value": 1,
+      "unit": "days",
+      "basis": "gdd",
+      "note": "GDD 7.6: cold coins take one game day to reach the exchange."
+    },
+    "exchange_to_cold_days": {
+      "value": 1,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "Withdrawals take a day too. Coins in flight to or from a failing exchange are lost with it."
+    },
+    "exchanges": {
+      "value": {
+        "exchange_tier1": {
+          "opened_by": "mtgox_launch"
+        },
+        "exchange_tier4": {
+          "opened_on": "2011-08-18"
+        }
+      },
+      "unit": "exchange",
+      "basis": "source",
+      "note": "Exchanges the player can use in Acts 1-2, by placeholder counterparty id (parody names TBD). exchange_tier1 (Mt. Gox class) opens with the mtgox_launch event and fails with mtgox_halts_withdrawals. exchange_tier4 (Bitstamp class) launched in August 2011 (source); 2011-08-18 is its first daily candle in tools/raw. It kept operating through 2014 and 2016.",
+      "source": "https://bitcoinmagazine.com/articles/introducing-the-exchanges-bitstamp-1360800096"
+    },
+    "wallet_loss_enabled": {
+      "value": false,
+      "unit": "flag",
+      "basis": "estimate",
+      "note": "Optional: an unbacked cold wallet can be lost (dead disk). Off by default; one free backup command removes the risk."
+    },
+    "wallet_loss_daily_probability": {
+      "value": 0.0005,
+      "unit": "probability per day",
+      "basis": "estimate",
+      "note": "About a 17% chance over a year without a backup, when enabled."
+    }
+  }
+}

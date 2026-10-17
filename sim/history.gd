@@ -7,6 +7,7 @@ const SECONDS_PER_DAY: int = 86400
 const COLUMNS: PackedStringArray = [
 	"date", "price_usd", "price_source", "blocks", "height_end", "difficulty",
 	"hashrate_hs", "hashrate_hs_7d", "fees_btc", "fees_per_block_btc", "subsidy_btc", "tx_count",
+	"volume_btc",
 ]
 
 var dates: PackedStringArray = []
@@ -17,6 +18,7 @@ var difficulty: PackedFloat64Array = []
 var hashrate_hs: PackedFloat64Array = []
 var fees_btc: PackedFloat64Array = []
 var subsidy_btc: PackedFloat64Array = []
+var volume_btc: PackedFloat64Array = []  # traded on the exchange the close came from
 
 var _first_unix_day: int = 0
 
@@ -43,6 +45,7 @@ static func load_csv(path: String) -> History:
 		h.hashrate_hs.append(row[6].to_float())
 		h.fees_btc.append(row[8].to_float())
 		h.subsidy_btc.append(row[10].to_float())
+		h.volume_btc.append(row[12].to_float())
 	h._first_unix_day = unix_day(h.dates[0])
 	if not h._is_contiguous():
 		push_error("History: %s is missing days" % path)

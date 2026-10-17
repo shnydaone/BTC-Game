@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "notes": "Mining payouts (GDD 7.1). Read by sim/mining.gd.",
+  "values": {
+    "pool_fee": { "value": 0.02, "unit": "fraction of reward", "basis": "estimate", "note": "Pool operator's cut. Early pools charged 0% to 3%." },
+    "default_mode": { "value": "solo", "unit": "solo or pool", "basis": "gdd", "note": "Solo until pools exist (first_pool_block, 2010-12-16)." }
+  }
+}

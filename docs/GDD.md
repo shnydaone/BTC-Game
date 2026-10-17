@@ -112,7 +112,7 @@ Fictional product names, real-world performance as calibration targets. Exact sp
 
 | Tier | Era | Example unit (fictional name TBD) | Hashrate | Power | Notes |
 |---|---|---|---|---|---|
-| CPU | 2009-2010 | Laptop, then home desktop | ~0.8 MH/s (laptop), ~1.6 MH/s (desktop) | ~35 W (laptop), ~105 W (desktop) | The laptop you start with. The whole network ran at ~5 MH/s in 2009. Optimized miner software (late 2010) roughly triples CPU speed. |
+| CPU | 2009-2010 | Laptop, then home desktop | ~0.8 MH/s (laptop), ~1.6 MH/s (desktop) | ~35 W (laptop), ~105 W (desktop) | The laptop you start with. The whole network ran at ~5 MH/s in 2009. Bitcoin 0.3.6 (July 2010) makes CPU mining 2.4x faster. Later SSE2 and standalone miners helped AMD chips but not the Core 2 class. |
 | GPU | 2010-2012 | Open-frame GPU rig | ~340 MH/s per card | ~190 W per card, plus rig overhead | First big jump. Arrives with the first public GPU miner (Oct 2010). |
 | FPGA | 2012 | Dev-board cluster | ~800 MH/s | ~40 W | Efficient but expensive, a trap or a niche |
 | ASIC Gen 1 | 2013 | First-gen ASIC box | ~66 GH/s | ~620 W | Makes GPUs obsolete overnight |
@@ -161,7 +161,7 @@ Two buckets for BTC:
 
 | | Exchange | Cold storage |
 |---|---|---|
-| Sell speed | Instant | Transfer to exchange first (1 game day) |
+| Sell speed | Instant, up to a share of that day's real exchange volume, with slippage | Transfer to exchange first (1 game day) |
 | Risk | Counterparty: lost in an exchange failure | Safe |
 
 - Exchange failures are historical events (Mt. Gox 2014, Bitfinex hack 2016 with a socialized haircut, FTX 2022). Coins on the failed exchange are lost or cut.
@@ -188,8 +188,9 @@ Two buckets for BTC:
 
 ### 7.8 Restructuring (Chapter 11)
 
-- **Before incorporation (Act 1):** you cannot go negative. If you cannot pay power, machines shut off.
-- **After incorporation:** if cash cannot cover mandatory payments and no financing is available, or a covenant breach is not cured in time, the company enters Chapter 11.
+- **Before incorporation (Act 1):** you cannot go negative. If you cannot pay power, machines shut off. Unpaid living costs are a missed payment.
+- **Living costs are personal** in every act: an unpaid share is a missed payment, never company debt.
+- **After incorporation:** an unpaid company obligation (power, rent, the loan, repairs) starts a cure clock (auto-pause). If cash still cannot cover it when the clock runs out, or a covenant breach is not cured in time, the company enters Chapter 11.
 - **Outcome:** creditors convert debt to equity and your ownership % is cut (scaled to how underwater you are). Some rigs or sites are sold. The company keeps operating.
 - **Repeat restructurings** cut ownership again. Below 10% ownership, the board replaces you: the act ends and can be replayed.
 - Achievement: "Chapter 11 Speedrun."
@@ -231,6 +232,7 @@ Real events appear in news headlines and event cards, stated factually. Counterp
 | 2010-05-22 | Pizza Day: 10,000 BTC for two pizzas | News; pizza offer in Cypherpunk mode, regret counter | |
 | 2010-07-11 | Slashdot covers Bitcoin 0.3, a wave of new users arrives | Mining unlocks (Slashdot mode) | |
 | 2010-07 | First major exchange launches | Exchange custody unlocks, selling becomes liquid | |
+| 2010-07-29 | Bitcoin 0.3.6: total generating speedup 2.4x | CPU hashrate x2.4 | |
 | 2010-08-15 | Value overflow bug creates 184 billion BTC; patched within hours, chain repaired the next day | Brief mining disruption, codex: soft fork | |
 | 2010-12 | Pooled mining arrives | Pool option unlocks | |
 | 2011-06 | First bubble (~$30) then exchange hack (June 19); crash to ~$2 by November | Price crash | ✓ |

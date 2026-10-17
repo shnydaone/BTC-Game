@@ -18,6 +18,7 @@ Built by `tools/build_btc_daily.py`. Dates are UTC. Prices are daily closes in U
 | fees_per_block_btc | fees_btc / blocks (blank on days with no blocks) |
 | subsidy_btc | Total block subsidy that day |
 | tx_count | Transactions, including coinbase |
+| volume_btc | BTC traded that day on the exchange the close came from (Mt. Gox before 2013-01-01, Bitstamp after). 0 on days with no exchange trades. One exchange, so it understates the whole market from 2013, when Mt. Gox and others also traded. |
 
 ## Sources
 
