@@ -7,7 +7,9 @@ const READ_ELSEWHERE: Dictionary = {
 	"clock.speed_multipliers": "autoload/game_clock.gd",
 	"clock.max_days_per_frame": "autoload/game_clock.gd",
 	"clock.pause_on_difficulty_adjustment": "presentation (M3)",
-	"hardware.footprint_tiles": "facility view (M3)",
+	"hardware.footprint_tiles": "sim/readouts.gd, for the facility view",
+	"clock.replay_seconds": "scenes/ui/replay_chart.gd",
+	"clock.prologue_seconds_per_day": "autoload/game_clock.gd",
 }
 
 

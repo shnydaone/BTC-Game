@@ -10,7 +10,8 @@ const DAYS_PER_YEAR: float = 365.0
 const FIRST_OF_MONTH: String = "-01"
 
 var salary_cents: int
-var living_cents: int
+var living_situations: Dictionary = {}  # situation -> monthly cents
+var default_living: String
 var rehire_delay_days: int
 var incorporation_cents: int
 var incorporation_act: int
@@ -22,7 +23,10 @@ var savings_cents: int
 
 func _init(data: GameData) -> void:
 	salary_cents = usd_to_cents(data.tuning("finance", "salary_usd_month"))
-	living_cents = usd_to_cents(data.tuning("finance", "living_costs_usd_month"))
+	var situations: Dictionary = data.tuning("finance", "living_situations")
+	for k: String in situations:
+		living_situations[k] = usd_to_cents(situations[k])
+	default_living = data.tuning("finance", "default_living_situation")
 	rehire_delay_days = int(data.tuning("finance", "rehire_delay_days"))
 	incorporation_cents = usd_to_cents(data.tuning("finance", "incorporation_cost_usd"))
 	incorporation_act = int(data.tuning("finance", "incorporation_act"))
@@ -54,8 +58,28 @@ static func debit(state: SimState, cents: int, category: String) -> void:
 	Ledger.post(state, category, -cents)
 
 
-func living_cents_per_day() -> float:
-	return living_cents * MONTHS_PER_YEAR / DAYS_PER_YEAR
+func living_cents(state: SimState) -> int:
+	return state.finance.living_cents
+
+
+func living_cents_per_day(state: SimState) -> float:
+	return living_cents(state) * MONTHS_PER_YEAR / DAYS_PER_YEAR
+
+
+func set_living(state: SimState, situation: String) -> void:
+	state.finance.living_situation = situation
+	state.finance.living_cents = living_situations[situation]
+
+
+## The living-situation choice (decisions.md 2026-10-17): once per game, at the start.
+func choose_living(sim: Sim, situation: String) -> String:
+	if sim.state.finance.living_chosen:
+		return "already chosen"
+	if not living_situations.has(situation):
+		return "no situation %s" % situation
+	set_living(sim.state, situation)
+	sim.state.finance.living_chosen = true
+	return ""
 
 
 func step(sim: Sim, day: int, result: DayResult) -> void:
@@ -69,8 +93,8 @@ func step(sim: Sim, day: int, result: DayResult) -> void:
 		return
 	if f.employed:
 		credit(sim.state, salary_cents, "salary")
-	debit(sim.state, living_cents, "living_costs")
-	f.personal_cents_today = living_cents
+	debit(sim.state, f.living_cents, "living_costs")
+	f.personal_cents_today = f.living_cents
 	var rent: int = sim.sites.rent_cents(sim.state)
 	if rent > 0:
 		debit(sim.state, rent, "rent")

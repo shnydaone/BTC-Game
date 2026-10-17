@@ -17,7 +17,7 @@ func _feed(sim: Sim, cents_per_day: int, days: int) -> Array[Dictionary]:
 
 func test_quit_job_needs_90_days_of_covered_costs() -> void:
 	var sim := H.game("slashdot")
-	var enough: int = ceili(sim.finance.living_cents_per_day())
+	var enough: int = ceili(sim.finance.living_cents_per_day(sim.state))
 	var window: int = sim.objectives.window_days
 	var met: Array[Dictionary] = H.of_type(_feed(sim, enough, window + 88), "objective_met")
 	assert_eq(met.size(), 0, "89 days of streak")
@@ -28,7 +28,7 @@ func test_quit_job_needs_90_days_of_covered_costs() -> void:
 
 func test_a_short_month_resets_the_streak() -> void:
 	var sim := H.game("slashdot")
-	var enough: int = ceili(sim.finance.living_cents_per_day())
+	var enough: int = ceili(sim.finance.living_cents_per_day(sim.state))
 	_feed(sim, enough, sim.objectives.window_days + 60)
 	assert_gt(sim.state.objectives.streak, 0)
 	_feed(sim, 0, sim.objectives.window_days)

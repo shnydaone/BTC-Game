@@ -4,7 +4,7 @@ extends RefCounted
 ## save/load serializes it through Serial. Money: BTC in integer satoshis, USD in
 ## integer cents (decisions.md 2026-10-16).
 
-const SCHEMA_VERSION: int = 3
+const SCHEMA_VERSION: int = 4
 
 var schema_version: int = SCHEMA_VERSION
 var mode_id: String = ""
@@ -87,6 +87,9 @@ class FinanceState:
 	var loan_balance_cents: int = 0
 	var loan_payment_cents: int = 0
 	var missed_cents: int = 0  # personal payments that could not be made
+	var living_situation: String = ""
+	var living_cents: int = 0  # monthly living costs for the chosen situation
+	var living_chosen: bool = false  # the player picks once, at the start
 	var personal_cents_today: int = 0  # living costs charged today (personal, never a company debt)
 	var overdue_since_day: int = -1  # first day the company was short; starts the cure clock
 
@@ -152,6 +155,7 @@ class OffersState:
 	var next_offer_day: int = -1
 	var spent_sats: int = 0  # the regret counter's base: BTC spent on goods
 	var decided: int = 0  # offers the player accepted or declined
+	var pizza_milestone_seen: bool = false
 
 
 class ObjectivesState:

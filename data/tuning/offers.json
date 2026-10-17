@@ -2,10 +2,45 @@
   "schema_version": 1,
   "notes": "Forum trade offers and the pizza offer (decisions.md 2026-10-16). Read by sim/offers.gd. Accepting an offer spends BTC on goods the player would have bought anyway, so it saves that much cash; the regret counter tracks what the coins are worth later.",
   "values": {
-    "mean_days_between_offers": { "value": 45, "unit": "days", "basis": "estimate", "note": "Offers arrive at random once the player mines and BTC has a price." },
-    "offer_value_usd": { "value": [10, 150], "unit": "USD, uniform range", "basis": "estimate", "note": "Goods on offer (a pizza, a used graphics card, a T-shirt), priced in BTC at that day's close." },
-    "offer_expiry_days": { "value": 7, "unit": "days", "basis": "estimate", "note": "An offer not taken in this many days lapses." },
-    "pizza_btc": { "value": 10000, "unit": "BTC", "basis": "source", "source": "https://bitcointalk.org/index.php?topic=137.0", "note": "The pizza_day trade: 10,000 BTC for two pizzas. Offered only to a player holding that much." },
-    "pizza_value_usd": { "value": 30, "unit": "USD", "basis": "estimate", "note": "Cash the two pizzas save the player." }
+    "mean_days_between_offers": {
+      "value": 45,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "Offers arrive at random once the player mines and BTC has a price."
+    },
+    "offer_value_usd": {
+      "value": [
+        10,
+        150
+      ],
+      "unit": "USD, uniform range",
+      "basis": "estimate",
+      "note": "Goods on offer (a pizza, a used graphics card, a T-shirt), priced in BTC at that day's close."
+    },
+    "offer_expiry_days": {
+      "value": 7,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "An offer not taken in this many days lapses."
+    },
+    "pizza_btc": {
+      "value": 10000,
+      "unit": "BTC",
+      "basis": "source",
+      "source": "https://bitcointalk.org/index.php?topic=137.0",
+      "note": "The pizza_day trade: 10,000 BTC for two pizzas. Offered only to a player holding that much."
+    },
+    "pizza_value_usd": {
+      "value": 30,
+      "unit": "USD",
+      "basis": "estimate",
+      "note": "Cash the two pizzas save the player."
+    },
+    "pizza_milestone_usd": {
+      "value": 1000000,
+      "unit": "USD",
+      "basis": "locked",
+      "note": "decisions.md 2026-10-17: the first day the 10,000 pizza BTC are worth this much, the game replays their climb (the pizza regret replay)."
+    }
   }
 }

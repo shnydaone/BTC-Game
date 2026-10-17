@@ -22,6 +22,15 @@ func after_each() -> void:
 	Save.save_dir = Save.SAVE_DIR
 
 
+## Starts a game with the moment queue off, for tests about other things.
+func _start(mode_id: String) -> void:
+	main.start_new_game(mode_id)
+	await wait_process_frames(2)
+	var screen: Node = _find(main, "GameScreen")
+	screen.moments.clear()
+	screen.moments.enabled = false
+
+
 ## First descendant whose script class_name is `type`.
 func _find(node: Node, type: String) -> Node:
 	for child: Node in node.find_children("*", "", true, false):
@@ -33,8 +42,7 @@ func _find(node: Node, type: String) -> Node:
 
 func test_title_then_new_game() -> void:
 	assert_not_null(_find(main, "TitleScreen"))
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	assert_not_null(_find(main, "GameScreen"))
 	assert_not_null(GameClock.sim)
 	assert_true(GameClock.paused, "a new game starts paused")
@@ -42,8 +50,7 @@ func test_title_then_new_game() -> void:
 
 
 func test_top_bar_follows_the_sim() -> void:
-	main.start_new_game("cypherpunk")
-	await wait_process_frames(2)
+	await _start("cypherpunk")
 	GameClock.step_days(700)
 	await wait_process_frames(1)
 	var bar: Node = _find(main, "TopBar")
@@ -56,8 +63,7 @@ func test_top_bar_follows_the_sim() -> void:
 
 
 func test_every_run_in_the_shell_reaches_act_2() -> void:
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	var events: Dictionary = {}
 	var count := func(e: Dictionary) -> void: events[e["type"]] = true
 	EventBus.sim_event.connect(count)
@@ -71,8 +77,7 @@ func test_every_run_in_the_shell_reaches_act_2() -> void:
 
 
 func test_save_and_continue() -> void:
-	main.start_new_game("cypherpunk")
-	await wait_process_frames(2)
+	await _start("cypherpunk")
 	GameClock.step_days(200)
 	var date: String = Readouts.date(GameClock.sim)
 	assert_eq(Save.save_game(GameClock.sim, TEST_SLOT), OK)
@@ -87,8 +92,7 @@ func test_save_and_continue() -> void:
 
 
 func test_keys_pause_and_change_speed() -> void:
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	var key := InputEventKey.new()
 	key.keycode = KEY_3
 	key.pressed = true
@@ -105,8 +109,7 @@ func test_keys_pause_and_change_speed() -> void:
 
 
 func test_escape_opens_the_pause_menu() -> void:
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	GameClock.set_paused(false)
 	var esc := InputEventAction.new()
 	esc.action = "ui_cancel"
@@ -133,8 +136,7 @@ func _confirm(screen: Node) -> void:
 
 
 func test_every_tab_builds_mid_game() -> void:
-	main.start_new_game("cypherpunk")
-	await wait_process_frames(2)
+	await _start("cypherpunk")
 	GameClock.step_days(1500)
 	var screen: Node = _find(main, "GameScreen")
 	for i: int in RightPanel.TABS.size():
@@ -144,8 +146,7 @@ func test_every_tab_builds_mid_game() -> void:
 
 
 func test_buying_hardware_through_the_panel() -> void:
-	main.start_new_game("cypherpunk")
-	await wait_process_frames(2)
+	await _start("cypherpunk")
 	GameClock.step_days(640)
 	GameClock.sim.state.finance.cash_cents += 1_000_000
 	var screen: Node = _find(main, "GameScreen")
@@ -160,8 +161,7 @@ func test_buying_hardware_through_the_panel() -> void:
 
 
 func test_cancel_does_nothing() -> void:
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	var screen: Node = _find(main, "GameScreen")
 	screen.right.show_tab(3)
 	await wait_process_frames(1)
@@ -174,8 +174,7 @@ func test_cancel_does_nothing() -> void:
 
 
 func test_selling_btc_through_the_treasury() -> void:
-	main.start_new_game("cypherpunk")
-	await wait_process_frames(2)
+	await _start("cypherpunk")
 	GameClock.step_days(800)
 	var screen: Node = _find(main, "GameScreen")
 	screen.right.show_tab(4)
@@ -192,8 +191,7 @@ func test_selling_btc_through_the_treasury() -> void:
 
 
 func test_news_and_inbox_collect_messages() -> void:
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	var screen: Node = _find(main, "GameScreen")
 	GameClock.step_days(700)
 	assert_gt(screen.inbox.messages.size(), 5)
@@ -206,8 +204,7 @@ func test_news_and_inbox_collect_messages() -> void:
 
 
 func test_overlays_cover_the_screen() -> void:
-	main.start_new_game("slashdot")
-	await wait_process_frames(2)
+	await _start("slashdot")
 	var screen: Control = _find(main, "GameScreen")
 	screen.open_inbox()
 	await wait_process_frames(2)

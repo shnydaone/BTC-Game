@@ -55,6 +55,14 @@ func apply(cmd: Dictionary) -> Dictionary:
 	return result
 
 
+## True during the Slashdot prologue: the mode has one and mining has not opened yet.
+func in_prologue() -> bool:
+	if sim == null:
+		return false
+	var mode: Dictionary = Data.game.tuning("modes", sim.state.mode_id)
+	return bool(mode["prologue"]) and not sim.state.events.features.has("mining")
+
+
 ## Advances n days at once (tests and the debug fast-forward).
 func step_days(n: int) -> void:
 	for i: int in n:
@@ -67,11 +75,11 @@ func _process(delta: float) -> void:
 	if sim == null or paused or sim.is_finished():
 		return
 	var game := Data.game
-	var seconds_per_day: float = game.tuning("clock", "seconds_per_day_1x")
+	var seconds_per_day: float = game.tuning("clock", "prologue_seconds_per_day" if in_prologue() else "seconds_per_day_1x")
 	var max_days: int = game.tuning("clock", "max_days_per_frame")
 	_accumulated += delta * float(speeds()[speed_index])
 	var days: int = 0
-	while _accumulated >= seconds_per_day and days < max_days and not sim.is_finished():
+	while _accumulated >= seconds_per_day and days < max_days and not sim.is_finished() and not paused:
 		_accumulated -= seconds_per_day
 		days += 1
 		EventBus.relay(sim.step_day())

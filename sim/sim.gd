@@ -57,6 +57,7 @@ static func new_game(game_data: GameData, mode_id: String, seed_value: int) -> S
 	s.network = sim.network.initial_state(s.day_index)
 	s.objectives.act = int(mode["start_act"])
 	s.finance.cash_cents = sim.finance.savings_cents
+	sim.finance.set_living(s, sim.finance.default_living)
 	s.hardware.site_id = sim.sites.starting_site
 	s.mining.mode = sim.mining.default_mode
 	s.market.policy = game_data.tuning("treasury", "default_policy")

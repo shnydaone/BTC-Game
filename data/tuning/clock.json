@@ -2,9 +2,46 @@
   "schema_version": 1,
   "notes": "Game clock feel values. Read by autoload/game_clock.gd. Validate with tools/check_tuning.py.",
   "values": {
-    "seconds_per_day_1x": { "value": 2.0, "unit": "s", "basis": "gdd", "note": "GDD 5: one game day per 2 real seconds at 1x." },
-    "speed_multipliers": { "value": [1, 2, 4, 8], "unit": "x", "basis": "gdd", "note": "GDD 5: 1x, 2x, 4x, 8x. Index 0 is the default speed." },
-    "max_days_per_frame": { "value": 4, "unit": "days", "basis": "estimate", "note": "Cap on sim days per rendered frame so a long hitch never runs a month in one frame." },
-    "pause_on_difficulty_adjustment": { "value": false, "unit": "flag", "basis": "locked", "note": "decisions.md 2026-10-16: about 400 adjustments per campaign, so no auto-pause by default." }
+    "seconds_per_day_1x": {
+      "value": 2.0,
+      "unit": "s",
+      "basis": "gdd",
+      "note": "GDD 5: one game day per 2 real seconds at 1x."
+    },
+    "speed_multipliers": {
+      "value": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "unit": "x",
+      "basis": "gdd",
+      "note": "GDD 5: 1x, 2x, 4x, 8x. Index 0 is the default speed."
+    },
+    "max_days_per_frame": {
+      "value": 4,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "Cap on sim days per rendered frame so a long hitch never runs a month in one frame."
+    },
+    "pause_on_difficulty_adjustment": {
+      "value": false,
+      "unit": "flag",
+      "basis": "locked",
+      "note": "decisions.md 2026-10-16: about 400 adjustments per campaign, so no auto-pause by default."
+    },
+    "prologue_seconds_per_day": {
+      "value": 0.35,
+      "unit": "s",
+      "basis": "estimate",
+      "note": "Slashdot prologue pace at 1x: about 3 minutes for Jan 2009 to Jul 2010, before speed buttons and pauses (GDD 5)."
+    },
+    "replay_seconds": {
+      "value": 4.0,
+      "unit": "s",
+      "basis": "gdd",
+      "note": "GDD 10: the replay line draws itself over 3 to 5 seconds."
+    }
   }
 }
