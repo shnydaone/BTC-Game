@@ -85,6 +85,21 @@
       ]
     },
     {
+      "id": "client_036_speedup",
+      "date": "2010-07-29",
+      "act": 1,
+      "category": "protocol",
+      "headline": "Bitcoin 0.3.6 makes CPU mining 2.4x faster",
+      "summary": "An urgent upgrade, version 0.3.6, also ships SHA-256 optimizations. Its release notes put the total generating speedup at 2.4x.",
+      "effects": [{ "type": "hardware_speedup", "tier": "CPU", "multiplier": 2.4 }],
+      "auto_pause": false,
+      "replay": null,
+      "figures": [],
+      "sources": [
+        { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/threads/145/", "publisher": "Satoshi Nakamoto Institute", "title": "*** ALERT *** Upgrade to 0.3.6", "accessed": "2026-10-17" }
+      ]
+    },
+    {
       "id": "value_overflow",
       "date": "2010-08-15",
       "act": 1,

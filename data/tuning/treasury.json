@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "notes": "Treasury policy (GDD 7.6). Read by sim/treasury.gd.",
+  "values": {
+    "default_policy": { "value": "hodl", "unit": "hodl, sell_percent or cover_costs", "basis": "gdd", "note": "GDD 7.6: sell X% of production daily, sell only to cover costs, or HODL everything." },
+    "cover_costs_buffer_days": { "value": 60, "unit": "days", "basis": "estimate", "note": "cover_costs sells exchange BTC whenever cash falls below this many days of running costs." }
+  }
+}

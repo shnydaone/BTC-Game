@@ -34,10 +34,11 @@
       "power_basis": "chip_tdp",
       "launch_price_usd": null,
       "price_note": "A generic desktop; its price is a tuning value.",
-      "spec_note": "Four cores at 400 khash/s each. The 4-way SSE2 client of July 2010 reached about 4.4 MH/s, and optimized miners about 11 MH/s.",
+      "spec_note": "Four cores at 400 khash/s each on the stock client before 0.3.6. After 0.3.6 (July 2010, 2.4x faster, event client_036_speedup) a Q6600 measured about 4.4 MH/s. The 4-way SSE2 patch made the Q6600 slower; optimized miners reached about 11 MH/s in 2011.",
       "sources": [
         { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/135/", "publisher": "Satoshi Nakamoto Institute", "title": "How fast do the fastest computers generate bitcoins? (Satoshi, 2010-06-22)", "accessed": "2026-10-16" },
         { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/threads/152/", "publisher": "Satoshi Nakamoto Institute", "title": "4 hashes parallel on SSE2 CPUs for 0.3.6", "accessed": "2026-10-16" },
+        { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/threads/145/", "publisher": "Satoshi Nakamoto Institute", "title": "*** ALERT *** Upgrade to 0.3.6", "accessed": "2026-10-17" },
         { "url": "https://en.bitcoin.it/wiki/Non-specialized_hardware_comparison", "publisher": "Bitcoin Wiki", "title": "Non-specialized hardware comparison", "accessed": "2026-10-16" }
       ]
     },

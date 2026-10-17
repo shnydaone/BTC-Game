@@ -66,6 +66,8 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
 - Run tests headless before every commit (`-ginclude_subdirs` is needed for `tests/unit` and `tests/sim`):
   `godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit`
 - Validate data after editing it: `python tools/check_events.py`, `python tools/check_hardware.py`, `python tools/check_tuning.py`.
+- CI (`.github/workflows/tests.yml`) runs the validators, the import pass and GUT headless on every push to main and every pull request.
+- Player actions go through `Sim.apply(command)` (`sim/commands.gd`); bots and UI use the same commands. `SimState.hashrate_override_hs` replaces the fleet's hashrate for tests and the debug panel.
 - Bot balance runs (to be built in M2) play the whole campaign headless and write CSV summaries:
   `godot --headless --script res://tests/sim/run_bots.gd`
 - See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.

@@ -1,8 +1,10 @@
 extends Node
 ## Signals from the sim to presentation. Scenes and UI listen here and never compute
-## economics. Signal names match DayResult event types.
+## economics. sim_event carries every DayResult event (its "type" is a past-tense name
+## such as block_found or exchange_failed); the typed signals cover the common ones.
 
 signal day_simulated(result: DayResult)
+signal sim_event(event: Dictionary)
 signal difficulty_adjusted(height: int, difficulty: float, change: float)
 signal subsidy_halved(height: int, subsidy_sats: int)
 signal speed_changed(speed_index: int, paused: bool)
@@ -15,6 +17,5 @@ func relay(result: DayResult) -> void:
 				difficulty_adjusted.emit(e["height"], e["difficulty"], e["change"])
 			"subsidy_halved":
 				subsidy_halved.emit(e["height"], e["subsidy_sats"])
-			_:
-				push_warning("EventBus: no signal for sim event %s" % e["type"])
+		sim_event.emit(e)
 	day_simulated.emit(result)

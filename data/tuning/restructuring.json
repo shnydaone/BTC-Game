@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "notes": "Chapter 11 after incorporation (GDD 7.8). Read by sim/restructuring.gd.",
+  "values": {
+    "ownership_floor": {
+      "value": 0.1,
+      "unit": "fraction",
+      "basis": "locked",
+      "note": "CLAUDE.md: below 10% ownership the board replaces you and the act is lost."
+    },
+    "dilution_base": {
+      "value": 0.25,
+      "unit": "fraction of ownership",
+      "basis": "estimate",
+      "note": "Every restructuring cuts ownership by at least this share."
+    },
+    "dilution_per_leverage": {
+      "value": 0.5,
+      "unit": "fraction per debt/assets",
+      "basis": "estimate",
+      "note": "Extra cut scaled to how underwater the company is: debt divided by assets at fair value."
+    },
+    "dilution_max": {
+      "value": 0.9,
+      "unit": "fraction of ownership",
+      "basis": "estimate",
+      "note": "Cap on a single cut."
+    },
+    "fleet_sold_fraction": {
+      "value": 0.25,
+      "unit": "fraction of machines",
+      "basis": "estimate",
+      "note": "Creditors sell this share of the fleet at used prices (GDD 7.8: some rigs are sold)."
+    },
+    "cure_days": {
+      "value": 14,
+      "unit": "days",
+      "basis": "estimate",
+      "note": "GDD 7.7: a missed company payment starts a cure clock (auto-pause). Chapter 11 follows if the company is still short when it runs out."
+    }
+  }
+}

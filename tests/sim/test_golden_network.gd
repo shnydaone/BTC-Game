@@ -16,6 +16,7 @@ var adjustments: int = 0
 func before_all() -> void:
 	data = GameData.shared()
 	var sim := Sim.new_game(data, "cypherpunk", 1)
+	sim.state.hashrate_override_hs = 0.0
 	while not sim.is_finished():
 		var r := sim.step_day()
 		var n := sim.state.network

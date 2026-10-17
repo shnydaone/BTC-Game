@@ -2,20 +2,55 @@
   "schema_version": 1,
   "notes": "Entry modes (decisions.md 2026-10-16). The history is the same in every mode; only the player's starting point changes. Scores are compared within a mode only. Starting money and hardware arrive with the finance and hardware systems in M2 PR 2.",
   "values": {
-    "default_mode": { "value": "slashdot", "unit": "mode id", "basis": "locked", "note": "Slashdot is the default campaign." },
+    "default_mode": {
+      "value": "slashdot",
+      "unit": "mode id",
+      "basis": "locked",
+      "note": "Slashdot is the default campaign."
+    },
     "cypherpunk": {
-      "value": { "clock_start": "2009-01-03", "mining_unlocked_at_start": true, "prologue": false, "mentor": true },
-      "unit": "mode", "basis": "locked",
+      "value": {
+        "clock_start": "2009-01-03",
+        "mining_unlocked_at_start": true,
+        "prologue": false,
+        "mentor": true,
+        "start_act": 1,
+        "starting_hardware": [
+          "cpu_laptop"
+        ]
+      },
+      "unit": "mode",
+      "basis": "locked",
       "note": "Mine from the Genesis block. Easy mode, labeled honestly: a laptop left on through 2009 makes the player a whale."
     },
     "slashdot": {
-      "value": { "clock_start": "2009-01-03", "mining_unlocked_at_start": false, "prologue": true, "mentor": true },
-      "unit": "mode", "basis": "locked",
+      "value": {
+        "clock_start": "2009-01-03",
+        "mining_unlocked_at_start": false,
+        "prologue": true,
+        "mentor": true,
+        "start_act": 1,
+        "starting_hardware": [
+          "cpu_laptop"
+        ]
+      },
+      "unit": "mode",
+      "basis": "locked",
       "note": "Clock starts at Genesis with a fast prologue. Mining unlocks with the slashdot_v03 event (2010-07-11) in historical.json."
     },
     "late": {
-      "value": { "clock_start": "2012-11-28", "mining_unlocked_at_start": true, "prologue": false, "mentor": false },
-      "unit": "mode", "basis": "locked",
+      "value": {
+        "clock_start": "2012-11-28",
+        "mining_unlocked_at_start": true,
+        "prologue": false,
+        "mentor": false,
+        "start_act": 2,
+        "starting_hardware": [
+          "cpu_laptop"
+        ]
+      },
+      "unit": "mode",
+      "basis": "locked",
       "note": "Late to the party: starts at halving 1, the first day of Act 2. Hard mode, no mentor."
     }
   }
