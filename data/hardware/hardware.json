@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "notes": "Mining hardware calibrated on real units. Facts only: hashrate (H/s), power (W), first ship date and launch price, each with sources. calibration_reference names the real unit for our reference and is never shown in game; display names are parody names, still to be chosen. Game-feel values (failure rates, footprint, lead times, depreciation, used-market discount, rig overhead) live in data/tuning. Validate with tools/check_hardware.py.",
+  "units": [
+    {
+      "id": "cpu_laptop",
+      "tier": "CPU",
+      "name": null,
+      "calibration_reference": "2009 Core 2 Duo laptop on the stock Satoshi client",
+      "available_from": "2009-01-03",
+      "available_precision": "day",
+      "unlock_event": "genesis_block",
+      "hashrate_hs": 800000,
+      "power_w": 35,
+      "power_basis": "chip_tdp",
+      "launch_price_usd": null,
+      "price_note": "The starting machine. A purchase price, if needed, is a tuning value.",
+      "spec_note": "Two cores at Satoshi's typical 400 khash/s per processor. 2010 laptops on the stock client measured 1.5-1.8 MH/s at 35 W.",
+      "sources": [
+        { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/135/", "publisher": "Satoshi Nakamoto Institute", "title": "How fast do the fastest computers generate bitcoins? (Satoshi, 2010-06-22)", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/Non-specialized_hardware_comparison", "publisher": "Bitcoin Wiki", "title": "Non-specialized hardware comparison", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "cpu_desktop",
+      "tier": "CPU",
+      "name": null,
+      "calibration_reference": "Core 2 Quad Q6600 desktop on the stock Satoshi client",
+      "available_from": "2009-01-03",
+      "available_precision": "day",
+      "unlock_event": null,
+      "hashrate_hs": 1600000,
+      "power_w": 105,
+      "power_basis": "chip_tdp",
+      "launch_price_usd": null,
+      "price_note": "A generic desktop; its price is a tuning value.",
+      "spec_note": "Four cores at 400 khash/s each. The 4-way SSE2 client of July 2010 reached about 4.4 MH/s, and optimized miners about 11 MH/s.",
+      "sources": [
+        { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/135/", "publisher": "Satoshi Nakamoto Institute", "title": "How fast do the fastest computers generate bitcoins? (Satoshi, 2010-06-22)", "accessed": "2026-10-16" },
+        { "url": "https://satoshi.nakamotoinstitute.org/posts/bitcointalk/threads/152/", "publisher": "Satoshi Nakamoto Institute", "title": "4 hashes parallel on SSE2 CPUs for 0.3.6", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/Non-specialized_hardware_comparison", "publisher": "Bitcoin Wiki", "title": "Non-specialized hardware comparison", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "gpu_card",
+      "tier": "GPU",
+      "name": null,
+      "calibration_reference": "ATI Radeon HD 5870, one card",
+      "available_from": "2010-10-01",
+      "available_precision": "day",
+      "unlock_event": null,
+      "hashrate_hs": 340000000,
+      "power_w": 188,
+      "power_basis": "board_tdp",
+      "launch_price_usd": 379,
+      "price_note": "Card launch price (2009-09-23). Rig frame, motherboard and PSU overhead are tuning values.",
+      "spec_note": "Available from the release of the first public OpenCL miner (poclbm). Overclocked cards reached 400-440 MH/s.",
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/Non-specialized_hardware_comparison", "publisher": "Bitcoin Wiki", "title": "Non-specialized hardware comparison", "accessed": "2026-10-16" },
+        { "url": "https://en.bitcoin.it/wiki/History", "publisher": "Bitcoin Wiki", "title": "History", "accessed": "2026-10-16" },
+        { "url": "https://en.wikipedia.org/wiki/Radeon_HD_5000_series", "publisher": "Wikipedia", "title": "Radeon HD 5000 series", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "fpga_board",
+      "tier": "FPGA",
+      "name": null,
+      "calibration_reference": "BTCFPGA ModMiner Quad",
+      "available_from": "2012-06-08",
+      "available_precision": "day",
+      "unlock_event": null,
+      "hashrate_hs": 800000000,
+      "power_w": 40,
+      "power_basis": "maker_spec",
+      "launch_price_usd": 1069,
+      "price_note": "Price listed in January 2013. The June 2012 launch price was about $1,100 but is not confirmed.",
+      "spec_note": "The maker advertised 840 MH/s at 40 W; the wiki lists 800 MH/s.",
+      "sources": [
+        { "url": "https://en.bitcoin.it/wiki/Mining_hardware_comparison", "publisher": "Bitcoin Wiki", "title": "Mining hardware comparison", "accessed": "2026-10-16" },
+        { "url": "https://bitcointalk.org/index.php?topic=79637.80", "publisher": "Bitcointalk (BTCFPGA)", "title": "High Efficiency FPGA & ASIC Bitcoin Mining Devices, page 5", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen1",
+      "tier": "ASIC Gen 1",
+      "name": null,
+      "calibration_reference": "Avalon batch 1",
+      "available_from": "2013-01-19",
+      "available_precision": "day",
+      "unlock_event": "first_asics_ship",
+      "hashrate_hs": 66300000000,
+      "power_w": 620,
+      "power_basis": "wall",
+      "launch_price_usd": 1299,
+      "price_note": null,
+      "spec_note": "Advertised at 60 GH/s; delivered units measured 66-68 GH/s.",
+      "sources": [
+        { "url": "https://garzikrants.blogspot.com/2013/02/avalon-miner-power-usage.html", "publisher": "Jeff Garzik", "title": "Avalon miner: power usage", "accessed": "2026-10-16" },
+        { "url": "https://bitcoinmagazine.com/business/avalon-ships-bitcoins-first-consumer-asics-1358905223", "publisher": "Bitcoin Magazine", "title": "Avalon Ships Bitcoin's First Consumer ASICs", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen2",
+      "tier": "ASIC Gen 2",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S5",
+      "available_from": "2014-12-27",
+      "available_precision": "day",
+      "unlock_event": null,
+      "hashrate_hs": 1155000000000,
+      "power_w": 590,
+      "power_basis": "wall",
+      "launch_price_usd": 418,
+      "price_note": "Batch 1 price after a same-day cut from $450. Power supply not included.",
+      "spec_note": null,
+      "sources": [
+        { "url": "https://bitcointalk.org/index.php?topic=902305.0", "publisher": "Bitcointalk (Bitmain)", "title": "ANTMINER S5: 1155GH, In Stock", "accessed": "2026-10-16" },
+        { "url": "https://bitcointalk.org/index.php?topic=902305.60", "publisher": "Bitcointalk (Bitmain)", "title": "ANTMINER S5: 1155GH, In Stock, page 4", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen2b",
+      "tier": "ASIC Gen 2b",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S7 batch 1",
+      "available_from": "2015-10-01",
+      "available_precision": "approximate",
+      "unlock_event": null,
+      "hashrate_hs": 4860000000000,
+      "power_w": 1210,
+      "power_basis": "wall",
+      "launch_price_usd": 1823,
+      "price_note": "Batch 1 price including shipping. Power supply not included.",
+      "spec_note": "Batch 1 was due to ship from the last week of September to the first week of October 2015.",
+      "sources": [
+        { "url": "https://bitcointalk.org/index.php?topic=1165651.0", "publisher": "Bitcointalk", "title": "Bitmain: Antminer S7", "accessed": "2026-10-16" },
+        { "url": "https://bitcoinist.com/exclusive-1st-review-bitmain-antminer-s7-4-8-ths-using-1250-watts/", "publisher": "Bitcoinist", "title": "Exclusive 1st Review: Bitmain Antminer S7", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen3",
+      "tier": "ASIC Gen 3",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S9 batch 1",
+      "available_from": "2016-06-12",
+      "available_precision": "day",
+      "unlock_event": null,
+      "hashrate_hs": 14000000000000,
+      "power_w": 1375,
+      "power_basis": "wall",
+      "launch_price_usd": 2100,
+      "price_note": "Batch 1 price. Power supply likely sold separately.",
+      "spec_note": "Rated 14 TH/s; some batch 1 units ran at 12-13.5 TH/s. Later 2016 batches were rated 11.85-12.93 TH/s.",
+      "sources": [
+        { "url": "https://bitcointalk.org/index.php?topic=1493601.0", "publisher": "Bitcointalk (Bitmain)", "title": "Bitmain's Released Antminer S9, World's First 16nm Miner Ready to Order", "accessed": "2026-10-16" },
+        { "url": "https://news.dinbits.com/2016/06/life-after-bitcoin-halving-bitmains.html", "publisher": "Dinbits", "title": "Life After the Bitcoin Halving, BitMain's AntMiner S9 Miner", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen3b",
+      "tier": "ASIC Gen 3b",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S17 Pro (53 TH/s)",
+      "available_from": "2019-05-01",
+      "available_precision": "month",
+      "unlock_event": null,
+      "hashrate_hs": 53000000000000,
+      "power_w": 2094,
+      "power_basis": "wall",
+      "launch_price_usd": null,
+      "price_note": "Direct launch price not confirmed (about $2,340 implied by a reseller post). Set in tuning.",
+      "spec_note": "On sale 2019-04-09; the first batch shipped in May 2019.",
+      "sources": [
+        { "url": "https://bitcoinmagazine.com/business/bitmain-reveals-specifications-for-its-profitable-antminer-17-series", "publisher": "Bitcoin Magazine", "title": "Bitmain Reveals Specifications For Its 'Profitable' Antminer 17 Series", "accessed": "2026-10-16" },
+        { "url": "https://www.coindesk.com/markets/2019/05/03/bitcoin-minings-new-bidding-war", "publisher": "CoinDesk", "title": "Bitcoin Mining's New Bidding War", "accessed": "2026-10-16" },
+        { "url": "https://www.asicminervalue.com/miners/bitmain/antminer-s17-pro-53th", "publisher": "ASIC Miner Value", "title": "Bitmain Antminer S17 Pro (53Th)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen4",
+      "tier": "ASIC Gen 4",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S19 Pro (110 TH/s)",
+      "available_from": "2020-05-11",
+      "available_precision": "approximate",
+      "unlock_event": null,
+      "hashrate_hs": 110000000000000,
+      "power_w": 3250,
+      "power_basis": "wall",
+      "launch_price_usd": 2920,
+      "price_note": "First sale round, March 2020.",
+      "spec_note": "First units were scheduled to ship May 11-20, 2020.",
+      "sources": [
+        { "url": "https://cointelegraph.com/news/bitmain-s19-antminers-sell-out-wont-ship-until-may-11", "publisher": "Cointelegraph", "title": "Bitmain S19 Antminers Sell Out, Won't Ship Until May 11", "accessed": "2026-10-16" },
+        { "url": "https://www.asicminervalue.com/miners/bitmain/antminer-s19-pro-110th", "publisher": "ASIC Miner Value", "title": "Bitmain Antminer S19 Pro (110Th)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen5",
+      "tier": "ASIC Gen 5",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S19 XP (140 TH/s)",
+      "available_from": "2022-07-01",
+      "available_precision": "month",
+      "unlock_event": null,
+      "hashrate_hs": 140000000000000,
+      "power_w": 3010,
+      "power_basis": "wall",
+      "launch_price_usd": 10500,
+      "price_note": "Bulk pre-order price at the November 2021 announcement ($75/TH), set at the bull-market peak.",
+      "spec_note": "First North American deliveries came in July and August 2022.",
+      "sources": [
+        { "url": "https://hashrateindex.com/blog/bitmains-antminer-s19xp-new-bitcoin-miner/", "publisher": "Hashrate Index", "title": "What is the Antminer S19XP?", "accessed": "2026-10-16" },
+        { "url": "https://hashrateindex.com/blog/antminer-s19-xp-prices-are-finally-dropping-but-theres-more-room-to-fall/", "publisher": "Hashrate Index", "title": "Antminer S19 XP Prices Finally Cool Off", "accessed": "2026-10-16" },
+        { "url": "https://www.asicminervalue.com/miners/bitmain/antminer-s19-xp-140th", "publisher": "ASIC Miner Value", "title": "Bitmain Antminer S19 XP (140Th)", "accessed": "2026-10-16" }
+      ]
+    },
+    {
+      "id": "asic_gen5b",
+      "tier": "ASIC Gen 5b",
+      "name": null,
+      "calibration_reference": "Bitmain Antminer S21 (200 TH/s)",
+      "available_from": "2024-02-01",
+      "available_precision": "month",
+      "unlock_event": null,
+      "hashrate_hs": 200000000000000,
+      "power_w": 3500,
+      "power_basis": "wall",
+      "launch_price_usd": 2800,
+      "price_note": "Phase-1 bulk pre-order price at the September 2023 announcement ($14/TH).",
+      "spec_note": "Bitmain planned first shipments for December 2023; the release is generally listed as February 2024.",
+      "sources": [
+        { "url": "https://hashrateindex.com/blog/what-is-the-antminer-s21-everything-to-know-about-bitmains-latest-asic-miner/", "publisher": "Hashrate Index", "title": "What is the Antminer S21?", "accessed": "2026-10-16" },
+        { "url": "https://www.asicminervalue.com/miners/bitmain/antminer-s21-200th", "publisher": "ASIC Miner Value", "title": "Bitmain Antminer S21 (200Th)", "accessed": "2026-10-16" }
+      ]
+    }
+  ]
+}

@@ -90,18 +90,21 @@ One model runs for the entire game. In historical acts the world's hashrate come
 
 ### 7.2 Hardware
 
-Fictional product names, real-world performance as calibration targets. Specs checked in M1 against the Bitcoin wiki hardware tables and manufacturer specs.
+Fictional product names, real-world performance as calibration targets. Exact specs, ship dates, launch prices and sources live in `data/hardware/hardware.json` (checked in M1).
 
 | Tier | Era | Example unit (fictional name TBD) | Hashrate | Power | Notes |
 |---|---|---|---|---|---|
-| CPU | 2009-2010 | Laptop, then home desktop | ~0.5-1 MH/s (laptop), ~2 MH/s (desktop) | ~35 W (laptop), ~65-100 W (desktop) | The laptop you start with. The whole network ran at ~5 MH/s in 2009. Optimized miner software (late 2010) roughly triples CPU speed. |
-| GPU | 2010-2012 | Open-frame GPU rig | ~400 MH/s per card | ~250 W per card | First big jump |
-| FPGA | 2011-2012 | Dev-board cluster | ~800 MH/s | ~40 W | Efficient but expensive, a trap or a niche |
-| ASIC Gen 1 | 2013 | First-gen ASIC box | ~60 GH/s | ~600 W | Makes GPUs obsolete overnight |
-| ASIC Gen 2 | 2014-2015 | Second-gen | ~1 TH/s | ~550 W | |
-| ASIC Gen 3 | 2016 | The workhorse | ~12 TH/s | ~1,200 W | ~100 J/TH, lasts for years. Later batches (2017) reach 13.5-14 TH/s. |
-| ASIC Gen 4 | 2020-2021 | Modern | ~100 TH/s | ~3,250 W | ~30-34 J/TH. The best 2019 units (S17 class) ran ~50 TH/s at ~40 J/TH. |
-| ASIC Gen 5 | 2022-2024 | Current | ~140-200 TH/s | ~3,000-3,500 W | ~17.5-21.5 J/TH. ~15 J/TH arrives after the 2024 halving (Act 5). |
+| CPU | 2009-2010 | Laptop, then home desktop | ~0.8 MH/s (laptop), ~1.6 MH/s (desktop) | ~35 W (laptop), ~105 W (desktop) | The laptop you start with. The whole network ran at ~5 MH/s in 2009. Optimized miner software (late 2010) roughly triples CPU speed. |
+| GPU | 2010-2012 | Open-frame GPU rig | ~340 MH/s per card | ~190 W per card, plus rig overhead | First big jump. Arrives with the first public GPU miner (Oct 2010). |
+| FPGA | 2012 | Dev-board cluster | ~800 MH/s | ~40 W | Efficient but expensive, a trap or a niche |
+| ASIC Gen 1 | 2013 | First-gen ASIC box | ~66 GH/s | ~620 W | Makes GPUs obsolete overnight |
+| ASIC Gen 2 | 2014-2015 | Second-gen | ~1.2 TH/s | ~590 W | ~510 J/TH |
+| ASIC Gen 2b | 2015-2016 | Second-gen refresh | ~4.9 TH/s | ~1,210 W | ~250 J/TH, a 2x jump in a year |
+| ASIC Gen 3 | 2016-2019 | The workhorse | ~14 TH/s (rated) | ~1,375 W | ~100 J/TH, lasts for years. Some first-batch units ran at 12-13.5 TH/s. |
+| ASIC Gen 3b | 2019-2020 | Third-gen refresh | ~53 TH/s | ~2,100 W | ~40 J/TH |
+| ASIC Gen 4 | 2020-2022 | Modern | ~110 TH/s | ~3,250 W | ~30 J/TH |
+| ASIC Gen 5 | 2022-2024 | Current | ~140 TH/s | ~3,000 W | ~21.5 J/TH |
+| ASIC Gen 5b | 2024 | Latest | ~200 TH/s | ~3,500 W | ~17.5 J/TH. ~15 J/TH arrives after the 2024 halving (Act 5). |
 | Future | 2024+ | Procedural | Efficiency curve flattening toward physical limits | | |
 
 - **New vs. used market:** used prices track hashprice. In a bear market, used rigs sell for a fraction of new. Fire sales are an opportunity.
