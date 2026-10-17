@@ -115,3 +115,101 @@ func test_escape_opens_the_pause_menu() -> void:
 	await wait_process_frames(2)
 	assert_not_null(_find(main, "PauseMenu"))
 	assert_true(GameClock.paused)
+
+
+## The button whose text starts with `prefix`, under `node`.
+func _button(node: Node, prefix: String) -> Button:
+	for b: Node in node.find_children("*", "Button", true, false):
+		if (b as Button).text.begins_with(prefix) and (b as Button).is_visible_in_tree():
+			return b
+	return null
+
+
+func _confirm(screen: Node) -> void:
+	var dialog: Node = _find(screen, "ConfirmDialog")
+	assert_not_null(dialog, "a confirmation opened")
+	_button(dialog, "Confirm").pressed.emit()
+	await wait_process_frames(2)
+
+
+func test_every_tab_builds_mid_game() -> void:
+	main.start_new_game("cypherpunk")
+	await wait_process_frames(2)
+	GameClock.step_days(1500)
+	var screen: Node = _find(main, "GameScreen")
+	for i: int in RightPanel.TABS.size():
+		screen.right.show_tab(i)
+		await wait_process_frames(1)
+		assert_gt(screen.right.panel(i).get_child_count(), 3, RightPanel.TABS[i][0])
+
+
+func test_buying_hardware_through_the_panel() -> void:
+	main.start_new_game("cypherpunk")
+	await wait_process_frames(2)
+	GameClock.step_days(640)
+	GameClock.sim.state.finance.cash_cents += 1_000_000
+	var screen: Node = _find(main, "GameScreen")
+	screen.right.show_tab(1)
+	await wait_process_frames(1)
+	var lots: int = GameClock.sim.state.hardware.lots.size()
+	_button(screen.right.panel(1), "Buy 1 new").pressed.emit()
+	await wait_process_frames(1)
+	assert_true(GameClock.paused, "the dialog pauses the clock")
+	await _confirm(screen)
+	assert_eq(GameClock.sim.state.hardware.lots.size(), lots + 1)
+
+
+func test_cancel_does_nothing() -> void:
+	main.start_new_game("slashdot")
+	await wait_process_frames(2)
+	var screen: Node = _find(main, "GameScreen")
+	screen.right.show_tab(3)
+	await wait_process_frames(1)
+	_button(screen.right.panel(3), "Quit the day job").pressed.emit()
+	await wait_process_frames(1)
+	_button(_find(screen, "ConfirmDialog"), "Cancel").pressed.emit()
+	await wait_process_frames(2)
+	assert_true(GameClock.sim.state.finance.employed)
+	assert_null(_find(screen, "ConfirmDialog"))
+
+
+func test_selling_btc_through_the_treasury() -> void:
+	main.start_new_game("cypherpunk")
+	await wait_process_frames(2)
+	GameClock.step_days(800)
+	var screen: Node = _find(main, "GameScreen")
+	screen.right.show_tab(4)
+	await wait_process_frames(1)
+	_button(screen.right.panel(4), "To exch 10%").pressed.emit()
+	GameClock.step_days(2)
+	await wait_process_frames(1)
+	var cash: int = GameClock.sim.state.finance.cash_cents
+	_button(screen.right.panel(4), "Sell 10%").pressed.emit()
+	await wait_process_frames(1)
+	await _confirm(screen)
+	assert_gt(GameClock.sim.state.finance.cash_cents, cash)
+	assert_eq(GameClock.sim.state.market.trades.size(), 1)
+
+
+func test_news_and_inbox_collect_messages() -> void:
+	main.start_new_game("slashdot")
+	await wait_process_frames(2)
+	var screen: Node = _find(main, "GameScreen")
+	GameClock.step_days(700)
+	assert_gt(screen.inbox.messages.size(), 5)
+	assert_gt(screen.inbox.unread(), 0)
+	assert_string_contains(screen.ticker.text(), "Slashdot")
+	screen.open_inbox()
+	await wait_process_frames(1)
+	assert_eq(screen.inbox.unread(), 0)
+	assert_not_null(_find(screen, "InboxView"))
+
+
+func test_overlays_cover_the_screen() -> void:
+	main.start_new_game("slashdot")
+	await wait_process_frames(2)
+	var screen: Control = _find(main, "GameScreen")
+	screen.open_inbox()
+	await wait_process_frames(2)
+	var view: Control = _find(screen, "InboxView")
+	assert_eq(view.size, screen.size, "an overlay, not a row in the layout")

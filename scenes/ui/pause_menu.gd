@@ -14,11 +14,6 @@ func _init(main: Node) -> void:
 
 
 func _ready() -> void:
-	var shade := ColorRect.new()
-	shade.color = Color(0, 0, 0, 0.6)
-	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
-	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(shade)
 	var panel := PanelContainer.new()
 	add_child(panel)
 	panel.add_child(_box)
@@ -47,3 +42,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		close()
+
+
+## Dims the game behind the overlay. (A ColorRect child would shrink to nothing: a
+## CenterContainer sizes children to their minimum.)
+func _draw() -> void:
+	draw_rect(Rect2(Vector2.ZERO, size), Color(0, 0, 0, 0.6))

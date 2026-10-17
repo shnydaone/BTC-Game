@@ -72,7 +72,7 @@ docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
   `godot --headless --path . --script res://tests/sim/run_bots.gd -- --seeds 3`
 - UI smoke tests live in `tests/ui/` (headless) and use their own save folder. For a legibility check, render screenshots in a real window:
   `godot --path . --resolution 640x360 --script res://tests/ui/screenshot.gd -- --out <dir>`
-- Run the game: `godot --path .` (Space pauses, 1-4 set the speed, Esc opens the menu).
+- Run the game: `godot --path .` (Space pauses, 1-4 set the speed, I opens the inbox, Esc opens the menu).
 - Bots live in `tests/sim/bots/`. They change the game only through `Sim.apply()`; their strategy constants stay in the bot scripts, not `data/tuning`. Only Hindsight may read future history. `docs/reports/` holds the latest results.
 - Avoid `static var` in scripts that reference `Sim`: the sim scripts reference each other, and static state pins that graph so Godot reports leaked resources at exit.
 - See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.
