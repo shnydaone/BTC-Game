@@ -9,6 +9,9 @@ const DEFAULT_ROOT: String = "res://data/"
 const HISTORY_FILE: String = "history/btc_daily.csv"
 const EVENTS_FILE: String = "events/historical.json"
 const CARDS_FILE: String = "events/cards.json"
+const NAMES_FILE: String = "names.json"
+const CODEX_FILE: String = "codex/entries.json"
+const MENTOR_FILE: String = "mentor/act1.json"
 const HARDWARE_FILE: String = "hardware/hardware.json"
 const PROTOCOL_FILE: String = "protocol/consensus.json"
 const TUNING_DIR: String = "tuning/"
@@ -19,6 +22,9 @@ var root: String
 var history: History
 var events: Array = []
 var cards: Dictionary = {}  # event id -> card flavor (presentation content)
+var names: Dictionary = {}  # parody names (data/names.json)
+var codex: Dictionary = {}  # entry id -> {title, text, trigger?}
+var mentor: Array = []  # Act 1 mentor messages
 var hardware: Array = []
 var tuning_reads: Dictionary = {}  # "file.key" -> true
 
@@ -75,6 +81,21 @@ func tuning(file: String, key: String) -> Variant:
 	return _tuning[file][key]["value"]
 
 
+## Live edit for the F12 tuning panel. Affects this session only; dump() writes it out.
+func set_tuning(file: String, key: String, value: Variant) -> void:
+	_tuning[file][key]["value"] = value
+
+
+func tuning_files() -> PackedStringArray:
+	var files: PackedStringArray = PackedStringArray(_tuning.keys())
+	files.sort()
+	return files
+
+
+func tuning_entries(file: String) -> Dictionary:
+	return _tuning[file]
+
+
 func has_tuning(file: String, key: String) -> bool:
 	return _tuning.has(file) and _tuning[file].has(key)
 
@@ -100,6 +121,14 @@ func _load() -> bool:
 	if cards_doc == null:
 		return false
 	cards = cards_doc["cards"]
+	var names_doc: Variant = _read_json(root + NAMES_FILE)
+	var codex_doc: Variant = _read_json(root + CODEX_FILE)
+	var mentor_doc: Variant = _read_json(root + MENTOR_FILE)
+	if names_doc == null or codex_doc == null or mentor_doc == null:
+		return false
+	names = names_doc
+	codex = codex_doc["entries"]
+	mentor = mentor_doc["messages"]
 	hardware = hardware_doc["units"]
 	_protocol = protocol_doc["values"]
 	var dir := DirAccess.open(root + TUNING_DIR)

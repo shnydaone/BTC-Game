@@ -1,5 +1,97 @@
 {
   "schema_version": 1,
-  "notes": "Flavor for event cards, keyed by historical.json event id (GDD 10): a mentor line, a meme line, and 'what this means for your business'. Culture humor lives here; the facts stay in historical.json. Every field is optional. Drafted in M3-4 (decisions.md 2026-10-17). No em dashes.",
-  "cards": {}
+  "notes": "Flavor for event cards, keyed by historical.json event id (GDD 10): a mentor line (2009-2010 only; the mentor goes quiet in 2011), a meme line, and 'what this means for your business'. Culture humor lives here; the facts stay in historical.json. Every field is optional. Drafted in M3-4 for Eric to edit. No em dashes.",
+  "cards": {
+    "genesis_block": {
+      "mentor": "~anon: The first block is out. No company behind it, no server to shut down. Just rules, and whoever runs them.",
+      "meme": "The genesis block's coinbase quotes a newspaper headline about a bank bailout. Subtle.",
+      "business": "Nothing to sell, nothing to buy. Coins exist; a price does not."
+    },
+    "first_exchange_rate": {
+      "mentor": "~anon: Someone priced a coin by the electricity it takes to mine it. Not a market yet, but a number.",
+      "meme": "1,309 BTC per dollar. Somewhere a future accountant feels a chill.",
+      "business": "Your coins now have a notional value, but there is still nowhere to sell them."
+    },
+    "pizza_day": {
+      "mentor": "~anon: Coins that buy dinner are money. Remember this number.",
+      "meme": "Two pizzas. Someday, somebody will make this date a holiday.",
+      "business": "Spending coins on things you would buy anyway saves cash. The regret counter keeps score."
+    },
+    "slashdot_v03": {
+      "mentor": "~anon: The crowd found us. Your laptop can mine now. Expect the difficulty to climb as the newcomers plug in.",
+      "meme": "Slashdotted: when the whole internet shows up at once.",
+      "business": "Mining is open. More miners means a smaller share for each machine, including yours."
+    },
+    "mtgox_launch": {
+      "mentor": "~anon: An exchange. Convenient. Coins you leave there are a stranger's promise.",
+      "meme": "The name started life as a trading card exchange. Nothing could go wrong.",
+      "business": "You can now sell for dollars. Move coins from cold storage to the exchange first; it takes a day."
+    },
+    "client_036_speedup": {
+      "mentor": "~anon: Upgrade. Same laptop, more hashes. Software is free hashrate, until everyone has it.",
+      "business": "Your CPUs hash 2.4 times faster. So does everyone else's, so your share barely moves."
+    },
+    "value_overflow": {
+      "mentor": "~anon: A bug minted 184 billion coins. Hours later the fix shipped and the chain moved on without them. The rules won.",
+      "meme": "Briefly, everyone was a billionaire. Briefly.",
+      "business": "No lasting effect on your coins. The network repaired itself within a day."
+    },
+    "first_pool_block": {
+      "mentor": "~anon: Pools. Many small miners, one big lottery ticket, paid out by share. Lower variance, a small fee.",
+      "meme": "Solo miners refreshing their wallets: still nothing.",
+      "business": "Switch to pool mining in the Hardware tab for steady daily payouts instead of rare whole blocks."
+    },
+    "bubble_2011_peak": {
+      "meme": "Up nearly 100 times since New Year. Everyone is a genius.",
+      "business": "Every miner is profitable at these prices. Every new machine bought now arrives into a harder network."
+    },
+    "mtgox_hack_2011": {
+      "meme": "One cent per coin, for a few minutes. Limit orders, anyone?",
+      "business": "Your coins on Mt. Fox survive this one. Ask yourself whether they need to be there."
+    },
+    "bottom_2011": {
+      "meme": "From $31 to $2. The forum's favorite word this year is 'dead'.",
+      "business": "Hashprice has collapsed with the price. Machines that paid for themselves in weeks now struggle to cover power."
+    },
+    "halving_1": {
+      "meme": "Supply growth just got cut in half. Price did not get the memo yet.",
+      "business": "Every block now pays 25 BTC instead of 50. Your machines mine half the new coins on the same power bill."
+    },
+    "first_asics_ship": {
+      "meme": "GPU miners discover the meaning of 'obsolete'.",
+      "business": "ASICs hash dozens of times more per watt than graphics cards. Check your fleet's margins in the Hardware tab."
+    },
+    "april_2013_spike": {
+      "meme": "Up, down, and halted, all before lunch.",
+      "business": "Volatility cuts both ways: selling into a spike pays, selling into the crash does not. Your sell limit follows each day's real volume."
+    },
+    "silk_road_seized": {
+      "meme": "Bitcoin has been declared dead again. This makes several.",
+      "business": "No direct effect on mining. The price dips and recovers."
+    },
+    "rally_1000_2013": {
+      "meme": "Four digits. Taxi drivers have opinions now.",
+      "business": "Hashprice is soaring, and hardware makers have long waiting lists. Lead times matter."
+    },
+    "china_banks_2013": {
+      "meme": "China bans bitcoin. A tradition begins.",
+      "business": "The price falls hard from the peak. Machines ordered at the top arrive into a lower price."
+    },
+    "mtgox_halts_withdrawals": {
+      "meme": "HODL was a typo two months ago. It is a strategy now.",
+      "business": "Coins left on Mt. Fox are lost. This is why the Treasury tab keeps cold storage and exchange balances apart."
+    },
+    "mtgox_bankruptcy": {
+      "meme": "Not your keys, not your coins. Written in 850,000 bitcoins.",
+      "business": "Mt. Fox is gone. Trade on the other exchange from now on."
+    },
+    "bear_bottom_2015": {
+      "meme": "Down 85% from the top. Miners are learning what 'hashprice squeeze' means.",
+      "business": "Only the most efficient machines on cheap power still make money. Old units cost more to run than they earn."
+    },
+    "halving_2": {
+      "meme": "Twelve and a half coins a block. The second halving, right on schedule.",
+      "business": "Block rewards halve again. Plan for half the coins from the same fleet until difficulty or price adjusts."
+    }
+  }
 }

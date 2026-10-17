@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "notes": "Codex entries (GDD 11.1): unlocked on first encounter, never front-loaded. An entry unlocks from a historical.json codex effect, or from its trigger: the first day a sim event of that type happens. Plain language, honest numbers, no financial advice. Drafted in M3-4 for Eric to edit. No em dashes.",
+  "entries": {
+    "mining": {
+      "title": "Mining",
+      "text": "Miners bundle transactions into blocks and race to find a hash below the network's target. The winner earns the block reward: new coins (the subsidy) plus the fees in the block. Finding a hash takes trillions of guesses, so a miner's real product is hashing per dollar of electricity."
+    },
+    "price_discovery": {
+      "title": "Price discovery",
+      "text": "A thing is worth what someone will pay for it. Bitcoin's first published rate in October 2009 was not a trade at all: it was the electricity cost of mining a coin. Real prices only appear once buyers and sellers meet, and early markets are thin, so prices jump."
+    },
+    "custody": {
+      "title": "Custody",
+      "text": "Your coins sit in one of two places. In cold storage you hold the keys: safe, but it takes a day to move them. On an exchange the exchange holds them for you: ready to sell, and gone if the exchange fails or is hacked."
+    },
+    "soft_fork": {
+      "title": "Soft forks",
+      "text": "A soft fork tightens the rules so that new blocks still look valid to old software. After the 2010 overflow bug, the fix rejected the bad transaction, miners built a new chain without it, and every node that upgraded followed the longer, valid chain."
+    },
+    "solo_vs_pool": {
+      "title": "Solo vs. pool mining",
+      "text": "Solo, you keep the whole reward when you find a block, but small miners can wait months for one. A pool combines many miners and pays each a share of every block it finds, minus a fee. Same expected income, far less luck. Variance is not the same as value."
+    },
+    "halving": {
+      "title": "The halving",
+      "text": "Every 210,000 blocks, about four years, the block subsidy halves: 50, then 25, then 12.5 BTC. Your machines earn half as many new coins overnight while your power bill stays the same. Fees and the price have to make up the difference, or the least efficient machines switch off."
+    },
+    "asic": {
+      "title": "ASICs",
+      "text": "An application-specific integrated circuit does one thing: the SHA-256 hashing Bitcoin needs. The first ASICs were dozens of times more efficient than graphics cards, so every GPU miner faced the same choice in 2013: upgrade or shut down."
+    },
+    "not_your_keys": {
+      "title": "Not your keys, not your coins",
+      "text": "Coins on an exchange are an IOU from the exchange. When Mt. Gox halted withdrawals in 2014, customers' coins were stuck, and most were never recovered. Keep on an exchange only what you are about to sell."
+    },
+    "hashprice": {
+      "title": "Hashprice",
+      "text": "Hashprice is what one terahash per second of mining earns in a day, in dollars: block rewards times the price, divided by the network's hashrate. It falls when difficulty rises or the price drops. It is the single most important number in a mining business: compare it with your power cost per terahash."
+    },
+    "difficulty_adjustment": {
+      "title": "Difficulty adjustment",
+      "trigger": "difficulty_adjusted",
+      "text": "Every 2,016 blocks the network resets its difficulty so blocks keep coming about every ten minutes. More hashing makes it harder, less makes it easier, by at most four times either way. Your own machines push it up too: a bigger fleet means a smaller share for every machine."
+    },
+    "j_per_th": {
+      "title": "Joules per terahash",
+      "trigger": "hardware_arrived",
+      "text": "Efficiency is energy per unit of hashing: joules per terahash (J/TH). Lower is better. A 2009 laptop burned millions of joules per terahash; a 2016 ASIC needed about 100. When hashprice falls, the least efficient machines lose money first."
+    },
+    "pue": {
+      "title": "PUE",
+      "trigger": "hardware_arrived",
+      "text": "Power usage effectiveness is total power over the power your machines use. A PUE of 1.05 means every 100 watts of mining needs 5 more for fans and cooling. Your bill is machine watts times hours times your power price times PUE."
+    }
+  }
+}

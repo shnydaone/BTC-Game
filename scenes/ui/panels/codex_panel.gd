@@ -1,7 +1,6 @@
 class_name CodexPanel
 extends SidePanel
-## Codex entries unlock on first encounter (GDD 11.1). Titles only until the M3-4
-## content pass writes the entries.
+## Codex entries unlock on first encounter (GDD 11.1), newest first.
 
 
 func build(sim: Sim) -> void:
@@ -10,6 +9,8 @@ func build(sim: Sim) -> void:
 	if entries.is_empty():
 		note("Entries unlock as you meet each idea.")
 		return
-	for e: String in entries:
-		row(Readouts.codex_title(e), "")
-	note("Entry text arrives with the M3-4 content pass.")
+	for i: int in range(entries.size() - 1, -1, -1):
+		var l := Label.new()
+		l.text = Readouts.codex_title(entries[i])
+		add_child(l)
+		note(Readouts.codex_text(entries[i]))

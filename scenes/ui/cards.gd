@@ -69,9 +69,10 @@ static func _impacts(sim: Sim, result: DayResult) -> Array[Array]:
 static func event_card(sim: Sim, ev: Dictionary, impacts: Array[Array], pizza_offer: Dictionary) -> Dictionary:
 	var flavor: Dictionary = sim.data.cards.get(ev["id"], {})
 	var body: Array[String] = [String(ev["summary"])]
-	for key: String in ["mentor", "meme"]:
-		if flavor.has(key):
-			body.append(String(flavor[key]))
+	if flavor.has("mentor") and MentorFeed.has_mentor(sim):
+		body.append(String(flavor["mentor"]).replace("~anon", Readouts.mentor_handle(sim)))
+	if flavor.has("meme"):
+		body.append(String(flavor["meme"]))
 	if flavor.has("business"):
 		body.append("What this means for your business: " + String(flavor["business"]))
 	var spec: Dictionary = {"kind": "event", "id": ev["id"], "title": ev["headline"], "date": ev["date"], "body": body, "lines": impacts}

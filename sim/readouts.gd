@@ -183,30 +183,30 @@ static func power_tooltip(sim: Sim) -> String:
 		site_name(sim).capitalize(), Fmt.watts(running_w(sim)), Fmt.watts(capacity_w(sim)), Fmt.usd(sim.state.hardware.power_cents_today)]
 
 
-# ---------------------------------------------------------------- names (placeholders until M3-4)
+# ---------------------------------------------------------------- names
 
 
 static func unit_label(sim: Sim, unit_id: String) -> String:
-	var tier: String = sim.hardware.tier(unit_id)
-	match tier:
-		"CPU":
-			return unit_id.trim_prefix("cpu_").capitalize()
-		"GPU":
-			return "GPU card"
-		"FPGA":
-			return "FPGA board"
-	return tier
+	return String(sim.data.names["units"].get(unit_id, sim.hardware.tier(unit_id)))
 
 
-## Exchanges are numbered in opening order; parody names arrive in M3-4.
+## Parody names for counterparties (CLAUDE.md content rules).
 static func exchange_label(sim: Sim, exchange_id: String) -> String:
-	var ids: Array = sim.custody.exchanges.keys()
-	ids.sort()
-	return "Exchange %d" % (ids.find(exchange_id) + 1)
+	return String(sim.data.names["counterparties"].get(exchange_id, exchange_id))
+
+
+static func mentor_handle(sim: Sim) -> String:
+	return String(sim.data.names["mentor_handle"])
 
 
 static func codex_title(entry: String) -> String:
-	return entry.capitalize()
+	var data := GameData.shared()
+	return String(data.codex[entry]["title"]) if data.codex.has(entry) else entry.capitalize()
+
+
+static func codex_text(entry: String) -> String:
+	var data := GameData.shared()
+	return String(data.codex[entry]["text"]) if data.codex.has(entry) else ""
 
 
 # ---------------------------------------------------------------- mining economics

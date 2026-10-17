@@ -37,6 +37,12 @@ func _run(out: String) -> void:
 	await _shot(out + "/living_card.png")
 	screen.moments.current.choose(screen.moments.current.spec["choices"][1])
 	await _shot(out + "/prologue.png")
+	clock.step_days(3)  # the Genesis card, then the mentor's first message
+	while screen.moments.is_showing() and screen.moments.current.spec["kind"] != "mentor":
+		screen.moments.current.choose_text("Continue")
+		await process_frame
+	await _shot(out + "/mentor_card.png")
+	screen.moments.current.choose_text("Continue")
 	screen.skip_prologue()
 	await _shot(out + "/slashdot_card.png")
 
@@ -56,7 +62,7 @@ func _run(out: String) -> void:
 	await _shot(out + "/inbox.png")
 	screen.get_child(screen.get_child_count() - 1).close()
 	screen.right.show_tab(1)
-	var dialog: Node = load("res://scenes/ui/confirm_dialog.gd").ask(screen, "Buy 5 GPU card new for $2,495? Arrives in 5 days.", func() -> void: pass)
+	var dialog: Node = load("res://scenes/ui/confirm_dialog.gd").ask(screen, "Buy 5 Radiant 5800 GPU new for $2,495? Arrives in 5 days.", func() -> void: pass)
 	await _shot(out + "/confirm.png")
 	dialog._close(false)
 

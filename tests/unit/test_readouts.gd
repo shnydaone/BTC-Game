@@ -115,10 +115,12 @@ func test_sites_explain_why_they_are_closed() -> void:
 	assert_eq(reasons["warehouse"], "opens in act 2")
 
 
-func test_exchanges_are_numbered_in_order() -> void:
+func test_parody_names_label_things() -> void:
 	var sim := H.game("late")
-	assert_eq(Readouts.exchange_label(sim, "exchange_tier1"), "Exchange 1")
-	assert_eq(Readouts.exchange_label(sim, "exchange_tier4"), "Exchange 2")
+	assert_eq(Readouts.exchange_label(sim, "exchange_tier1"), "Mt. Fox")
+	assert_eq(Readouts.exchange_label(sim, "exchange_tier4"), "Bitstomp")
+	assert_eq(Readouts.unit_label(sim, "asic_gen3"), "AntMind S9")
+	assert_eq(Readouts.codex_title("pue"), "PUE")
 
 
 func test_trades_are_logged_per_day_and_side() -> void:

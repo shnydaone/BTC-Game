@@ -5,6 +5,7 @@ extends Control
 ## confirmations) are children of this node so they cover the whole screen.
 ##
 ## Keys: Space pauses, 1-4 pick a speed, I opens the inbox, Esc opens the pause menu.
+## Playtest: F3 shows the decision meter, F12 opens the tuning panel (debug builds).
 
 const RIGHT_PANEL_W: int = 240
 const TICKER_H: int = 14
@@ -12,6 +13,7 @@ const INBOX_TOP: int = 16
 
 var inbox := Inbox.new()
 var moments: Moments
+var meter := DecisionMeter.new()
 var main: Node:
 	get:
 		return _main
@@ -57,6 +59,8 @@ func _ready() -> void:
 	_toasts.grow_vertical = Control.GROW_DIRECTION_BEGIN
 	_toasts.position = Vector2(-4, -16)
 	left.add_child(_toasts)
+	meter.position = Vector2(4, 16)
+	left.add_child(meter)
 
 	right = RightPanel.new(self)
 	right.custom_minimum_size = Vector2(RIGHT_PANEL_W, 0)
@@ -70,6 +74,7 @@ func _ready() -> void:
 	_build_prologue_banner(left)
 	moments = Moments.new(self)
 	add_child(moments)
+	add_child(MentorFeed.new(self))
 	EventBus.day_simulated.connect(_on_day)
 	_refresh_inbox_button()
 	if GameClock.sim != null and not GameClock.sim.state.finance.living_chosen:
@@ -93,6 +98,11 @@ func _on_day(result: DayResult) -> void:
 			"alert":
 				_toasts.show_text(m["text"])
 		inbox.add(result.date, m)
+	_refresh_inbox_button()
+
+
+func toast(text: String) -> void:
+	_toasts.show_text(text)
 	_refresh_inbox_button()
 
 
@@ -137,6 +147,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		elif key == KEY_I:
 			open_inbox()
+			get_viewport().set_input_as_handled()
+		elif key == KEY_F3:
+			meter.toggle()
+			get_viewport().set_input_as_handled()
+		elif key == KEY_F12 and OS.is_debug_build():
+			_overlay = TuningPanel.new()
+			add_child(_overlay)
 			get_viewport().set_input_as_handled()
 
 

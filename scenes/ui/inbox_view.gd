@@ -39,6 +39,8 @@ func _ready() -> void:
 				color = UiTheme.ACCENT
 			"news":
 				color = UiTheme.TEXT_DIM
+			"mentor":
+				color = UiTheme.UP
 		if not m["read"]:
 			l.text = "* " + l.text
 		l.add_theme_color_override("font_color", color)
