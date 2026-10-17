@@ -152,6 +152,7 @@ class ObjectivesState:
 	var crash_sold: bool = false
 	var crash_held_sats: int = 0
 	var exchange_losses_sats: int = 0  # this act
+	var act_peak_hashrate_hs: float = 0.0  # highest running hashrate this act
 	var restructurings: int = 0  # whole game
 	var act_lost: bool = false
 	var report_cards: Array[Dictionary] = []  # floats and strings only (see Serial)

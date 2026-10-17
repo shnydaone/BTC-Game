@@ -1,7 +1,7 @@
 class_name Sites
 extends RefCounted
 ## Where the machines run (GDD 7.3): each site caps power in kW and sets the power price,
-## PUE and rent. Acts 1-2 have the bedroom and the garage.
+## PUE and rent. Acts 1-2 have the bedroom, the garage and, from Act 2, a leased warehouse.
 
 const WATTS_PER_KW: float = 1000.0
 
@@ -34,6 +34,8 @@ func move(sim: Sim, site_id: String) -> String:
 	var cfg: Dictionary = sites[site_id]
 	if sim.state.objectives.act < int(cfg["available_act"]):
 		return "%s unlocks in act %d" % [site_id, int(cfg["available_act"])]
+	if bool(cfg["requires_incorporation"]) and not sim.state.finance.incorporated:
+		return "%s needs a company" % site_id
 	var cost: int = Finance.usd_to_cents(cfg["move_cost_usd"])
 	if cost > sim.state.finance.cash_cents:
 		return "not enough cash"

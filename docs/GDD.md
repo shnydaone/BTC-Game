@@ -419,15 +419,17 @@ CLAUDE.md
 - **Unit tests:** GUT 9.7.1, vendored in `addons/gut` (decided in M2).
 - **Bot runs:** scripted strategies play the whole campaign headless in seconds and write CSV summaries. Expected outcomes act as balance tests in Slashdot mode; the other modes get sanity checks. M2 asserts them over Acts 1-2. Max Leverage's 2018/2022 outcome needs the Act 3-4 finance and is asserted from M6; in M2 it is expected to restructure in the 2014-2015 bear with the one Act 2 loan:
 
-| Bot | Strategy | Must happen |
-|---|---|---|
-| Max Leverage | Borrow to the limit, buy every rig | Restructures in 2018 or 2022 |
-| Never Upgrade | Keeps first-gen hardware | Unprofitable by about 2014 |
-| Passive HODLer | Minimal decisions, holds everything | Survives with a low score |
-| Hindsight | Knows the future, sells tops | Defines the score ceiling |
-| Sensible | Rule-based reasonable play | Survives with a good score |
+| Bot | Strategy | Must happen | M2 result (Slashdot, Acts 1-2) |
+|---|---|---|---|
+| Max Leverage | Borrow to the limit, buy every rig | Restructures in 2018 or 2022 | Survives with only the Act 2 loan; fails in Late mode. Asserted from M6 |
+| Never Upgrade | Keeps first-gen hardware | Unprofitable by about 2014 | Holds: margin negative from 2014-06 |
+| Passive HODLer | Minimal decisions, holds everything | Survives with a low score | Holds: lowest score |
+| Hindsight | Knows the future, sells tops | Defines the score ceiling | Holds in every mode |
+| Sensible | Rule-based reasonable play | Survives with a good score | Holds: grades A/A |
 
-- **Golden test:** the sim's historical hashprice matches real-world hashprice within a tolerance. With no player hashrate, the anchored chain reproduces history's difficulty every day and the dataset's hashprice within 0.1% on 30-day means (M2 PR 1). External hashprice spot checks follow once prices are in the sim.
+Latest numbers and findings: `docs/reports/m2-bot-results.md`. The 2009 stack: `docs/reports/laptop-whale.md`.
+
+- **Golden test:** the sim's historical hashprice matches real-world hashprice within a tolerance. With no player hashrate, the anchored chain reproduces history's difficulty every day and the dataset's hashprice within 0.1% on 30-day means, and matches 8 published figures from 2020 to 2024 (Luxor / Hashrate Index, The Block; `data/history/hashprice_references.csv`) within 15%. All 8 land within 10%.
 
 ## 15. Scope
 
@@ -435,7 +437,7 @@ CLAUDE.md
 
 **In scope:**
 - Acts 1 and 2 (2009 to 2016)
-- Bedroom and garage
+- Bedroom and garage, plus the Act 2 warehouse the sim already has (decisions.md 2026-10-17)
 - 5 hardware tiers (CPU, GPU, FPGA, ASIC Gen 1-2)
 - Solo and pool mining
 - Day job
