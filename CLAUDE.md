@@ -1,0 +1,87 @@
+# CLAUDE.md
+
+Project brief for Claude Code. Read this first, then `docs/GDD.md` for the full design.
+
+## What this is
+
+**Proof of Work** (working title): a real-time Bitcoin mining business simulation. The player builds a mining company from a laptop in 2009 to a public company, survives every crash, then plays an endless branching future. Pixel art, desktop only, Godot 4.x with GDScript.
+
+## Current milestone
+
+**M0: Pitch.** The GDD and this file exist. No code yet. Next up is **M1: Data** (historical dataset, verified event list, hardware data). Do not start building UI or art before M2 (the headless sim) passes its bot tests.
+
+## Locked decisions
+
+Do not change these without Eric's explicit approval. Record any new locked decision in `docs/decisions.md` with the date and the reason.
+
+- Real-time with pause and speed controls. The sim ticks once per game day.
+- Desktop only. Base resolution 640×360, integer scaling, nearest filtering, 16px tile grid.
+- Audience: Bitcoiners, with teach-as-you-play.
+- Campaign: Acts 1-4 run from the Genesis block (2009-01-03) to the fourth halving (2024-04-20), about 5 hours. Act 5 is an endless procedural future.
+- Halvings are act breaks. Each act has scenario objectives.
+- Failure means restructuring (Chapter 11). The player keeps playing, diluted. Below 10% ownership, the act is lost.
+- Future: a macro scenario rolled at the 2024 halving, plus light player influence.
+- Rivals: faceless network hashrate in Acts 1-2, named parody companies from Act 3.
+- Tone: Bitcoin culture humor in flavor text, honest economics in the numbers, an anonymous mentor for teaching.
+- Charts: an always-on price ticker plus cinematic event replays.
+
+## Repo layout
+
+```
+res:// (Godot project root, to be created in M2)
+  autoload/   game_clock.gd, event_bus.gd, data.gd, save.gd
+  sim/        pure simulation classes (no Nodes)
+  data/       history CSV, hardware, events, scenarios, tuning
+  scenes/     main, facility, ui, charts
+  assets/     sprites, tiles, fonts, audio, palette
+  tests/      unit/, sim/
+tools/        Python data prep scripts
+docs/         GDD.md, decisions.md, art-bible.md, sprite-prompts.md
+```
+
+## Architecture rules
+
+- **The sim is pure.** Everything in `sim/` extends RefCounted, has no Node or scene dependencies, and runs headless. Single entry point: `Sim.step_day()`.
+- **Presentation listens.** Scenes and UI react to `EventBus` signals. They never calculate economics.
+- **Deterministic.** All randomness goes through `sim/rng.gd` with a seed.
+- **No hardcoded tuning.** Every economic and feel number lives in `data/`. If you find yourself typing a magic number into `sim/`, move it to data.
+- **No network calls at runtime.** No live prices, wallets, exchanges or APIs. Historical data is committed as CSV.
+
+## Code conventions
+
+- GDScript with static typing everywhere (`var x: float`, typed function signatures).
+- snake_case files and functions, PascalCase `class_name`s.
+- Signals are named in past tense (`block_found`, `difficulty_adjusted`, `covenant_breached`).
+- One system per file in `sim/`.
+
+## Testing
+
+- Unit test framework: GUT (lean, confirm in M2).
+- Run tests headless before every commit:
+  `godot --headless -s addons/gut/gut_cmdln.gd -gdir=res://tests -gexit`
+- Bot balance runs (to be built in M2) play the whole campaign headless and write CSV summaries:
+  `godot --headless --script res://tests/sim/run_bots.gd`
+- See GDD section 14 for the expected bot outcomes. A change that breaks an expected outcome is a balance regression. Flag it, don't silently retune.
+
+## Art pipeline (PixelLab)
+
+- Generate art through the PixelLab MCP server when it's configured.
+- Respect the style lock (once made in M4): palette in `assets/palette`, 16px grid, base resolution 640×360.
+- Log every prompt that produced a kept asset in `docs/sprite-prompts.md`: the exact prompt, size, settings, and any failure notes.
+- Import settings for all pixel art: filter Nearest, mipmaps off, lossless compression.
+
+## Content rules
+
+- Real historical events are stated factually in news and event cards.
+- Exchanges, lenders, hosts, hardware makers and rival companies the player deals with use parody names.
+- No real people's likenesses or portraits. The mentor is faceless.
+- No financial advice framing. No tokens, NFTs or live crypto.
+- No em dashes in game text or docs. Use periods, commas, colons or parentheses.
+
+## Workflow with Eric
+
+- Before a large change, post a short summary of what you're about to do and wait for a go-ahead.
+- Ask when something is unclear or when more input would improve the result.
+- Double check work: run the tests, run the game, read back generated files.
+- Commit messages: a short, copiable title line, a blank line, then a separate body.
+- Push back when a plan or request looks off. Don't soften disagreement into agreement.
